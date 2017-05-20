@@ -1,0 +1,6 @@
+framework module Pods_Nobamus {
+  umbrella header "Pods-Nobamus-umbrella.h"
+
+  export *
+  module * { export * }
+}
