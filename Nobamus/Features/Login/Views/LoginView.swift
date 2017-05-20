@@ -13,19 +13,18 @@ import SnapKit
 class LoginView: UIView {
     
     private let titleHeight: CGFloat = 30
-    private let titleTop: CGFloat = 5
+    private let titleTop: CGFloat = 20
     
-    private let activityTop: CGFloat = 20
-    private let activitySize: CGFloat = 40
+    private let activityTop: CGFloat = 40
+    private let activitySize: CGFloat = 30
     
-    private let inputFieldTop: CGFloat = 20
-    private let inputFieldHeight: CGFloat = 100
-    private let inputFieldRight: CGFloat = 30
-    private let inputFieldLeft: CGFloat = 30
+    private let inputFieldTop: CGFloat = 150
+    private let inputFieldHeight: CGFloat = 30
+    private let inputFieldSideOffset: CGFloat = 50
     
-    private let acceptButtonTop: CGFloat = 20
-    private let acceptButtonHeight: CGFloat = 14
-    private let acceptButtonWidth: CGFloat = 100
+    private let acceptButtonTop: CGFloat = 50
+    private let acceptButtonHeight: CGFloat = 30
+    private let acceptButtonWidth: CGFloat = 150
     
     
     fileprivate(set) lazy var backgroundImage: UIImageView = {
@@ -50,6 +49,7 @@ class LoginView: UIView {
         inputField.font = UIFont.regularOfSize(20)
         inputField.textAlignment = .center
         inputField.textColor = UIColor.white
+        inputField.backgroundColor = UIColor.whiteColorWithAlpha(10)
         return inputField
     }()
     
@@ -77,7 +77,6 @@ class LoginView: UIView {
         addSubview(titleLabel)
         addSubview(inputField)
         addSubview(acceptButton)
-//        addSubview(backgroundImage)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -107,13 +106,14 @@ class LoginView: UIView {
         inputField.snp.makeConstraints { make in
             make.height.equalTo(self.inputFieldHeight)
             make.top.equalTo(self.titleLabel.snp.bottom).offset(self.inputFieldTop)
-            make.right.equalTo(self.inputFieldRight)
-            make.left.equalTo(self.inputFieldLeft)
+            make.left.equalTo(self.snp.left).offset(self.inputFieldSideOffset)
+            make.right.equalTo(self.snp.right).offset(-self.inputFieldSideOffset)
         }
         acceptButton.snp.makeConstraints { make in
             make.height.equalTo(self.acceptButtonHeight)
             make.top.equalTo(self.inputField.snp.bottom).offset(self.acceptButtonTop)
             make.width.equalTo(self.acceptButtonWidth)
+            make.centerX.equalTo(self)
         }
         super.updateConstraints()
     }
