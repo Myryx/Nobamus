@@ -8,27 +8,38 @@
 
 import Foundation
 import UIKit
+import StoreKit
 
 class LoginViewController: UIViewController{
     
-    private let paymentViewHeight: CGFloat = 110.0
-    private let hintLabelHeight: CGFloat = 12
-    private let cellIdentifier = "p2pCardsListCell"
+    private let canProceed: Bool = false // all AppleMusic permissions are OK and we can use the service
     
     var viewModel: LoginViewModel? {
         didSet {
 //            viewModel?.delegate = self
         }
     }
+    var provider: LoginAppleMusicProvider!
+    
+    // MARK: - initialization
+    
+    init (_ provider: LoginAppleMusicProvider) {
+        self.provider = provider
+        super.init(nibName: nil, bundle: nil)
+        self.provider.delegate = self
+    }
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: - content view
     fileprivate var loginView: LoginView {
-        guard let loginView = view as? LoginView else {
-            let newLoginView = LoginView(frame: UIScreen.main.bounds)
-            self.view = newLoginView
-            return newLoginView
+        guard let view = view as? LoginView else {
+            let loginView = LoginView(frame: UIScreen.main.bounds)
+            self.view = loginView
+            return loginView
         }
-        return loginView
+        return view
     }
     
     override func loadView() {
@@ -38,7 +49,7 @@ class LoginViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-        
+        provider?.appleMusicRequestPermission()
     }
     
     func configureViews() {
@@ -50,10 +61,36 @@ class LoginViewController: UIViewController{
         if(text.characters.count > 0) {
             loginView.activityIndicator.startAnimating()
 //            AppleMusicManager.setup(callback: successfulAMLogin)
-//            AppleMusicManager.appleMusicFetchStorefrontRegion(callback: nil)
 //            NetworkManager.signInAnonymouslyFireBase(userName: nameTextField.text!, callback: DatabaseManager.createOrUpdateUser)
         } else {
             loginView.inputField.attributedPlaceholder = NSAttributedString(string: localizedStringForKey("Login.FillInYourName"), attributes: [NSForegroundColorAttributeName : UIColor.red])
         }
+    }
+    fileprivate func openAppSettings() {
+        if let url = URL(string:UIApplicationOpenSettingsURLString) {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+}
+
+extension LoginViewController: AppleMusicLoginDelegate {
+    func successfulLogin() {
+        print("Successful Login")
+    }
+    func loginFailed(reason: SKCloudServiceAuthorizationStatus){
+        switch reason {
+        case .authorized:
+            return
+        case .denied:
+            openAppSettings()
+        case .notDetermined:
+            break
+        case .restricted:
+            let alert = UIAlertController(title: "The access is restricted", message: "Seems like your device is prohibited from using Apple Music on it", preferredStyle: UIAlertControllerStyle.alert)
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
+    func cannotPlayback() {
+        print("cannotPlayback")
     }
 }

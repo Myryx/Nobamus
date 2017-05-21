@@ -18,6 +18,12 @@
 		2CADD0BB1ED0454600C9ABA3 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CADD0BA1ED0454600C9ABA3 /* Color.swift */; };
 		2CADD0BE1ED0697400C9ABA3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2CADD0C01ED0697400C9ABA3 /* Localizable.strings */; };
 		2CADD0C41ED06AD200C9ABA3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CADD0C31ED06AD200C9ABA3 /* LaunchScreen.storyboard */; };
+		2CD6F8031ED0965B0042A748 /* LoginAppleMusicProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F8021ED0965B0042A748 /* LoginAppleMusicProvider.swift */; };
+		2CD6F8071ED0AE880042A748 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F8061ED0AE880042A748 /* User.swift */; };
+		2CD6F8091ED18B920042A748 /* LoginFireBaseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F8081ED18B920042A748 /* LoginFireBaseProvider.swift */; };
+		2CD6F80C1ED198D50042A748 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F80B1ED198D50042A748 /* DatabaseManager.swift */; };
+		2CD6F80E1ED199D80042A748 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F80D1ED199D80042A748 /* Person.swift */; };
+		2CD6F8111ED19A7E0042A748 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F8101ED19A7E0042A748 /* Track.swift */; };
 		50EB9D07610B6AB9B5C93665 /* Pods_Nobamus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0C5B305EA3A9444B93A64A2 /* Pods_Nobamus.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +42,12 @@
 		2CADD0BF1ED0697400C9ABA3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2CADD0C11ED0697600C9ABA3 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2CADD0C31ED06AD200C9ABA3 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = "Features/Launch Screen/LaunchScreen.storyboard"; sourceTree = "<group>"; };
+		2CD6F8021ED0965B0042A748 /* LoginAppleMusicProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginAppleMusicProvider.swift; path = Features/Login/Providers/LoginAppleMusicProvider.swift; sourceTree = "<group>"; };
+		2CD6F8061ED0AE880042A748 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Core/User/User.swift; sourceTree = "<group>"; };
+		2CD6F8081ED18B920042A748 /* LoginFireBaseProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginFireBaseProvider.swift; path = Features/Login/Providers/LoginFireBaseProvider.swift; sourceTree = "<group>"; };
+		2CD6F80B1ED198D50042A748 /* DatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DatabaseManager.swift; path = Core/Database/DatabaseManager.swift; sourceTree = "<group>"; };
+		2CD6F80D1ED199D80042A748 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Person.swift; path = Core/User/Person.swift; sourceTree = "<group>"; };
+		2CD6F8101ED19A7E0042A748 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Track.swift; path = Core/Music/Track.swift; sourceTree = "<group>"; };
 		95C3CB60BC9ADA36F164D663 /* Pods-Nobamus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nobamus.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nobamus/Pods-Nobamus.release.xcconfig"; sourceTree = "<group>"; };
 		977DDD37160384D010A371F3 /* Pods-Nobamus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nobamus.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Nobamus/Pods-Nobamus.debug.xcconfig"; sourceTree = "<group>"; };
 		B0C5B305EA3A9444B93A64A2 /* Pods_Nobamus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nobamus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -74,6 +86,7 @@
 		2C9074481EBF111E000E1A71 /* Nobamus */ = {
 			isa = PBXGroup;
 			children = (
+				2CD6F8041ED0AE650042A748 /* Core */,
 				2C90745D1EBF281B000E1A71 /* Features */,
 				2C90745B1EBF127B000E1A71 /* GoogleService-Info.plist */,
 				2C9074491EBF111E000E1A71 /* AppDelegate.swift */,
@@ -142,6 +155,8 @@
 		2C9074651EBF2B30000E1A71 /* Provider */ = {
 			isa = PBXGroup;
 			children = (
+				2CD6F8021ED0965B0042A748 /* LoginAppleMusicProvider.swift */,
+				2CD6F8081ED18B920042A748 /* LoginFireBaseProvider.swift */,
 			);
 			name = Provider;
 			sourceTree = "<group>";
@@ -168,6 +183,41 @@
 				2CADD0C01ED0697400C9ABA3 /* Localizable.strings */,
 			);
 			name = Localization;
+			sourceTree = "<group>";
+		};
+		2CD6F8041ED0AE650042A748 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				2CD6F8121ED19AB00042A748 /* Music */,
+				2CD6F80A1ED198AD0042A748 /* Database */,
+				2CD6F8051ED0AE6F0042A748 /* User */,
+			);
+			name = Core;
+			sourceTree = "<group>";
+		};
+		2CD6F8051ED0AE6F0042A748 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				2CD6F8061ED0AE880042A748 /* User.swift */,
+				2CD6F80D1ED199D80042A748 /* Person.swift */,
+			);
+			name = User;
+			sourceTree = "<group>";
+		};
+		2CD6F80A1ED198AD0042A748 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				2CD6F80B1ED198D50042A748 /* DatabaseManager.swift */,
+			);
+			name = Database;
+			sourceTree = "<group>";
+		};
+		2CD6F8121ED19AB00042A748 /* Music */ = {
+			isa = PBXGroup;
+			children = (
+				2CD6F8101ED19A7E0042A748 /* Track.swift */,
+			);
+			name = Music;
 			sourceTree = "<group>";
 		};
 		9E04590E0EFDD26E598DA0B8 /* Frameworks */ = {
@@ -314,12 +364,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C9074621EBF2A9E000E1A71 /* LoginViewController.swift in Sources */,
+				2CD6F80C1ED198D50042A748 /* DatabaseManager.swift in Sources */,
+				2CD6F8091ED18B920042A748 /* LoginFireBaseProvider.swift in Sources */,
 				2C90744A1EBF111E000E1A71 /* AppDelegate.swift in Sources */,
 				2CADD0BB1ED0454600C9ABA3 /* Color.swift in Sources */,
 				2CADD0941ED01A4A00C9ABA3 /* Font.swift in Sources */,
+				2CD6F80E1ED199D80042A748 /* Person.swift in Sources */,
 				2CADD08F1ECFFC7E00C9ABA3 /* LoginView.swift in Sources */,
+				2CD6F8071ED0AE880042A748 /* User.swift in Sources */,
 				2C9074671EBF2B53000E1A71 /* LoginViewModel.swift in Sources */,
+				2CD6F8111ED19A7E0042A748 /* Track.swift in Sources */,
 				2CADD0B91ED0420300C9ABA3 /* Utils.swift in Sources */,
+				2CD6F8031ED0965B0042A748 /* LoginAppleMusicProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
