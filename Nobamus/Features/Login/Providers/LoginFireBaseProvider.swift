@@ -11,18 +11,17 @@ import FirebaseAuth
 import CoreLocation
 
 class LoginFireBaseProvider {
-    static func signInAnonymouslyFireBase(userName: String) {
+    static func signInAnonymouslyFireBase(with userName: String) {
         User.sharedInstance.name = userName
         FIRAuth.auth()?.signInAnonymously() { (user, error) in
-            if((error) == nil) {
-                User.sharedInstance.uniqueID = user?.uid
-                
-                callback((user?.uid)!, userName, CLLocation(latitude: 0, longitude: 0))
-                print("Firebase id is: \(user?.uid ?? "NIL")")
+            guard error == nil,
+                let userID = user?.uid else {
+                    return
             }
-            else{
-                print("Can't login anonimously")
-            }
+            User.sharedInstance.uniqueID = userID
+            DatabaseManager.createOrUpdateUser(userID: userID, name: userName)
+            print("Firebase id is: \(userID)")
         }
     }
 }
+

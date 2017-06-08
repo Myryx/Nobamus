@@ -14,7 +14,7 @@ class Track {
     var artist = ""
     var albumTitle = ""
     
-    init(id: Int, title: String, artist:String, albumTitle:String){
+    init(id: Int, title: String, artist: String, albumTitle: String) {
         self.id = id
         self.title = title
         self.artist = artist

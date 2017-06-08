@@ -117,5 +117,4 @@ class LoginView: UIView {
         }
         super.updateConstraints()
     }
-
 }

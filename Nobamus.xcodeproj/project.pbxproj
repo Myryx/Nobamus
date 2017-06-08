@@ -24,6 +24,10 @@
 		2CD6F80C1ED198D50042A748 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F80B1ED198D50042A748 /* DatabaseManager.swift */; };
 		2CD6F80E1ED199D80042A748 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F80D1ED199D80042A748 /* Person.swift */; };
 		2CD6F8111ED19A7E0042A748 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F8101ED19A7E0042A748 /* Track.swift */; };
+		2CD6F81B1ED1F7010042A748 /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F81A1ED1F7010042A748 /* DiscoverViewController.swift */; };
+		2CD6F81D1ED1F7210042A748 /* DiscoverVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F81C1ED1F7210042A748 /* DiscoverVIew.swift */; };
+		2CD6F8211ED1F7EC0042A748 /* DiscoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F8201ED1F7EC0042A748 /* DiscoverViewModel.swift */; };
+		2CD6F8231ED2032E0042A748 /* DiscoverCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F8221ED2032E0042A748 /* DiscoverCell.swift */; };
 		50EB9D07610B6AB9B5C93665 /* Pods_Nobamus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0C5B305EA3A9444B93A64A2 /* Pods_Nobamus.framework */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +52,10 @@
 		2CD6F80B1ED198D50042A748 /* DatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DatabaseManager.swift; path = Core/Database/DatabaseManager.swift; sourceTree = "<group>"; };
 		2CD6F80D1ED199D80042A748 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Person.swift; path = Core/User/Person.swift; sourceTree = "<group>"; };
 		2CD6F8101ED19A7E0042A748 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Track.swift; path = Core/Music/Track.swift; sourceTree = "<group>"; };
+		2CD6F81A1ED1F7010042A748 /* DiscoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiscoverViewController.swift; path = Features/Discover/Controller/DiscoverViewController.swift; sourceTree = "<group>"; };
+		2CD6F81C1ED1F7210042A748 /* DiscoverVIew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiscoverVIew.swift; path = Features/Discover/Views/DiscoverVIew.swift; sourceTree = "<group>"; };
+		2CD6F8201ED1F7EC0042A748 /* DiscoverViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiscoverViewModel.swift; path = Features/Discover/ViewModels/DiscoverViewModel.swift; sourceTree = "<group>"; };
+		2CD6F8221ED2032E0042A748 /* DiscoverCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiscoverCell.swift; path = Features/Discover/Views/DiscoverCell.swift; sourceTree = "<group>"; };
 		95C3CB60BC9ADA36F164D663 /* Pods-Nobamus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nobamus.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nobamus/Pods-Nobamus.release.xcconfig"; sourceTree = "<group>"; };
 		977DDD37160384D010A371F3 /* Pods-Nobamus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nobamus.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Nobamus/Pods-Nobamus.debug.xcconfig"; sourceTree = "<group>"; };
 		B0C5B305EA3A9444B93A64A2 /* Pods_Nobamus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nobamus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -99,9 +107,10 @@
 		2C90745D1EBF281B000E1A71 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				2C90745E1EBF2821000E1A71 /* Login */,
+				2CD6F8151ED1F4800042A748 /* Discover */,
 				2CADD0C71ED06CB100C9ABA3 /* Localization */,
 				2CADD0C21ED06AB000C9ABA3 /* LaunchScreen */,
-				2C90745E1EBF2821000E1A71 /* Login */,
 				2C90745F1EBF2847000E1A71 /* Discover */,
 				2C9074601EBF2A14000E1A71 /* Utils */,
 			);
@@ -218,6 +227,49 @@
 				2CD6F8101ED19A7E0042A748 /* Track.swift */,
 			);
 			name = Music;
+			sourceTree = "<group>";
+		};
+		2CD6F8151ED1F4800042A748 /* Discover */ = {
+			isa = PBXGroup;
+			children = (
+				2CD6F8191ED1F6DD0042A748 /* ViewModel */,
+				2CD6F8181ED1F6CD0042A748 /* Views */,
+				2CD6F8171ED1F6C60042A748 /* Provider */,
+				2CD6F8161ED1F6B70042A748 /* Controller */,
+			);
+			name = Discover;
+			sourceTree = "<group>";
+		};
+		2CD6F8161ED1F6B70042A748 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2CD6F81A1ED1F7010042A748 /* DiscoverViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		2CD6F8171ED1F6C60042A748 /* Provider */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Provider;
+			sourceTree = "<group>";
+		};
+		2CD6F8181ED1F6CD0042A748 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2CD6F81C1ED1F7210042A748 /* DiscoverVIew.swift */,
+				2CD6F8221ED2032E0042A748 /* DiscoverCell.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		2CD6F8191ED1F6DD0042A748 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				2CD6F8201ED1F7EC0042A748 /* DiscoverViewModel.swift */,
+			);
+			name = ViewModel;
 			sourceTree = "<group>";
 		};
 		9E04590E0EFDD26E598DA0B8 /* Frameworks */ = {
@@ -372,10 +424,14 @@
 				2CD6F80E1ED199D80042A748 /* Person.swift in Sources */,
 				2CADD08F1ECFFC7E00C9ABA3 /* LoginView.swift in Sources */,
 				2CD6F8071ED0AE880042A748 /* User.swift in Sources */,
+				2CD6F81B1ED1F7010042A748 /* DiscoverViewController.swift in Sources */,
 				2C9074671EBF2B53000E1A71 /* LoginViewModel.swift in Sources */,
+				2CD6F81D1ED1F7210042A748 /* DiscoverVIew.swift in Sources */,
 				2CD6F8111ED19A7E0042A748 /* Track.swift in Sources */,
+				2CD6F8211ED1F7EC0042A748 /* DiscoverViewModel.swift in Sources */,
 				2CADD0B91ED0420300C9ABA3 /* Utils.swift in Sources */,
 				2CD6F8031ED0965B0042A748 /* LoginAppleMusicProvider.swift in Sources */,
+				2CD6F8231ED2032E0042A748 /* DiscoverCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

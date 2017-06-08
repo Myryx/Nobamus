@@ -19,9 +19,9 @@ class Person {
     
     var longtitude: Double
     
-//    var track: Track
+    var track: Track
     
-    init(_ name: String, _ latitude: Double, _ longtitude: Double, _ track: Track)
+    init(name: String, latitude: Double, longtitude: Double, track: Track)
     {
         self.name = name
         self.latitude = latitude

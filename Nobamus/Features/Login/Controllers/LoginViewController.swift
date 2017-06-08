@@ -32,7 +32,6 @@ class LoginViewController: UIViewController{
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - content view
     fileprivate var loginView: LoginView {
         guard let view = view as? LoginView else {
             let loginView = LoginView(frame: UIScreen.main.bounds)
@@ -49,23 +48,30 @@ class LoginViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         configureViews()
-        provider?.appleMusicRequestPermission()
     }
     
     func configureViews() {
         loginView.acceptButton.addTarget(self, action: #selector(acceptButtonPressed), for: .touchUpInside)
+        let tapGR = UITapGestureRecognizer(target: self, action: #selector(tappedOnView))
+        self.view.addGestureRecognizer(tapGR)
+        loginView.inputField.delegate = self
     }
     
     func acceptButtonPressed() {
         guard let text = loginView.inputField.text else { return }
         if(text.characters.count > 0) {
             loginView.activityIndicator.startAnimating()
-//            AppleMusicManager.setup(callback: successfulAMLogin)
-//            NetworkManager.signInAnonymouslyFireBase(userName: nameTextField.text!, callback: DatabaseManager.createOrUpdateUser)
+            provider?.appleMusicRequestPermission()
+            LoginFireBaseProvider.signInAnonymouslyFireBase(with: text)
         } else {
-            loginView.inputField.attributedPlaceholder = NSAttributedString(string: localizedStringForKey("Login.FillInYourName"), attributes: [NSForegroundColorAttributeName : UIColor.red])
+            loginView.inputField.attributedPlaceholder = NSAttributedString(string: localizedStringForKey("Login.FillInYourName"), attributes: [NSForegroundColorAttributeName: UIColor.red])
         }
     }
+    
+    func tappedOnView() {
+        loginView.inputField.resignFirstResponder()
+    }
+    
     fileprivate func openAppSettings() {
         if let url = URL(string:UIApplicationOpenSettingsURLString) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -75,8 +81,12 @@ class LoginViewController: UIViewController{
 
 extension LoginViewController: AppleMusicLoginDelegate {
     func successfulLogin() {
-        print("Successful Login")
+        loginView.activityIndicator.stopAnimating()
+//        print(self.navigationController!)
+        let controller = DiscoverViewController()
+        self.navigationController?.pushViewController(controller, animated: true)
     }
+    
     func loginFailed(reason: SKCloudServiceAuthorizationStatus){
         switch reason {
         case .authorized:
@@ -92,5 +102,12 @@ extension LoginViewController: AppleMusicLoginDelegate {
     }
     func cannotPlayback() {
         print("cannotPlayback")
+    }
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        loginView.inputField.resignFirstResponder()
+        return true
     }
 }
