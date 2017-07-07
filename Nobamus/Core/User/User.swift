@@ -17,5 +17,5 @@ class User {
     var uniqueID: String?
     var name: String = ""
     var latitude: Double?
-    var longtitude: Double?
+    var longitude: Double?
 }

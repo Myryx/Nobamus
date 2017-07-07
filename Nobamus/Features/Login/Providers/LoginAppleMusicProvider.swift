@@ -9,7 +9,6 @@
 import Foundation
 import StoreKit
 import MediaPlayer
-import SwiftyJSON
 
 protocol AppleMusicLoginDelegate: class {
     func successfulLogin()

@@ -23,7 +23,7 @@ class DiscoverViewController: UIViewController {
     
     var viewModel: DiscoverViewModel? {
         didSet {
-//            viewModel?.delegate = self
+            viewModel?.delegate = self
         }
     }
     
@@ -37,23 +37,26 @@ class DiscoverViewController: UIViewController {
     
     override func loadView() {
         self.view = DiscoverView(frame: UIScreen.main.bounds)
+        collectionView?.dataSource = self
+        collectionView?.prefetchDataSource = self
+        collectionView?.delegate = self
+        collectionView?.contentInset = UIEdgeInsetsMake(0, 10, 0, 10)
+        collectionView?.register(DiscoverCell.self, forCellWithReuseIdentifier: reuseIdentifier)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView?.register(DiscoverCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        configureViews()
+        
+//        configureViews()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
     
-    func configureViews() {
-        collectionView?.dataSource = self
-        collectionView?.delegate = self
-        collectionView?.contentInset = UIEdgeInsetsMake(0, 10, 0, 10)
-    }
+//    func configureViews() {
+//        
+//    }
     
 }
 
@@ -93,5 +96,11 @@ extension DiscoverViewController: UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 20
+    }
+}
+
+extension DiscoverViewController: DiscoverViewModelDelegate {
+    func peopleAroundFetched() {
+        
     }
 }

@@ -8,24 +8,15 @@
 
 import Foundation
 
-class Person {
+struct Person {
     
     // MARK: Properties
     
-    /// URL with the preview that features the content inside
     var name: String
     
-    var latitude:Double
+    var latitude: Double
     
-    var longtitude: Double
+    var longitude: Double
     
     var track: Track
-    
-    init(name: String, latitude: Double, longtitude: Double, track: Track)
-    {
-        self.name = name
-        self.latitude = latitude
-        self.longtitude = longtitude
-        self.track = track
-    }
 }

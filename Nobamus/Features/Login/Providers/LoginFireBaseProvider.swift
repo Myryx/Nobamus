@@ -15,11 +15,10 @@ class LoginFireBaseProvider {
         User.sharedInstance.name = userName
         FIRAuth.auth()?.signInAnonymously() { (user, error) in
             guard error == nil,
-                let userID = user?.uid else {
-                    return
-            }
+                let userID = user?.uid else { return }
             User.sharedInstance.uniqueID = userID
-            DatabaseManager.createOrUpdateUser(userID: userID, name: userName)
+            let country = NSLocale.current.regionCode ?? ""
+            DatabaseManager.createOrUpdateUser(userID: userID, name: userName, country: country)
             print("Firebase id is: \(userID)")
         }
     }
