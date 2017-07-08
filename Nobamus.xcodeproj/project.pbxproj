@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C6B1CFA1F07D77B00883639 /* Translator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6B1CF91F07D77B00883639 /* Translator.swift */; };
+		2C6B1CFC1F07D7AF00883639 /* PersonTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6B1CFB1F07D7AF00883639 /* PersonTranslator.swift */; };
+		2C83B7091F0F973F00C4E749 /* DiscoverService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C83B7081F0F973F00C4E749 /* DiscoverService.swift */; };
 		2C90744A1EBF111E000E1A71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9074491EBF111E000E1A71 /* AppDelegate.swift */; };
 		2C9074511EBF111E000E1A71 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C9074501EBF111E000E1A71 /* Assets.xcassets */; };
 		2C90745C1EBF127B000E1A71 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C90745B1EBF127B000E1A71 /* GoogleService-Info.plist */; };
@@ -28,10 +31,14 @@
 		2CD6F81D1ED1F7210042A748 /* DiscoverVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F81C1ED1F7210042A748 /* DiscoverVIew.swift */; };
 		2CD6F8211ED1F7EC0042A748 /* DiscoverViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F8201ED1F7EC0042A748 /* DiscoverViewModel.swift */; };
 		2CD6F8231ED2032E0042A748 /* DiscoverCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F8221ED2032E0042A748 /* DiscoverCell.swift */; };
+		2CF8A1EA1EE9B0CA00D369AB /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A1E91EE9B0CA00D369AB /* LocationManager.swift */; };
 		50EB9D07610B6AB9B5C93665 /* Pods_Nobamus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0C5B305EA3A9444B93A64A2 /* Pods_Nobamus.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C6B1CF91F07D77B00883639 /* Translator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Translator.swift; path = Core/Network/Translator.swift; sourceTree = "<group>"; };
+		2C6B1CFB1F07D7AF00883639 /* PersonTranslator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersonTranslator.swift; path = Core/Network/PersonTranslator.swift; sourceTree = "<group>"; };
+		2C83B7081F0F973F00C4E749 /* DiscoverService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiscoverService.swift; path = Features/Discover/Services/DiscoverService.swift; sourceTree = "<group>"; };
 		2C9074461EBF111E000E1A71 /* Nobamus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nobamus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C9074491EBF111E000E1A71 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C9074501EBF111E000E1A71 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -56,6 +63,7 @@
 		2CD6F81C1ED1F7210042A748 /* DiscoverVIew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiscoverVIew.swift; path = Features/Discover/Views/DiscoverVIew.swift; sourceTree = "<group>"; };
 		2CD6F8201ED1F7EC0042A748 /* DiscoverViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiscoverViewModel.swift; path = Features/Discover/ViewModels/DiscoverViewModel.swift; sourceTree = "<group>"; };
 		2CD6F8221ED2032E0042A748 /* DiscoverCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiscoverCell.swift; path = Features/Discover/Views/DiscoverCell.swift; sourceTree = "<group>"; };
+		2CF8A1E91EE9B0CA00D369AB /* LocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationManager.swift; path = Core/Location/LocationManager.swift; sourceTree = "<group>"; };
 		95C3CB60BC9ADA36F164D663 /* Pods-Nobamus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nobamus.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nobamus/Pods-Nobamus.release.xcconfig"; sourceTree = "<group>"; };
 		977DDD37160384D010A371F3 /* Pods-Nobamus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nobamus.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Nobamus/Pods-Nobamus.debug.xcconfig"; sourceTree = "<group>"; };
 		B0C5B305EA3A9444B93A64A2 /* Pods_Nobamus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nobamus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -73,6 +81,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C6B1CF81F07D75800883639 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				2C6B1CF91F07D77B00883639 /* Translator.swift */,
+				2C6B1CFB1F07D7AF00883639 /* PersonTranslator.swift */,
+			);
+			name = Network;
+			sourceTree = "<group>";
+		};
 		2C90743D1EBF111E000E1A71 = {
 			isa = PBXGroup;
 			children = (
@@ -197,6 +214,8 @@
 		2CD6F8041ED0AE650042A748 /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				2C6B1CF81F07D75800883639 /* Network */,
+				2CF8A1E81EE9B0B300D369AB /* Location */,
 				2CD6F8121ED19AB00042A748 /* Music */,
 				2CD6F80A1ED198AD0042A748 /* Database */,
 				2CD6F8051ED0AE6F0042A748 /* User */,
@@ -234,7 +253,7 @@
 			children = (
 				2CD6F8191ED1F6DD0042A748 /* ViewModel */,
 				2CD6F8181ED1F6CD0042A748 /* Views */,
-				2CD6F8171ED1F6C60042A748 /* Provider */,
+				2CD6F8171ED1F6C60042A748 /* Services */,
 				2CD6F8161ED1F6B70042A748 /* Controller */,
 			);
 			name = Discover;
@@ -248,11 +267,12 @@
 			name = Controller;
 			sourceTree = "<group>";
 		};
-		2CD6F8171ED1F6C60042A748 /* Provider */ = {
+		2CD6F8171ED1F6C60042A748 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				2C83B7081F0F973F00C4E749 /* DiscoverService.swift */,
 			);
-			name = Provider;
+			name = Services;
 			sourceTree = "<group>";
 		};
 		2CD6F8181ED1F6CD0042A748 /* Views */ = {
@@ -270,6 +290,14 @@
 				2CD6F8201ED1F7EC0042A748 /* DiscoverViewModel.swift */,
 			);
 			name = ViewModel;
+			sourceTree = "<group>";
+		};
+		2CF8A1E81EE9B0B300D369AB /* Location */ = {
+			isa = PBXGroup;
+			children = (
+				2CF8A1E91EE9B0CA00D369AB /* LocationManager.swift */,
+			);
+			name = Location;
 			sourceTree = "<group>";
 		};
 		9E04590E0EFDD26E598DA0B8 /* Frameworks */ = {
@@ -326,6 +354,11 @@
 						CreatedOnToolsVersion = 8.3.2;
 						DevelopmentTeam = MCB6AYLM4B;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -422,7 +455,10 @@
 				2CADD0BB1ED0454600C9ABA3 /* Color.swift in Sources */,
 				2CADD0941ED01A4A00C9ABA3 /* Font.swift in Sources */,
 				2CD6F80E1ED199D80042A748 /* Person.swift in Sources */,
+				2C6B1CFA1F07D77B00883639 /* Translator.swift in Sources */,
+				2C6B1CFC1F07D7AF00883639 /* PersonTranslator.swift in Sources */,
 				2CADD08F1ECFFC7E00C9ABA3 /* LoginView.swift in Sources */,
+				2CF8A1EA1EE9B0CA00D369AB /* LocationManager.swift in Sources */,
 				2CD6F8071ED0AE880042A748 /* User.swift in Sources */,
 				2CD6F81B1ED1F7010042A748 /* DiscoverViewController.swift in Sources */,
 				2C9074671EBF2B53000E1A71 /* LoginViewModel.swift in Sources */,
@@ -431,6 +467,7 @@
 				2CD6F8211ED1F7EC0042A748 /* DiscoverViewModel.swift in Sources */,
 				2CADD0B91ED0420300C9ABA3 /* Utils.swift in Sources */,
 				2CD6F8031ED0965B0042A748 /* LoginAppleMusicProvider.swift in Sources */,
+				2C83B7091F0F973F00C4E749 /* DiscoverService.swift in Sources */,
 				2CD6F8231ED2032E0042A748 /* DiscoverCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

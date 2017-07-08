@@ -59,7 +59,7 @@ class LoginViewController: UIViewController{
     
     func acceptButtonPressed() {
         guard let text = loginView.inputField.text else { return }
-        if(text.characters.count > 0) {
+        if (text.characters.count > 0) {
             loginView.activityIndicator.startAnimating()
             provider?.appleMusicRequestPermission()
             LoginFireBaseProvider.signInAnonymouslyFireBase(with: text)
@@ -82,7 +82,6 @@ class LoginViewController: UIViewController{
 extension LoginViewController: AppleMusicLoginDelegate {
     func successfulLogin() {
         loginView.activityIndicator.stopAnimating()
-//        print(self.navigationController!)
         let controller = DiscoverViewController()
         self.navigationController?.pushViewController(controller, animated: true)
     }
