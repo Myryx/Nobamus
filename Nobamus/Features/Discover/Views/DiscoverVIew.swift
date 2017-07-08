@@ -1,22 +1,18 @@
 //
-//  DiscoverVIew.swift
-//  Nobamus
-//
-//  Created by Yanislav Kononov on 5/21/17.
-//  Copyright © 2017 Yanislav Kononov. All rights reserved.
+// View for displaying cells with people around
 //
 
 import Foundation
 import UIKit
 
 class DiscoverView: UIView {
-    
+    // MARK: - Variables
     private let collectionViewBorders: CGFloat = 5
-    private let cellPartOfFrame: CGFloat = 0.38
+    private let cellPartOfFrameWidth: CGFloat = 0.38
     
     private var cellSize : CGSize! {
         get {
-            let side = UIScreen.main.bounds.width * 0.38
+            let side = UIScreen.main.bounds.width * cellPartOfFrameWidth
             let size = CGSize(width: side, height: side)
             return size
         }
@@ -34,6 +30,8 @@ class DiscoverView: UIView {
         collectionView.showsVerticalScrollIndicator = false
         return collectionView
     }()
+    
+    // MARK: - Initialization
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -55,16 +53,15 @@ class DiscoverView: UIView {
     }
     
     override func updateConstraints() {
-        backgroundImage.snp.makeConstraints({ make in
-            make.edges.equalTo(self)
-        })
-        collectionView.snp.makeConstraints({ make in
-            make.top.equalTo(self).offset(self.collectionViewBorders)
-            make.bottom.equalTo(self).offset(-self.collectionViewBorders)
-            make.left.equalTo(self).offset(self.collectionViewBorders)
-            make.right.equalTo(self).offset(-self.collectionViewBorders)
-        })
+        backgroundImage.snp.remakeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        collectionView.snp.remakeConstraints { make in
+            make.top.equalToSuperview().offset(collectionViewBorders)
+            make.bottom.equalToSuperview().offset(-collectionViewBorders)
+            make.left.equalToSuperview().offset(collectionViewBorders)
+            make.right.equalToSuperview().offset(-collectionViewBorders)
+        }
         super.updateConstraints()
     }
-    
 }

@@ -1,16 +1,12 @@
 //
-//  LoginFireBaseProvider.swift
-//  Nobamus
-//
-//  Created by Yanislav Kononov on 5/21/17.
-//  Copyright © 2017 Yanislav Kononov. All rights reserved.
+//  Service that provides the Firebase authentication
 //
 
 import Foundation
 import FirebaseAuth
 import CoreLocation
 
-class LoginFireBaseProvider {
+class LoginFirebaseService {
     static func signInAnonymouslyFireBase(with userName: String) {
         User.sharedInstance.name = userName
         FIRAuth.auth()?.signInAnonymously() { (user, error) in
@@ -23,4 +19,3 @@ class LoginFireBaseProvider {
         }
     }
 }
-

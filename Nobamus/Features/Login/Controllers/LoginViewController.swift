@@ -62,7 +62,7 @@ class LoginViewController: UIViewController{
         if (text.characters.count > 0) {
             loginView.activityIndicator.startAnimating()
             provider?.appleMusicRequestPermission()
-            LoginFireBaseProvider.signInAnonymouslyFireBase(with: text)
+            LoginFirebaseService.signInAnonymouslyFireBase(with: text)
         } else {
             loginView.inputField.attributedPlaceholder = NSAttributedString(string: localizedStringForKey("Login.FillInYourName"), attributes: [NSForegroundColorAttributeName: UIColor.red])
         }
@@ -81,9 +81,9 @@ class LoginViewController: UIViewController{
 
 extension LoginViewController: AppleMusicLoginDelegate {
     func successfulLogin() {
-        loginView.activityIndicator.stopAnimating()
-        let controller = DiscoverViewController()
-        self.navigationController?.pushViewController(controller, animated: true)
+//        loginView.activityIndicator.stopAnimating()
+//        let controller = DiscoverViewController()
+//        self.navigationController?.pushViewController(controller, animated: true)
     }
     
     func loginFailed(reason: SKCloudServiceAuthorizationStatus){

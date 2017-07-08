@@ -1,10 +1,9 @@
 import Foundation
 import CoreLocation
 import UIKit
-import Alamofire
 
 protocol LocationProviderDelegate: class {
-    func locationWasFound()
+    func locationWasFound(_ location: CLLocation)
 }
 
 class LocationProvider: NSObject {
@@ -39,7 +38,7 @@ class LocationProvider: NSObject {
         guard isUpdatingLocation == true else { return }
         stopUpdatingLocation()
         storeLocation(location: location)
-        delegate?.locationWasFound()
+        delegate?.locationWasFound(location)
     }
     
     private func stopUpdatingLocation() {

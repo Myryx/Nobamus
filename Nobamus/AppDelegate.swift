@@ -14,20 +14,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FIRApp.configure()
-        LoginFireBaseProvider.signInAnonymouslyFireBase(with: "Temp user")
-        let initialViewController = DiscoverViewController()
-        let viewModel = DiscoverViewModel(locationProvider: LocationProvider())
-        initialViewController.viewModel = viewModel
+        LoginFirebaseService.signInAnonymouslyFireBase(with: "Temp user")
+        
+        
+        let service = DiscoverService()
+        let viewModel = DiscoverViewModel(locationProvider: LocationProvider(), service: service)
+        let discoverViewController = DiscoverViewController(viewModel: viewModel)
+        discoverViewController.viewModel = viewModel
+        
         let frame = UIScreen.main.bounds
         window = UIWindow(frame: frame)
-//        let navigationController:UINavigationController = UINavigationController()
-//        navigationController.viewControllers = [initialViewController]
-        self.window?.rootViewController = initialViewController
-        
+        self.window?.rootViewController = discoverViewController
         self.window?.makeKeyAndVisible()
+        
         return true
     }
 

@@ -9,14 +9,13 @@
 import Foundation
 
 struct Person {
-    
-    // MARK: Properties
-    
-    var name: String
-    
-    var latitude: Double
-    
-    var longitude: Double
-    
+    let name: String
+    let latitude: Double
+    let longitude: Double
+    let country: String
     var track: Track
+    init(name: String, track: Track) {
+        self.name = name
+        self.track = track
+    }
 }

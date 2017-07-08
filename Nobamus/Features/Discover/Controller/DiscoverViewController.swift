@@ -21,11 +21,7 @@ class DiscoverViewController: UIViewController {
         }
     }
     
-    var viewModel: DiscoverViewModel? {
-        didSet {
-            viewModel?.delegate = self
-        }
-    }
+    var viewModel: DiscoverViewModel
     
     fileprivate var discoverView: DiscoverView {
         return view as! DiscoverView
@@ -34,6 +30,14 @@ class DiscoverViewController: UIViewController {
     lazy var collectionView: UICollectionView? = {
         return self.discoverView.collectionView
     }()
+    
+    init(viewModel: DiscoverViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+        self.viewModel.delegate = self
+    }
+    
+    required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     override func loadView() {
         self.view = DiscoverView(frame: UIScreen.main.bounds)
@@ -47,16 +51,11 @@ class DiscoverViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        configureViews()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }
-    
-//    func configureViews() {
-//        
-//    }
     
 }
 
@@ -100,7 +99,10 @@ extension DiscoverViewController: UICollectionViewDelegateFlowLayout{
 }
 
 extension DiscoverViewController: DiscoverViewModelDelegate {
-    func peopleAroundFetched() {
-        
+    func peopleAroundFetchDidFinish() {
+        print("Did finith fetch")
+    }
+    func peopleAroundFetchDidFail(_ errorMessage: String) {
+        APIErrorProcessor.sharedInstance.presentError(with: errorMessage, completion: nil)
     }
 }

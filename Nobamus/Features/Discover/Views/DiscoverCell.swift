@@ -1,24 +1,53 @@
 //
-//  DiscoverCell.swift
-//  Nobamus
-//
-//  Created by Yanislav Kononov on 5/21/17.
-//  Copyright © 2017 Yanislav Kononov. All rights reserved.
+//  Cell for displaying information about person and for playing the music this person is playing
 //
 
 import Foundation
 import UIKit
 
-class DiscoverCell: UICollectionViewCell{
+class DiscoverCell: UICollectionViewCell {
     
-    private let playIconSize: CGFloat = 15
+    var playIconSize: CGFloat = 15 {
+        didSet {
+            setNeedsUpdateConstraints()
+        }
+    }
     
-    private let distanceHeight: CGFloat = 10
-    private let distanceRight: CGFloat = 5
-    private let distanceBottom: CGFloat = 20
+    var distanceRight: CGFloat = 5 {
+        didSet {
+            setNeedsUpdateConstraints()
+        }
+    }
     
-    private let nameLabelHeight: CGFloat = 25
-    private let nameLabelBorder: CGFloat = 10
+    var distanceBottom: CGFloat = 20 {
+        didSet {
+            setNeedsUpdateConstraints()
+        }
+    }
+    
+    var nameLabelBorder: CGFloat = 10 {
+        didSet {
+            setNeedsUpdateConstraints()
+        }
+    }
+    
+    var coverColor: UIColor = UIColor.blackColorWithAlpha(0.3) {
+        didSet {
+            coverView.backgroundColor = coverColor
+        }
+    }
+    
+    var personName: String = "" {
+        didSet {
+            nameLabel.text = personName
+        }
+    }
+    
+    var distance: Int = 0 {
+        didSet {
+            distanceLabel.text = String(distance)
+        }
+    }
     
     static let reuseIdentifier = "DiscoverCell"
     
@@ -33,7 +62,7 @@ class DiscoverCell: UICollectionViewCell{
         return view
     }()
     
-    fileprivate(set) lazy var playIconImage: UIImageView = {
+    fileprivate(set) lazy var playIconImageView: UIImageView = {
         let view = UIImageView(frame: CGRect.zero)
         view.image = UIImage(named: "")
         return view
@@ -60,10 +89,10 @@ class DiscoverCell: UICollectionViewCell{
         super.init(frame: frame)
         addSubview(avatarImage)
         addSubview(coverView)
-        addSubview(playIconImage)
+        addSubview(playIconImageView)
         addSubview(nameLabel)
         addSubview(distanceLabel)
-        self.backgroundColor = UIColor.blackColorWithAlpha(0.8)
+        backgroundColor = UIColor.blackColorWithAlpha(0.8)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -82,24 +111,23 @@ class DiscoverCell: UICollectionViewCell{
     }
     
     override func updateConstraints() {
-        avatarImage.snp.makeConstraints({ make in
-            make.top.bottom.right.left.equalTo(self)
-        })
-        coverView.snp.makeConstraints { make in
-            make.top.bottom.right.left.equalTo(self)
+        avatarImage.snp.updateConstraints { make in
+            make.top.bottom.right.left.equalToSuperview()
         }
-        playIconImage.snp.makeConstraints { make in
-            make.size.equalTo(self.playIconSize)
-            make.center.equalTo(self.snp.center)
+        coverView.snp.updateConstraints { make in
+            make.top.bottom.right.left.equalToSuperview()
         }
-        nameLabel.snp.makeConstraints { make in
-            make.height.equalTo(self.nameLabelHeight)
-            make.right.left.equalTo(self).offset(self.nameLabelBorder)
+        playIconImageView.snp.updateConstraints { make in
+            make.size.equalTo(playIconSize)
+            make.center.equalTo(snp.center)
         }
-        distanceLabel.snp.makeConstraints { make in
-            make.height.equalTo(self.distanceHeight)
-            make.right.equalTo(self.snp.right).offset(-distanceRight)
-            make.bottom.equalTo(self.snp.bottom).offset(-distanceBottom)
+        nameLabel.snp.updateConstraints { make in
+            make.centerY.equalToSuperview()
+            make.right.left.equalToSuperview().offset(nameLabelBorder)
+        }
+        distanceLabel.snp.updateConstraints { make in
+            make.right.equalToSuperview().offset(-distanceRight)
+            make.bottom.equalToSuperview().offset(-distanceBottom)
         }
         super.updateConstraints()
     }

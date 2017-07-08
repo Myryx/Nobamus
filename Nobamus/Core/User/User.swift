@@ -1,9 +1,5 @@
 //
-//  User.swift
-//  Nobamus
-//
-//  Created by Yanislav Kononov on 5/20/17.
-//  Copyright © 2017 Yanislav Kononov. All rights reserved.
+//  Static instance of User class that represents the user of the applciation and his data
 //
 
 import Foundation
@@ -14,8 +10,9 @@ class User {
     
     var numberOfRequestsExecuted = 0
     var storeFrondID: Int?
-    var uniqueID: String?
-    var name: String = ""
+    var uniqueID: String!
+    var name = ""
     var latitude: Double?
     var longitude: Double?
+    var country = NSLocale.current.regionCode ?? ""
 }

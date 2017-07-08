@@ -28,11 +28,13 @@ class DatabaseManager {
         }
     }
     
-    static func getUser(with id: String) {
+    static func getPerson(with id: String, completion: @escaping (Person?) -> Void) {
+        var person: Person? = nil
         ref.child("users").child(id).observeSingleEvent(of: .value, with: { snapshot in
-            print("User:\(snapshot)")
+            person = PersonTranslator().translateFrom(snapshot: snapshot)
+            completion(person)
         }) { error in
-            print("Update user error: " + error.localizedDescription)
+            print("Error while retreiving user:" + error.localizedDescription)
         }
     }
 }

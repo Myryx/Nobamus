@@ -7,19 +7,19 @@ enum TranslatorError: Error{
 
 protocol Translator {
     associatedtype T
-    func translateFrom(dictionary json: [String : Any]) throws -> T
-    func translateFrom(array json: [Any]) throws -> [T]
+    func translateFrom(dictionary json: [String : Any]) -> T?
+    func translateFrom(array json: [Any]) -> [T?]
     func translateToDictionary(_ object: T) -> [String : Any]
     func translateToArray(_ arrayOfObjects: [T]) -> [Any]
 }
 
 extension Translator {
-    func translateFrom(array: [Any]) throws -> [T] {
-        return try array.map {
+    func translateFrom(array: [Any]) -> [T?] {
+        return array.map {
             guard let object = $0 as? [String: Any] else {
-                throw TranslatorError.invalidObjectsInArray
+                return nil
             }
-            return try translateFrom(dictionary: object)
+            return translateFrom(dictionary: object)
         }
     }
     

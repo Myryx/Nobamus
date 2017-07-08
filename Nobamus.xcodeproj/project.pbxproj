@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C45BF831F0FF21400E7D628 /* PersonLoadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45BF821F0FF21400E7D628 /* PersonLoadOperation.swift */; };
+		2C45BF851F0FF87700E7D628 /* TrackTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45BF841F0FF87700E7D628 /* TrackTranslator.swift */; };
+		2C45BF871F10C0A900E7D628 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45BF861F10C0A900E7D628 /* APIError.swift */; };
+		2C45BF891F10C30F00E7D628 /* ErrorProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45BF881F10C30F00E7D628 /* ErrorProcessor.swift */; };
 		2C6B1CFA1F07D77B00883639 /* Translator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6B1CF91F07D77B00883639 /* Translator.swift */; };
 		2C6B1CFC1F07D7AF00883639 /* PersonTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6B1CFB1F07D7AF00883639 /* PersonTranslator.swift */; };
 		2C83B7091F0F973F00C4E749 /* DiscoverService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C83B7081F0F973F00C4E749 /* DiscoverService.swift */; };
@@ -23,7 +27,7 @@
 		2CADD0C41ED06AD200C9ABA3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CADD0C31ED06AD200C9ABA3 /* LaunchScreen.storyboard */; };
 		2CD6F8031ED0965B0042A748 /* LoginAppleMusicProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F8021ED0965B0042A748 /* LoginAppleMusicProvider.swift */; };
 		2CD6F8071ED0AE880042A748 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F8061ED0AE880042A748 /* User.swift */; };
-		2CD6F8091ED18B920042A748 /* LoginFireBaseProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F8081ED18B920042A748 /* LoginFireBaseProvider.swift */; };
+		2CD6F8091ED18B920042A748 /* LoginFireBaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F8081ED18B920042A748 /* LoginFireBaseService.swift */; };
 		2CD6F80C1ED198D50042A748 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F80B1ED198D50042A748 /* DatabaseManager.swift */; };
 		2CD6F80E1ED199D80042A748 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F80D1ED199D80042A748 /* Person.swift */; };
 		2CD6F8111ED19A7E0042A748 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F8101ED19A7E0042A748 /* Track.swift */; };
@@ -36,6 +40,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C45BF821F0FF21400E7D628 /* PersonLoadOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersonLoadOperation.swift; path = Features/Discover/Model/PersonLoadOperation.swift; sourceTree = "<group>"; };
+		2C45BF841F0FF87700E7D628 /* TrackTranslator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackTranslator.swift; path = Core/Network/TrackTranslator.swift; sourceTree = "<group>"; };
+		2C45BF861F10C0A900E7D628 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIError.swift; path = Core/Network/APIError.swift; sourceTree = "<group>"; };
+		2C45BF881F10C30F00E7D628 /* ErrorProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorProcessor.swift; path = Core/Network/ErrorProcessor.swift; sourceTree = "<group>"; };
 		2C6B1CF91F07D77B00883639 /* Translator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Translator.swift; path = Core/Network/Translator.swift; sourceTree = "<group>"; };
 		2C6B1CFB1F07D7AF00883639 /* PersonTranslator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersonTranslator.swift; path = Core/Network/PersonTranslator.swift; sourceTree = "<group>"; };
 		2C83B7081F0F973F00C4E749 /* DiscoverService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiscoverService.swift; path = Features/Discover/Services/DiscoverService.swift; sourceTree = "<group>"; };
@@ -55,7 +63,7 @@
 		2CADD0C31ED06AD200C9ABA3 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = "Features/Launch Screen/LaunchScreen.storyboard"; sourceTree = "<group>"; };
 		2CD6F8021ED0965B0042A748 /* LoginAppleMusicProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginAppleMusicProvider.swift; path = Features/Login/Providers/LoginAppleMusicProvider.swift; sourceTree = "<group>"; };
 		2CD6F8061ED0AE880042A748 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Core/User/User.swift; sourceTree = "<group>"; };
-		2CD6F8081ED18B920042A748 /* LoginFireBaseProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginFireBaseProvider.swift; path = Features/Login/Providers/LoginFireBaseProvider.swift; sourceTree = "<group>"; };
+		2CD6F8081ED18B920042A748 /* LoginFireBaseService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginFireBaseService.swift; path = Features/Login/Providers/LoginFireBaseService.swift; sourceTree = "<group>"; };
 		2CD6F80B1ED198D50042A748 /* DatabaseManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DatabaseManager.swift; path = Core/Database/DatabaseManager.swift; sourceTree = "<group>"; };
 		2CD6F80D1ED199D80042A748 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Person.swift; path = Core/User/Person.swift; sourceTree = "<group>"; };
 		2CD6F8101ED19A7E0042A748 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Track.swift; path = Core/Music/Track.swift; sourceTree = "<group>"; };
@@ -81,11 +89,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C45BF811F0FF1EE00E7D628 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				2C45BF821F0FF21400E7D628 /* PersonLoadOperation.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
 		2C6B1CF81F07D75800883639 /* Network */ = {
 			isa = PBXGroup;
 			children = (
 				2C6B1CF91F07D77B00883639 /* Translator.swift */,
 				2C6B1CFB1F07D7AF00883639 /* PersonTranslator.swift */,
+				2C45BF841F0FF87700E7D628 /* TrackTranslator.swift */,
+				2C45BF861F10C0A900E7D628 /* APIError.swift */,
+				2C45BF881F10C30F00E7D628 /* ErrorProcessor.swift */,
 			);
 			name = Network;
 			sourceTree = "<group>";
@@ -137,7 +156,7 @@
 		2C90745E1EBF2821000E1A71 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				2C9074651EBF2B30000E1A71 /* Provider */,
+				2C9074651EBF2B30000E1A71 /* Services */,
 				2CADD0901ECFFC8900C9ABA3 /* Views */,
 				2C9074641EBF2AEE000E1A71 /* ViewModel */,
 				2C9074631EBF2AE2000E1A71 /* Controller */,
@@ -178,13 +197,13 @@
 			name = ViewModel;
 			sourceTree = "<group>";
 		};
-		2C9074651EBF2B30000E1A71 /* Provider */ = {
+		2C9074651EBF2B30000E1A71 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				2CD6F8021ED0965B0042A748 /* LoginAppleMusicProvider.swift */,
-				2CD6F8081ED18B920042A748 /* LoginFireBaseProvider.swift */,
+				2CD6F8081ED18B920042A748 /* LoginFireBaseService.swift */,
 			);
-			name = Provider;
+			name = Services;
 			sourceTree = "<group>";
 		};
 		2CADD0901ECFFC8900C9ABA3 /* Views */ = {
@@ -251,6 +270,7 @@
 		2CD6F8151ED1F4800042A748 /* Discover */ = {
 			isa = PBXGroup;
 			children = (
+				2C45BF811F0FF1EE00E7D628 /* Models */,
 				2CD6F8191ED1F6DD0042A748 /* ViewModel */,
 				2CD6F8181ED1F6CD0042A748 /* Views */,
 				2CD6F8171ED1F6C60042A748 /* Services */,
@@ -449,18 +469,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				2C9074621EBF2A9E000E1A71 /* LoginViewController.swift in Sources */,
+				2C45BF831F0FF21400E7D628 /* PersonLoadOperation.swift in Sources */,
 				2CD6F80C1ED198D50042A748 /* DatabaseManager.swift in Sources */,
-				2CD6F8091ED18B920042A748 /* LoginFireBaseProvider.swift in Sources */,
+				2CD6F8091ED18B920042A748 /* LoginFireBaseService.swift in Sources */,
 				2C90744A1EBF111E000E1A71 /* AppDelegate.swift in Sources */,
+				2C45BF871F10C0A900E7D628 /* APIError.swift in Sources */,
 				2CADD0BB1ED0454600C9ABA3 /* Color.swift in Sources */,
 				2CADD0941ED01A4A00C9ABA3 /* Font.swift in Sources */,
 				2CD6F80E1ED199D80042A748 /* Person.swift in Sources */,
+				2C45BF851F0FF87700E7D628 /* TrackTranslator.swift in Sources */,
 				2C6B1CFA1F07D77B00883639 /* Translator.swift in Sources */,
 				2C6B1CFC1F07D7AF00883639 /* PersonTranslator.swift in Sources */,
 				2CADD08F1ECFFC7E00C9ABA3 /* LoginView.swift in Sources */,
 				2CF8A1EA1EE9B0CA00D369AB /* LocationManager.swift in Sources */,
 				2CD6F8071ED0AE880042A748 /* User.swift in Sources */,
 				2CD6F81B1ED1F7010042A748 /* DiscoverViewController.swift in Sources */,
+				2C45BF891F10C30F00E7D628 /* ErrorProcessor.swift in Sources */,
 				2C9074671EBF2B53000E1A71 /* LoginViewModel.swift in Sources */,
 				2CD6F81D1ED1F7210042A748 /* DiscoverVIew.swift in Sources */,
 				2CD6F8111ED19A7E0042A748 /* Track.swift in Sources */,
