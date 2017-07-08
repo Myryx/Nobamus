@@ -5,5 +5,13 @@
   Created by Yanislav Kononov on 5/20/17.
   Copyright © 2017 Yanislav Kononov. All rights reserved.
 */
+
 "Login.FillInYourName" = "Please fill in your name";
 "Your Name" = "Your name";
+
+
+//Errors
+"Error" = "Error occured"
+"AlertAction.OK" = "OK"
+"Something Went Wrong" = "Sorry, something went wrong, please pull to refresh to try again";
+"No Internet Connection" = "Hmm, it appears that you have no Internet connection or a very slow one"

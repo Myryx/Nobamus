@@ -90,30 +90,30 @@ class LoginView: UIView {
     }
     
     override func updateConstraints() {
-        activityIndicator.snp.makeConstraints { make in
-            make.size.equalTo(self.activitySize)
-            make.top.equalTo(self).offset(self.activityTop)
-            make.centerX.equalTo(self)
+        activityIndicator.snp.updateConstraints { make in
+            make.size.equalTo(activitySize)
+            make.top.equalToSuperview().offset(activityTop)
+            make.centerX.equalToSuperview()
         }
-        backgroundImage.snp.makeConstraints({ make in
-            make.top.bottom.right.left.equalTo(self)
-        })
-        titleLabel.snp.makeConstraints { make in
-            make.height.equalTo(self.titleHeight)
-            make.top.equalTo(self.activityIndicator.snp.bottom).offset(self.titleTop)
-            make.centerX.equalTo(self)
+        backgroundImage.snp.updateConstraints { make in
+            make.top.bottom.right.left.equalToSuperview()
         }
-        inputField.snp.makeConstraints { make in
-            make.height.equalTo(self.inputFieldHeight)
-            make.top.equalTo(self.titleLabel.snp.bottom).offset(self.inputFieldTop)
-            make.left.equalTo(self.snp.left).offset(self.inputFieldSideOffset)
-            make.right.equalTo(self.snp.right).offset(-self.inputFieldSideOffset)
+        titleLabel.snp.remakeConstraints { make in
+            make.height.equalTo(titleHeight)
+            make.top.equalTo(activityIndicator.snp.bottom).offset(titleTop)
+            make.centerX.equalToSuperview()
         }
-        acceptButton.snp.makeConstraints { make in
-            make.height.equalTo(self.acceptButtonHeight)
-            make.top.equalTo(self.inputField.snp.bottom).offset(self.acceptButtonTop)
-            make.width.equalTo(self.acceptButtonWidth)
-            make.centerX.equalTo(self)
+        inputField.snp.remakeConstraints { make in
+            make.height.equalTo(inputFieldHeight)
+            make.top.equalTo(titleLabel.snp.bottom).offset(inputFieldTop)
+            make.left.equalToSuperview().offset(inputFieldSideOffset)
+            make.right.equalToSuperview().offset(-inputFieldSideOffset)
+        }
+        acceptButton.snp.remakeConstraints { make in
+            make.height.equalTo(acceptButtonHeight)
+            make.top.equalTo(inputField.snp.bottom).offset(acceptButtonTop)
+            make.width.equalTo(acceptButtonWidth)
+            make.centerX.equalToSuperview()
         }
         super.updateConstraints()
     }

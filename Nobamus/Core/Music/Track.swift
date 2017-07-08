@@ -8,16 +8,9 @@
 
 import Foundation
 
-class Track {
-    var id: Int!
-    var title = ""
-    var artist = ""
-    var albumTitle = ""
-    
-    init(id: Int, title: String, artist: String, albumTitle: String) {
-        self.id = id
-        self.title = title
-        self.artist = artist
-        self.albumTitle = albumTitle
-    }
+struct Track {
+    let id: Int
+    let title: String
+    let artist: String
+    let albumTitle: String
 }

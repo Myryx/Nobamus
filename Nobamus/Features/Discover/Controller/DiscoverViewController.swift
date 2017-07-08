@@ -21,11 +21,7 @@ class DiscoverViewController: UIViewController {
         }
     }
     
-    var viewModel: DiscoverViewModel? {
-        didSet {
-//            viewModel?.delegate = self
-        }
-    }
+    var viewModel: DiscoverViewModel
     
     fileprivate var discoverView: DiscoverView {
         return view as! DiscoverView
@@ -35,24 +31,30 @@ class DiscoverViewController: UIViewController {
         return self.discoverView.collectionView
     }()
     
+    init(viewModel: DiscoverViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+        self.viewModel.delegate = self
+    }
+    
+    required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
+    
     override func loadView() {
         self.view = DiscoverView(frame: UIScreen.main.bounds)
+        collectionView?.dataSource = self
+        collectionView?.prefetchDataSource = self
+        collectionView?.delegate = self
+        collectionView?.contentInset = UIEdgeInsetsMake(0, 10, 0, 10)
+        collectionView?.register(DiscoverCell.self, forCellWithReuseIdentifier: reuseIdentifier)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView?.register(DiscoverCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-        configureViews()
+        
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
-    }
-    
-    func configureViews() {
-        collectionView?.dataSource = self
-        collectionView?.delegate = self
-        collectionView?.contentInset = UIEdgeInsetsMake(0, 10, 0, 10)
     }
     
 }
@@ -93,5 +95,14 @@ extension DiscoverViewController: UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 20
+    }
+}
+
+extension DiscoverViewController: DiscoverViewModelDelegate {
+    func peopleAroundFetchDidFinish() {
+        print("Did finith fetch")
+    }
+    func peopleAroundFetchDidFail(_ errorMessage: String) {
+        APIErrorProcessor.sharedInstance.presentError(with: errorMessage, completion: nil)
     }
 }

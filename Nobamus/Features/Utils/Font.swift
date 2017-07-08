@@ -1,9 +1,5 @@
 //
-//  Font.swift
-//  Nobamus
-//
-//  Created by Yanislav Kononov on 5/20/17.
-//  Copyright © 2017 Yanislav Kononov. All rights reserved.
+//  Extension for fonts so we can quickly get the one needed
 //
 
 import Foundation
@@ -16,7 +12,7 @@ public extension UIFont {
     class func mediumOfSize(_ size: CGFloat) -> UIFont {
         return UIFont.systemFont(ofSize: size, weight: UIFontWeightMedium)
     }
-    class func boldrOfSize(_ size: CGFloat) -> UIFont {
+    class func boldOfSize(_ size: CGFloat) -> UIFont {
         return UIFont.systemFont(ofSize: size, weight: UIFontWeightBold)
     }
     class func lightOfSize(_ size: CGFloat) -> UIFont {

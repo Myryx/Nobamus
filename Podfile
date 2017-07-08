@@ -11,4 +11,5 @@ target 'Nobamus' do
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
   pod 'SnapKit', '~> 3.0'
+  pod 'Alamofire', '~> 4.4'
 end
