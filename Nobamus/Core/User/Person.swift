@@ -10,9 +10,9 @@ import Foundation
 
 struct Person {
     let name: String
-    let latitude: Double
-    let longitude: Double
-    let country: String
+    let latitude: Double = 0.0
+    let longitude: Double = 0.0
+    let country: String = NSLocale.current.regionCode ?? ""
     var track: Track
     init(name: String, track: Track) {
         self.name = name

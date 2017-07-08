@@ -33,7 +33,7 @@ class LocationProvider: NSObject {
     fileprivate func updateLocation(location:CLLocation) {
         guard
             location.horizontalAccuracy > 0,
-            location.horizontalAccuracy <= 65
+            location.horizontalAccuracy <= 50
         else { return }
         guard isUpdatingLocation == true else { return }
         stopUpdatingLocation()
@@ -45,7 +45,7 @@ class LocationProvider: NSObject {
         isUpdatingLocation = false
         locationManager.stopUpdatingLocation()
         // and after 60 secs refresh the location
-        DispatchQueue.main.asyncAfter(deadline: .now() + 60) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [weak self] in
             self?.startUpdatingLocation()
         }
     }
@@ -58,7 +58,6 @@ class LocationProvider: NSObject {
         User.sharedInstance.longitude = longitude
         DatabaseManager.updateUser(key: "latitude", value: latitude)
         DatabaseManager.updateUser(key: "longitude", value: longitude)
-        
     }
 }
 

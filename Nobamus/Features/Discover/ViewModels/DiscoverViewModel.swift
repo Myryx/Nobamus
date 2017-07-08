@@ -31,11 +31,11 @@ class DiscoverViewModel: DiscoverViewModelProtocol {
         service.getIdsOfUsersAround(location: location, country: User.sharedInstance.country, completion: { [unowned self] (identifiers, error) in
             if let identifiers = identifiers, error == nil {
                 self.peopleAroundIdentifiers = identifiers
+                self.delegate?.peopleAroundFetchDidFinish()
                 
             } else if let error = error {
                 self.delegate?.peopleAroundFetchDidFail(error.localizedDescription)
             }
-            
         })
     }
 }

@@ -81,6 +81,7 @@ class LoginViewController: UIViewController{
 
 extension LoginViewController: AppleMusicLoginDelegate {
     func successfulLogin() {
+        fatalError("Login wasn't implemented")
 //        loginView.activityIndicator.stopAnimating()
 //        let controller = DiscoverViewController()
 //        self.navigationController?.pushViewController(controller, animated: true)

@@ -1,9 +1,5 @@
 //
-//  DiscoverViewController.swift
-//  Nobamus
-//
-//  Created by Yanislav Kononov on 5/21/17.
-//  Copyright © 2017 Yanislav Kononov. All rights reserved.
+//  ViewController that manages interaction with user on other users discovery
 //
 
 import Foundation
@@ -44,7 +40,6 @@ class DiscoverViewController: UIViewController {
         collectionView?.dataSource = self
         collectionView?.prefetchDataSource = self
         collectionView?.delegate = self
-        collectionView?.contentInset = UIEdgeInsetsMake(0, 10, 0, 10)
         collectionView?.register(DiscoverCell.self, forCellWithReuseIdentifier: reuseIdentifier)
     }
     
@@ -53,7 +48,7 @@ class DiscoverViewController: UIViewController {
         
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle{
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
     
@@ -84,10 +79,7 @@ extension DiscoverViewController: UICollectionViewDataSource {
     }
 }
 
-extension DiscoverViewController: UICollectionViewDelegateFlowLayout{
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return cellSize
-    }
+extension DiscoverViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 20
@@ -100,7 +92,7 @@ extension DiscoverViewController: UICollectionViewDelegateFlowLayout{
 
 extension DiscoverViewController: DiscoverViewModelDelegate {
     func peopleAroundFetchDidFinish() {
-        print("Did finith fetch")
+        print("Did finish fetch")
     }
     func peopleAroundFetchDidFail(_ errorMessage: String) {
         APIErrorProcessor.sharedInstance.presentError(with: errorMessage, completion: nil)

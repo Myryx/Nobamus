@@ -11,7 +11,7 @@
 
 
 //Errors
-"Error" = "Error occured"
-"AlertAction.OK" = "OK"
+"Error" = "Error occured";
+"AlertAction.OK" = "OK";
 "Something Went Wrong" = "Sorry, something went wrong, please pull to refresh to try again";
-"No Internet Connection" = "Hmm, it appears that you have no Internet connection or a very slow one"
+"No Internet Connection" = "Hmm, it appears that you have no Internet connection or a very slow one";

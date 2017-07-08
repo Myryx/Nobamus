@@ -20,9 +20,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         let service = DiscoverService()
-        let viewModel = DiscoverViewModel(locationProvider: LocationProvider(), service: service)
+        let locationProvider = LocationProvider()
+        let viewModel = DiscoverViewModel(locationProvider: locationProvider, service: service)
+        locationProvider.delegate = viewModel
         let discoverViewController = DiscoverViewController(viewModel: viewModel)
-        discoverViewController.viewModel = viewModel
         
         let frame = UIScreen.main.bounds
         window = UIWindow(frame: frame)

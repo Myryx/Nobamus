@@ -9,6 +9,7 @@ class DiscoverView: UIView {
     // MARK: - Variables
     private let collectionViewBorders: CGFloat = 5
     private let cellPartOfFrameWidth: CGFloat = 0.38
+    private let collectionSideInsetSize: CGFloat = 10
     
     private var cellSize : CGSize! {
         get {
@@ -28,6 +29,7 @@ class DiscoverView: UIView {
         let collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.backgroundColor = UIColor.clear
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.contentInset = UIEdgeInsetsMake(0, self.collectionSideInsetSize, 0, self.collectionSideInsetSize)
         return collectionView
     }()
     
