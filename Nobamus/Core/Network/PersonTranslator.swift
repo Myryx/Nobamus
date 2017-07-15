@@ -18,9 +18,10 @@ class PersonTranslator: Translator {
     }
     
     func translateFrom(snapshot: FIRDataSnapshot) -> Person? {
+        guard let value = snapshot.value as? NSDictionary else { return nil }
         guard
-            let name = snapshot.value(forKey: PersonKeys.name.rawValue) as? String,
-            let trackJson = snapshot.value(forKey: PersonKeys.track.rawValue) as? [String : Any],
+            let name = value[PersonKeys.name.rawValue] as? String,
+            let trackJson = value[PersonKeys.track.rawValue] as? [String : Any],
             let track = TrackTranslator().translateFrom(dictionary:trackJson)
             else { return nil }
         

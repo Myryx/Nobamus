@@ -85,9 +85,9 @@ class LoginAppleMusicProvider {
             let startIndex = storefrontId.index(storefrontId.startIndex, offsetBy: 0)
             let endIndex = storefrontId.index(storefrontId.startIndex, offsetBy: 5)
             
-            let trimmed_id = storefrontId[startIndex...endIndex]
-            User.sharedInstance.storeFrondID = Int(trimmed_id)
-            print("The user's storefront ID is: \(trimmed_id)")
+            let trimmedId = storefrontId[startIndex...endIndex]
+            User.sharedInstance.storeFrondID = Int(trimmedId)
+            print("The user's storefront ID is: \(trimmedId)")
         })
     }
 }

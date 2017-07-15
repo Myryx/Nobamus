@@ -19,7 +19,7 @@ class DiscoverCell: UICollectionViewCell {
         }
     }
     
-    var distanceBottom: CGFloat = 20 {
+    var distanceBottom: CGFloat = 5 {
         didSet {
             setNeedsUpdateConstraints()
         }
@@ -73,15 +73,16 @@ class DiscoverCell: UICollectionViewCell {
         label.font = UIFont.regularOfSize(20)
         label.textAlignment = .center
         label.textColor = UIColor.white
+        label.alpha = 0
         return label
     }()
     
     fileprivate(set) lazy var distanceLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.regularOfSize(10)
+        label.font = UIFont.regularOfSize(18)
         label.textAlignment = .right
         label.textColor = UIColor.white
-        label.isHidden = true
+        label.alpha = 0
         return label
     }()
     
@@ -92,7 +93,6 @@ class DiscoverCell: UICollectionViewCell {
         addSubview(playIconImageView)
         addSubview(nameLabel)
         addSubview(distanceLabel)
-        backgroundColor = UIColor.blackColorWithAlpha(0.8)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -110,22 +110,46 @@ class DiscoverCell: UICollectionViewCell {
         distanceLabel.text = String(distance)
     }
     
+    func enableCellAppearance() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.nameLabel.alpha = 1.0
+            self.distanceLabel.alpha = 1.0
+            self.coverView.alpha = 1.0
+            self.backgroundColor = UIColor.blackColorWithAlpha(0.8)
+        })
+    }
+    
+    func disableCellAppearance() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.nameLabel.alpha = 0
+            self.distanceLabel.alpha = 0
+            self.coverView.alpha = 0
+            self.backgroundColor = UIColor.blackColorWithAlpha(0)
+        })
+    }
+    
+    override func prepareForReuse() {
+        nameLabel.text = ""
+        distanceLabel.text = ""
+        disableCellAppearance()
+    }
+    
     override func updateConstraints() {
-        avatarImage.snp.updateConstraints { make in
-            make.top.bottom.right.left.equalToSuperview()
+        avatarImage.snp.remakeConstraints { make in
+            make.edges.equalToSuperview()
         }
-        coverView.snp.updateConstraints { make in
-            make.top.bottom.right.left.equalToSuperview()
+        coverView.snp.remakeConstraints { make in
+            make.edges.equalToSuperview()
         }
-        playIconImageView.snp.updateConstraints { make in
+        playIconImageView.snp.remakeConstraints { make in
             make.size.equalTo(playIconSize)
-            make.center.equalTo(snp.center)
+            make.center.equalToSuperview()
         }
-        nameLabel.snp.updateConstraints { make in
-            make.centerY.equalToSuperview()
-            make.right.left.equalToSuperview().offset(nameLabelBorder)
+        nameLabel.snp.remakeConstraints { make in
+            make.center.equalToSuperview()
+            make.width.equalToSuperview()
         }
-        distanceLabel.snp.updateConstraints { make in
+        distanceLabel.snp.remakeConstraints { make in
             make.right.equalToSuperview().offset(-distanceRight)
             make.bottom.equalToSuperview().offset(-distanceBottom)
         }

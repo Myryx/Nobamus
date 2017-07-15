@@ -12,6 +12,8 @@ class LocationProvider: NSObject {
     fileprivate var locationManager: CLLocationManager!
     fileprivate var currentBestAccuracy: CLLocationAccuracy!
     fileprivate var isUpdatingLocation: Bool = false
+    private let updatePeriodicity: Double = 20
+    private let satisfyingLocationAccuracy: CLLocationAccuracy = 50
     weak var delegate: LocationProviderDelegate?
     
     override init() {
@@ -33,7 +35,7 @@ class LocationProvider: NSObject {
     fileprivate func updateLocation(location:CLLocation) {
         guard
             location.horizontalAccuracy > 0,
-            location.horizontalAccuracy <= 50
+            location.horizontalAccuracy <= satisfyingLocationAccuracy
         else { return }
         guard isUpdatingLocation == true else { return }
         stopUpdatingLocation()
@@ -44,8 +46,8 @@ class LocationProvider: NSObject {
     private func stopUpdatingLocation() {
         isUpdatingLocation = false
         locationManager.stopUpdatingLocation()
-        // and after 60 secs refresh the location
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [weak self] in
+        // and after updatePeriodicity secs refresh the location
+        DispatchQueue.main.asyncAfter(deadline: .now() + updatePeriodicity) { [weak self] in
             self?.startUpdatingLocation()
         }
     }

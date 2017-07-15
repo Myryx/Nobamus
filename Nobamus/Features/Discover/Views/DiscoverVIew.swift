@@ -10,6 +10,8 @@ class DiscoverView: UIView {
     private let collectionViewBorders: CGFloat = 5
     private let cellPartOfFrameWidth: CGFloat = 0.38
     private let collectionSideInsetSize: CGFloat = 10
+    private let minimumLineSpacing: CGFloat = 20
+    private let minimumInteritemSpacing: CGFloat = 20
     
     private var cellSize : CGSize! {
         get {
@@ -33,6 +35,12 @@ class DiscoverView: UIView {
         return collectionView
     }()
     
+    fileprivate(set) lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        return refreshControl
+    }()
+    
     // MARK: - Initialization
     
     override init(frame: CGRect) {
@@ -42,6 +50,9 @@ class DiscoverView: UIView {
         guard let collectionViewLayout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         collectionViewLayout.itemSize = cellSize
         collectionViewLayout.scrollDirection = .vertical
+        collectionViewLayout.minimumLineSpacing = minimumLineSpacing
+        collectionViewLayout.minimumInteritemSpacing = minimumInteritemSpacing
+        collectionView.addSubview(refreshControl)
     }
     
     required init?(coder aDecoder: NSCoder) {

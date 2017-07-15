@@ -7,8 +7,6 @@ import UIKit
 
 class DiscoverViewController: UIViewController {
     
-    fileprivate let reuseIdentifier = "DiscoverCell"
-    
     var cellSize : CGSize! {
         get {
             let side = UIScreen.main.bounds.width * 0.38
@@ -17,7 +15,7 @@ class DiscoverViewController: UIViewController {
         }
     }
     
-    var viewModel: DiscoverViewModel
+    var viewModel: DiscoverViewModelProtocol
     
     fileprivate var discoverView: DiscoverView {
         return view as! DiscoverView
@@ -27,7 +25,7 @@ class DiscoverViewController: UIViewController {
         return self.discoverView.collectionView
     }()
     
-    init(viewModel: DiscoverViewModel) {
+    init(viewModel: DiscoverViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         self.viewModel.delegate = self
@@ -40,7 +38,8 @@ class DiscoverViewController: UIViewController {
         collectionView?.dataSource = self
         collectionView?.prefetchDataSource = self
         collectionView?.delegate = self
-        collectionView?.register(DiscoverCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView?.register(DiscoverCell.self, forCellWithReuseIdentifier: DiscoverCell.reuseIdentifier)
+        discoverView.refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
     }
     
     override func viewDidLoad() {
@@ -52,47 +51,66 @@ class DiscoverViewController: UIViewController {
         return .lightContent
     }
     
+    func refreshData() {
+        viewModel.shouldUpdatePeople = true
+        viewModel.fefreshData()
+    }
+    
 }
 
 extension DiscoverViewController: UICollectionViewDataSourcePrefetching {
     
     func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
-        
+        for indexPath in indexPaths {
+            viewModel.preparePersonLoading(at: indexPath)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
-        
+        for indexPath in indexPaths {
+            viewModel.stopPersonLoading(at: indexPath)
+        }
     }
 }
 
 extension DiscoverViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int { return 1 }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 20
-    }
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return viewModel.numberOfItems()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: DiscoverCell.reuseIdentifier, for: indexPath)
         return cell
     }
 }
 
-extension DiscoverViewController: UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+extension DiscoverViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? DiscoverCell else { return }
+        
+        viewModel.updateVisibleIndices(with: collectionView.indexPathsForVisibleItems)
+        
+        let updateCellClosure: () -> () = { [unowned self] _ in
+            self.viewModel.configureCell(cell, at: indexPath)
+            self.viewModel.loadingOperations.removeValue(forKey: indexPath)
+        }
+        self.viewModel.managePersonLoading(at: indexPath, completion: updateCellClosure)
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 20
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        viewModel.updateVisibleIndices(with: collectionView.indexPathsForVisibleItems)
+        viewModel.stopPersonLoading(at: indexPath)
     }
 }
 
 extension DiscoverViewController: DiscoverViewModelDelegate {
     func peopleAroundFetchDidFinish() {
-        print("Did finish fetch")
+        collectionView?.reloadData()
+        if discoverView.refreshControl.isRefreshing {
+           discoverView.refreshControl.endRefreshing()
+        }
     }
     func peopleAroundFetchDidFail(_ errorMessage: String) {
         APIErrorProcessor.sharedInstance.presentError(with: errorMessage, completion: nil)
