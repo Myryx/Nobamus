@@ -11,13 +11,25 @@ import FirebaseAuth
 import FirebaseDatabase
 import CoreLocation
 
+enum UserKeys: String {
+    case id
+    case country
+    case latitude
+    case longitude
+    case name
+    case track
+}
+
 class DatabaseManager {
     static var ref = FIRDatabase.database().reference()
     
     static func createOrUpdateUser(userID: String, name: String, country: String) {
-        ref.child("users").child(userID).setValue(["id": userID, "name": name, "country": country])
+        updateUser(key: UserKeys.id.rawValue, value: userID)
+        updateUser(key: UserKeys.name.rawValue, value: name)
+        updateUser(key: UserKeys.country.rawValue, value: country)
     }
     
+    // MARK update
     static func updateUser(key: String, value: Any) {
         guard let userId = User.sharedInstance.uniqueID else { return }
         ref.child("users").child(userId).observeSingleEvent(of: .value, with: { snapshot in
@@ -28,6 +40,11 @@ class DatabaseManager {
         }
     }
     
+    static func updateUserTrack(track: Track) {
+        DatabaseManager.updateUser(key: "track", value: TrackTranslator().translateToDictionary(track))
+    }
+    
+    // MARK: get
     static func getPerson(with id: String, completion: @escaping (Person?) -> Void) {
         var person: Person? = nil
         ref.child("users").child(id).observeSingleEvent(of: .value, with: { snapshot in

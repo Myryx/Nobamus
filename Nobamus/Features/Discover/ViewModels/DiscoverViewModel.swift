@@ -19,7 +19,7 @@ protocol DiscoverViewModelProtocol {
     func preparePersonLoading(at indexPath: IndexPath)
     func managePersonLoading(at indexPath: IndexPath, completion: (() -> Void)?)
     func stopPersonLoading(at indexPath: IndexPath)
-    func updateVisibleIndices(with indexPaths: [IndexPath])
+    func didSelectItem(at indexPath: IndexPath)
     func fefreshData()
 }
 
@@ -37,6 +37,8 @@ class DiscoverViewModel: DiscoverViewModelProtocol {
         self.locationProvider = locationProvider
         self.service = service
         locationProvider.startUpdatingLocation()
+        MusicProvider.delegate = self
+        MusicProvider.setup()
     }
     
     func numberOfItems() -> Int {
@@ -97,8 +99,20 @@ class DiscoverViewModel: DiscoverViewModelProtocol {
         }
     }
     
-    func updateVisibleIndices(with indexPaths: [IndexPath]) {
-        self.visibleIndices = indexPaths.sorted()
+    func didSelectItem(at indexPath: IndexPath) {
+        if let dataLoader = getLoadOperation(for: indexPath), let person = dataLoader.person {
+            MusicProvider.playTrack(person.track)
+        } else {
+            guard let dataLoader = getLoadOperation(for: indexPath) else { return }
+            dataLoader.loadingCompleteHandler = {
+                if let track = dataLoader.person?.track {
+                    MusicProvider.playTrack(track)
+                    DatabaseManager.updateUserTrack(track: track)
+                }
+            }
+            loadingQueue.addOperation(dataLoader)
+            loadingOperations[indexPath] = dataLoader
+        }
     }
     
     func fefreshData() {
@@ -116,6 +130,12 @@ class DiscoverViewModel: DiscoverViewModelProtocol {
             return nil
         }
         return PersonLoadOperation(personId)
+    }
+}
+
+extension DiscoverViewModel: MusicProviderDelegate {
+    func personalTrackHasChanged(to track: Track) {
+        DatabaseManager.updateUserTrack(track: track)
     }
 }
 

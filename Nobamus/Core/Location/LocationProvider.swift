@@ -36,9 +36,13 @@ class LocationProvider: NSObject {
         guard
             location.horizontalAccuracy > 0,
             location.horizontalAccuracy <= satisfyingLocationAccuracy
-        else { return }
+        else {
+            print("Unsatisfying accuracy: \(location.horizontalAccuracy)")
+            return
+        }
         guard isUpdatingLocation == true else { return }
         stopUpdatingLocation()
+        print("Satisfying accuracy: \(location.horizontalAccuracy)")
         storeLocation(location: location)
         delegate?.locationWasFound(location)
     }

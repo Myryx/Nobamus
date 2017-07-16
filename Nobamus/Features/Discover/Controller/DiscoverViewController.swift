@@ -90,8 +90,6 @@ extension DiscoverViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? DiscoverCell else { return }
         
-        viewModel.updateVisibleIndices(with: collectionView.indexPathsForVisibleItems)
-        
         let updateCellClosure: () -> () = { [unowned self] _ in
             self.viewModel.configureCell(cell, at: indexPath)
             self.viewModel.loadingOperations.removeValue(forKey: indexPath)
@@ -100,8 +98,11 @@ extension DiscoverViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        viewModel.updateVisibleIndices(with: collectionView.indexPathsForVisibleItems)
         viewModel.stopPersonLoading(at: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        viewModel.didSelectItem(at: indexPath)
     }
 }
 

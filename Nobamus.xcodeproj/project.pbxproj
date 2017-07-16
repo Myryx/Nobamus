@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2C2AE0461F1138C400AB08CC /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2AE0451F1138C400AB08CC /* Array.swift */; };
+		2C2B1D8B1F1B2AD7001D6FF9 /* audioFile.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2C2B1D8A1F1B2AD7001D6FF9 /* audioFile.mp3 */; };
 		2C45BF831F0FF21400E7D628 /* PersonLoadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45BF821F0FF21400E7D628 /* PersonLoadOperation.swift */; };
 		2C45BF851F0FF87700E7D628 /* TrackTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45BF841F0FF87700E7D628 /* TrackTranslator.swift */; };
 		2C45BF871F10C0A900E7D628 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45BF861F10C0A900E7D628 /* APIError.swift */; };
@@ -43,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		2C2AE0451F1138C400AB08CC /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Array.swift; path = Features/Utils/Array.swift; sourceTree = "<group>"; };
+		2C2B1D8A1F1B2AD7001D6FF9 /* audioFile.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = audioFile.mp3; sourceTree = "<group>"; };
 		2C45BF821F0FF21400E7D628 /* PersonLoadOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersonLoadOperation.swift; path = Features/Discover/Model/PersonLoadOperation.swift; sourceTree = "<group>"; };
 		2C45BF841F0FF87700E7D628 /* TrackTranslator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackTranslator.swift; path = Core/Network/TrackTranslator.swift; sourceTree = "<group>"; };
 		2C45BF861F10C0A900E7D628 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIError.swift; path = Core/Network/APIError.swift; sourceTree = "<group>"; };
@@ -93,6 +95,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C2B1D891F1B2AAF001D6FF9 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				2C2B1D8A1F1B2AD7001D6FF9 /* audioFile.mp3 */,
+				2C9074501EBF111E000E1A71 /* Assets.xcassets */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		2C45BF811F0FF1EE00E7D628 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -134,11 +145,11 @@
 		2C9074481EBF111E000E1A71 /* Nobamus */ = {
 			isa = PBXGroup;
 			children = (
+				2C2B1D891F1B2AAF001D6FF9 /* Resources */,
 				2CD6F8041ED0AE650042A748 /* Core */,
 				2C90745D1EBF281B000E1A71 /* Features */,
 				2C90745B1EBF127B000E1A71 /* GoogleService-Info.plist */,
 				2C9074491EBF111E000E1A71 /* AppDelegate.swift */,
-				2C9074501EBF111E000E1A71 /* Assets.xcassets */,
 				2C9074551EBF111E000E1A71 /* Info.plist */,
 			);
 			path = Nobamus;
@@ -415,6 +426,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2C2B1D8B1F1B2AD7001D6FF9 /* audioFile.mp3 in Resources */,
 				2CADD0BE1ED0697400C9ABA3 /* Localizable.strings in Resources */,
 				2C90745C1EBF127B000E1A71 /* GoogleService-Info.plist in Resources */,
 				2CADD0C41ED06AD200C9ABA3 /* LaunchScreen.storyboard in Resources */,

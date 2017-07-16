@@ -9,7 +9,7 @@
 import Foundation
 
 struct Track {
-    let id: Int
+    let id: String
     let title: String
     let artist: String
     let albumTitle: String
