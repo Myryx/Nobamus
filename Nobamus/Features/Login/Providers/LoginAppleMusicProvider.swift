@@ -62,7 +62,6 @@ class LoginAppleMusicProvider {
         serviceController.requestCapabilities(completionHandler: { (capability:SKCloudServiceCapability, err:Error?) in
             if(capability.contains(SKCloudServiceCapability.musicCatalogPlayback)) {
                 self.appleMusicFetchStorefrontRegion()
-                self.delegate?.successfulLogin()
             } else {
                 self.delegate?.cannotPlayback()
             }
@@ -72,7 +71,7 @@ class LoginAppleMusicProvider {
     private func appleMusicFetchStorefrontRegion() {
         
         let serviceController = SKCloudServiceController()
-        serviceController.requestStorefrontIdentifier(completionHandler: { (storefrontId:String?, err:Error?) in
+        serviceController.requestStorefrontIdentifier(completionHandler: { (storefrontId: String?, err:Error?) in
             guard err == nil else {
                 self.appleMusicFetchStorefrontRegion()
                 return
@@ -87,6 +86,7 @@ class LoginAppleMusicProvider {
             
             let trimmedId = storefrontId[startIndex...endIndex]
             User.sharedInstance.storeFrondID = Int(trimmedId)
+            self.delegate?.successfulLogin()
             print("The user's storefront ID is: \(trimmedId)")
         })
     }

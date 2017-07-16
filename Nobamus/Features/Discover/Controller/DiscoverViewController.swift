@@ -42,11 +42,6 @@ class DiscoverViewController: UIViewController {
         discoverView.refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-    }
-    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }

@@ -96,7 +96,7 @@ class LoginView: UIView {
             make.centerX.equalToSuperview()
         }
         backgroundImage.snp.updateConstraints { make in
-            make.top.bottom.right.left.equalToSuperview()
+            make.edges.equalToSuperview()
         }
         titleLabel.snp.remakeConstraints { make in
             make.height.equalTo(titleHeight)

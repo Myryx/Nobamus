@@ -10,16 +10,15 @@ import Foundation
 import UIKit
 import StoreKit
 
-class LoginViewController: UIViewController{
+class LoginViewController: UIViewController {
     
     private let canProceed: Bool = false // all AppleMusic permissions are OK and we can use the service
+    fileprivate var didLoginToFirebase = false
+    fileprivate var didLoginToAppleMusic = false
     
-    var viewModel: LoginViewModel? {
-        didSet {
-//            viewModel?.delegate = self
-        }
-    }
-    var provider: LoginAppleMusicProvider!
+    var provider: LoginAppleMusicProvider
+    
+    var firebaseService = LoginFirebaseService()
     
     // MARK: - initialization
     
@@ -27,6 +26,7 @@ class LoginViewController: UIViewController{
         self.provider = provider
         super.init(nibName: nil, bundle: nil)
         self.provider.delegate = self
+        firebaseService.delegate = self
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -47,6 +47,14 @@ class LoginViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if let name = UserDefaults.standard.value(forKey: "userName") as? String {
+            loginView.titleLabel.isHidden = true
+            loginView.inputField.isHidden = true
+            loginView.acceptButton.isHidden = true
+            loginView.activityIndicator.startAnimating()
+            firebaseService.signInAnonymouslyFireBase(with: name)
+            provider.appleMusicRequestPermission()
+        }
         configureViews()
     }
     
@@ -61,8 +69,8 @@ class LoginViewController: UIViewController{
         guard let text = loginView.inputField.text else { return }
         if (text.characters.count > 0) {
             loginView.activityIndicator.startAnimating()
-            provider?.appleMusicRequestPermission()
-            LoginFirebaseService.signInAnonymouslyFireBase(with: text)
+            provider.appleMusicRequestPermission()
+            firebaseService.signInAnonymouslyFireBase(with: text)
         } else {
             loginView.inputField.attributedPlaceholder = NSAttributedString(string: localizedStringForKey("Login.FillInYourName"), attributes: [NSForegroundColorAttributeName: UIColor.red])
         }
@@ -77,14 +85,35 @@ class LoginViewController: UIViewController{
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
+    
+    fileprivate func proceed() {
+        DispatchQueue.main.async {
+            self.loginView.activityIndicator.stopAnimating()
+            let service = DiscoverService()
+            let locationProvider = LocationProvider()
+            let viewModel = DiscoverViewModel(locationProvider: locationProvider, service: service)
+            locationProvider.delegate = viewModel
+            let controller = DiscoverViewController(viewModel: viewModel)
+            self.navigationController?.pushViewController(controller, animated: true)
+        }
+    }
+}
+
+extension LoginViewController: FirebaseLoginDelegate {
+    func successfulFirebaseLogin() {
+        didLoginToFirebase = true
+        if didLoginToAppleMusic {
+            proceed()
+        }
+    }
 }
 
 extension LoginViewController: AppleMusicLoginDelegate {
     func successfulLogin() {
-        fatalError("Login wasn't implemented")
-//        loginView.activityIndicator.stopAnimating()
-//        let controller = DiscoverViewController()
-//        self.navigationController?.pushViewController(controller, animated: true)
+        didLoginToAppleMusic = true
+        if didLoginToFirebase {
+            proceed()
+        }
     }
     
     func loginFailed(reason: SKCloudServiceAuthorizationStatus){

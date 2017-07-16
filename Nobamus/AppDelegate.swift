@@ -16,18 +16,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         FIRApp.configure()
-        LoginFirebaseService.signInAnonymouslyFireBase(with: "Me")
         
         
-        let service = DiscoverService()
-        let locationProvider = LocationProvider()
-        let viewModel = DiscoverViewModel(locationProvider: locationProvider, service: service)
-        locationProvider.delegate = viewModel
-        let discoverViewController = DiscoverViewController(viewModel: viewModel)
+        let loginViewController = LoginViewController(LoginAppleMusicProvider())
         
         let frame = UIScreen.main.bounds
+        let navigationController = UINavigationController(rootViewController: loginViewController)
+        navigationController.setNavigationBarHidden(true, animated: false)
         window = UIWindow(frame: frame)
-        self.window?.rootViewController = discoverViewController
+        self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
         
         return true
