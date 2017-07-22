@@ -52,6 +52,7 @@ class LoginViewController: UIViewController {
             loginView.inputField.isHidden = true
             loginView.acceptButton.isHidden = true
             loginView.activityIndicator.startAnimating()
+            loginView.loginStatusLabel.isHidden = false
             firebaseService.signInAnonymouslyFireBase(with: name)
             provider.appleMusicRequestPermission()
         }
@@ -69,6 +70,7 @@ class LoginViewController: UIViewController {
         guard let text = loginView.inputField.text else { return }
         if (text.characters.count > 0) {
             loginView.activityIndicator.startAnimating()
+            loginView.loginStatusLabel.isHidden = false
             provider.appleMusicRequestPermission()
             firebaseService.signInAnonymouslyFireBase(with: text)
         } else {

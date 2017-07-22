@@ -12,8 +12,8 @@ class LocationProvider: NSObject {
     fileprivate var locationManager: CLLocationManager!
     fileprivate var currentBestAccuracy: CLLocationAccuracy!
     fileprivate var isUpdatingLocation: Bool = false
-    private let updatePeriodicity: Double = 20
-    private let satisfyingLocationAccuracy: CLLocationAccuracy = 50
+    private let updatePeriodicity: Double = 10
+    private let satisfyingLocationAccuracy: CLLocationAccuracy = 100
     weak var delegate: LocationProviderDelegate?
     
     override init() {
@@ -23,6 +23,7 @@ class LocationProvider: NSObject {
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager.requestWhenInUseAuthorization()
         locationManager.startMonitoringSignificantLocationChanges()
+        locationManager.allowsBackgroundLocationUpdates = true
         locationManager.distanceFilter = 1
         isUpdatingLocation = false
     }
@@ -33,16 +34,15 @@ class LocationProvider: NSObject {
     }
     
     fileprivate func updateLocation(location:CLLocation) {
+        MusicProvider.updatePersonalTrack()
         guard
             location.horizontalAccuracy > 0,
             location.horizontalAccuracy <= satisfyingLocationAccuracy
         else {
-            print("Unsatisfying accuracy: \(location.horizontalAccuracy)")
             return
         }
         guard isUpdatingLocation == true else { return }
         stopUpdatingLocation()
-        print("Satisfying accuracy: \(location.horizontalAccuracy)")
         storeLocation(location: location)
         delegate?.locationWasFound(location)
     }

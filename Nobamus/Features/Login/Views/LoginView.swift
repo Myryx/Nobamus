@@ -15,6 +15,8 @@ class LoginView: UIView {
     private let titleHeight: CGFloat = 30
     private let titleTop: CGFloat = 20
     
+    private let loginStatusTop: CGFloat = 10
+    
     private let activityTop: CGFloat = 40
     private let activitySize: CGFloat = 30
     
@@ -40,6 +42,17 @@ class LoginView: UIView {
         label.textAlignment = .center
         label.textColor = UIColor.white
         label.isUserInteractionEnabled = false
+        return label
+    }()
+    
+    fileprivate(set) lazy var loginStatusLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.regularOfSize(17)
+        label.text = localizedStringForKey("Login.WeAreLoggingYouIn")
+        label.textAlignment = .center
+        label.textColor = UIColor.white
+        label.isUserInteractionEnabled = false
+        label.isHidden = true
         return label
     }()
     
@@ -77,6 +90,7 @@ class LoginView: UIView {
         addSubview(titleLabel)
         addSubview(inputField)
         addSubview(acceptButton)
+        addSubview(loginStatusLabel)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -90,17 +104,21 @@ class LoginView: UIView {
     }
     
     override func updateConstraints() {
-        activityIndicator.snp.updateConstraints { make in
+        activityIndicator.snp.remakeConstraints { make in
             make.size.equalTo(activitySize)
             make.top.equalToSuperview().offset(activityTop)
             make.centerX.equalToSuperview()
         }
-        backgroundImage.snp.updateConstraints { make in
+        loginStatusLabel.snp.remakeConstraints { make in
+            make.top.equalTo(activityIndicator.snp.bottom).offset(loginStatusTop)
+            make.centerX.equalToSuperview()
+        }
+        backgroundImage.snp.remakeConstraints { make in
             make.edges.equalToSuperview()
         }
         titleLabel.snp.remakeConstraints { make in
             make.height.equalTo(titleHeight)
-            make.top.equalTo(activityIndicator.snp.bottom).offset(titleTop)
+            make.top.equalTo(loginStatusLabel.snp.bottom).offset(titleTop)
             make.centerX.equalToSuperview()
         }
         inputField.snp.remakeConstraints { make in

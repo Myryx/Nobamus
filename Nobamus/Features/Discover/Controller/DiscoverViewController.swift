@@ -42,6 +42,12 @@ class DiscoverViewController: UIViewController {
         discoverView.refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        discoverView.activityIndicator.startAnimating()
+        discoverView.loginStatusLabel.isHidden = false
+    }
+    
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -87,16 +93,31 @@ extension DiscoverViewController: UICollectionViewDelegate {
         
         let updateCellClosure: () -> () = { [unowned self] _ in
             self.viewModel.configureCell(cell, at: indexPath)
-            self.viewModel.loadingOperations.removeValue(forKey: indexPath)
         }
         self.viewModel.managePersonLoading(at: indexPath, completion: updateCellClosure)
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         viewModel.stopPersonLoading(at: indexPath)
+        guard let cell = cell as? DiscoverCell else { return }
+        cell.playIconImageView.isHidden = true
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? DiscoverCell else { return }
+        if indexPath == viewModel.lastSelectedCellIndexPath {
+            if MusicProvider.isPlaying == true {
+                cell.playIconImageView.isHidden = true
+            } else {
+                cell.playIconImageView.isHidden = false
+            }
+        } else {
+            if let indexPath = viewModel.lastSelectedCellIndexPath,
+            let previousCell = collectionView.cellForItem(at: indexPath) as? DiscoverCell {
+                previousCell.playIconImageView.isHidden = true
+            }
+            cell.playIconImageView.isHidden = false
+        }
         viewModel.didSelectItem(at: indexPath)
     }
 }
@@ -107,8 +128,12 @@ extension DiscoverViewController: DiscoverViewModelDelegate {
         if discoverView.refreshControl.isRefreshing {
            discoverView.refreshControl.endRefreshing()
         }
+        discoverView.activityIndicator.stopAnimating()
+        discoverView.loginStatusLabel.isHidden = true
     }
     func peopleAroundFetchDidFail(_ errorMessage: String) {
+        discoverView.activityIndicator.stopAnimating()
+        discoverView.loginStatusLabel.isHidden = true
         APIErrorProcessor.sharedInstance.presentError(with: errorMessage, completion: nil)
     }
 }

@@ -13,6 +13,11 @@ class DiscoverView: UIView {
     private let minimumLineSpacing: CGFloat = 20
     private let minimumInteritemSpacing: CGFloat = 20
     
+    private let activityTop: CGFloat = 40
+    private let activitySize: CGFloat = 30
+    
+    private let loginStatusTop: CGFloat = 10
+    
     private var cellSize : CGSize! {
         get {
             let side = UIScreen.main.bounds.width * cellPartOfFrameWidth
@@ -27,9 +32,27 @@ class DiscoverView: UIView {
         return view
     }()
     
+    fileprivate(set) lazy var activityIndicator: UIActivityIndicatorView = {
+        let activity = UIActivityIndicatorView()
+        activity.activityIndicatorViewStyle = .whiteLarge
+        return activity
+    }()
+    
+    fileprivate(set) lazy var loginStatusLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.regularOfSize(17)
+        label.text = localizedStringForKey("Discover.LookingForPeopleAround")
+        label.textAlignment = .center
+        label.textColor = UIColor.white
+        label.isUserInteractionEnabled = false
+        label.isHidden = true
+        return label
+    }()
+    
     fileprivate(set) lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: self.bounds, collectionViewLayout: UICollectionViewFlowLayout())
         collectionView.backgroundColor = UIColor.clear
+        collectionView.alwaysBounceVertical = true
         collectionView.showsVerticalScrollIndicator = false
         collectionView.contentInset = UIEdgeInsetsMake(0, self.collectionSideInsetSize, 0, self.collectionSideInsetSize)
         return collectionView
@@ -47,6 +70,8 @@ class DiscoverView: UIView {
         super.init(frame: frame)
         addSubview(backgroundImage)
         addSubview(collectionView)
+        addSubview(activityIndicator)
+        addSubview(loginStatusLabel)
         guard let collectionViewLayout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         collectionViewLayout.itemSize = cellSize
         collectionViewLayout.scrollDirection = .vertical
@@ -66,6 +91,15 @@ class DiscoverView: UIView {
     }
     
     override func updateConstraints() {
+        activityIndicator.snp.remakeConstraints { make in
+            make.size.equalTo(activitySize)
+            make.top.equalToSuperview().offset(activityTop)
+            make.centerX.equalToSuperview()
+        }
+        loginStatusLabel.snp.remakeConstraints { make in
+            make.top.equalTo(activityIndicator.snp.bottom).offset(loginStatusTop)
+            make.centerX.equalToSuperview()
+        }
         backgroundImage.snp.remakeConstraints { make in
             make.edges.equalToSuperview()
         }

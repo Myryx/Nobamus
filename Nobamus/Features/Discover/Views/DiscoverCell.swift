@@ -64,7 +64,8 @@ class DiscoverCell: UICollectionViewCell {
     
     fileprivate(set) lazy var playIconImageView: UIImageView = {
         let view = UIImageView(frame: CGRect.zero)
-        view.image = UIImage(named: "")
+        view.image = UIImage(named: "icon_Play")
+        view.isHidden = true
         return view
     }()
     
@@ -90,9 +91,9 @@ class DiscoverCell: UICollectionViewCell {
         super.init(frame: frame)
         addSubview(avatarImage)
         addSubview(coverView)
-        addSubview(playIconImageView)
         addSubview(nameLabel)
-        addSubview(distanceLabel)
+//        addSubview(distanceLabel)
+        addSubview(playIconImageView)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -115,7 +116,6 @@ class DiscoverCell: UICollectionViewCell {
             self.nameLabel.alpha = 1.0
             self.distanceLabel.alpha = 1.0
             self.coverView.alpha = 1.0
-            self.backgroundColor = UIColor.blackColorWithAlpha(0.8)
         })
     }
     
@@ -124,13 +124,13 @@ class DiscoverCell: UICollectionViewCell {
             self.nameLabel.alpha = 0
             self.distanceLabel.alpha = 0
             self.coverView.alpha = 0
-            self.backgroundColor = UIColor.blackColorWithAlpha(0)
         })
     }
     
     override func prepareForReuse() {
         nameLabel.text = ""
         distanceLabel.text = ""
+        playIconImageView.isHidden = true
         disableCellAppearance()
     }
     
@@ -141,15 +141,16 @@ class DiscoverCell: UICollectionViewCell {
         coverView.snp.remakeConstraints { make in
             make.edges.equalToSuperview()
         }
-        playIconImageView.snp.remakeConstraints { make in
-            make.size.equalTo(playIconSize)
-            make.center.equalToSuperview()
-        }
+//        playIconImageView.snp.remakeConstraints { make in
+//            make.size.equalTo(playIconSize)
+//            make.center.equalToSuperview()
+//        }
         nameLabel.snp.remakeConstraints { make in
             make.center.equalToSuperview()
             make.width.equalToSuperview()
         }
-        distanceLabel.snp.remakeConstraints { make in
+        playIconImageView.snp.remakeConstraints { make in
+            make.size.equalTo(playIconSize)
             make.right.equalToSuperview().offset(-distanceRight)
             make.bottom.equalToSuperview().offset(-distanceBottom)
         }

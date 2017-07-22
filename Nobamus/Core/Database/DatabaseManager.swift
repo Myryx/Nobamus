@@ -54,4 +54,20 @@ class DatabaseManager {
             print("Error while retreiving user:" + error.localizedDescription)
         }
     }
+    
+    // MARK: observe
+    static func observePersonForTrackChange(id: String, at indexPath: IndexPath, completion: @escaping (Track?, IndexPath) -> Void) {
+        
+        ref.child("users").child(id).observe(.childChanged, with: { snapshot in
+            if let track = TrackTranslator().translateFrom(snapshot: snapshot) {
+                completion(track, indexPath)
+            }
+        }) { error in
+            print("Error while retreiving user:" + error.localizedDescription)
+        }
+    }
+    
+    static func detachObserver(for id: String) {
+        ref.child("users").child(id).removeAllObservers()
+    }
 }

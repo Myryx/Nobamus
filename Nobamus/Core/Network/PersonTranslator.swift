@@ -12,7 +12,9 @@ class PersonTranslator: Translator {
             let name = json[PersonKeys.name.rawValue] as? String,
             let trackJson = json[PersonKeys.track.rawValue] as? [String : Any],
             let track = TrackTranslator().translateFrom(dictionary:trackJson)
-            else { return nil }
+            else {
+                return nil
+        }
         
         return Person(name: name, track: track)
     }
@@ -23,7 +25,9 @@ class PersonTranslator: Translator {
             let name = value[PersonKeys.name.rawValue] as? String,
             let trackJson = value[PersonKeys.track.rawValue] as? [String : Any],
             let track = TrackTranslator().translateFrom(dictionary:trackJson)
-            else { return nil }
+            else {
+                return nil
+        }
         
         return Person(name: name, track: track)
     }

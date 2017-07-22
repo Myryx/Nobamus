@@ -13,6 +13,7 @@ protocol DiscoverViewModelProtocol {
     weak var delegate: DiscoverViewModelDelegate? { get set }
     var loadingOperations: [IndexPath : PersonLoadOperation] { get set }
     var shouldUpdatePeople: Bool { get set }
+    var lastSelectedCellIndexPath: IndexPath? { get set }
     func numberOfItems() -> Int
     func configureCell(_ cell: DiscoverCell, at indexPath: IndexPath)
     func getPeopleAround(_ location: CLLocation)
@@ -28,6 +29,7 @@ class DiscoverViewModel: DiscoverViewModelProtocol {
     private var locationProvider: LocationProvider
     private let loadingQueue = OperationQueue()
     weak var delegate: DiscoverViewModelDelegate?
+    var lastSelectedCellIndexPath: IndexPath?
     var loadingOperations: [IndexPath : PersonLoadOperation] = [:]
     var peopleAroundIdentifiers: [String] = []
     var visibleIndices: [IndexPath] = []
@@ -47,9 +49,11 @@ class DiscoverViewModel: DiscoverViewModelProtocol {
     
     func configureCell(_ cell: DiscoverCell, at indexPath: IndexPath) {
         guard let person = loadingOperations[indexPath]?.person else { return }
-        print("Person name: \(person.name)")
         cell.personName = person.name
         cell.distance = indexPath.row
+        if indexPath == lastSelectedCellIndexPath && MusicProvider.appMusicPlayer.playbackState == .playing {
+            cell.playIconImageView.isHidden = false
+        }
         cell.enableCellAppearance()
     }
     
@@ -90,28 +94,45 @@ class DiscoverViewModel: DiscoverViewModelProtocol {
             loadingQueue.addOperation(dataLoader)
             loadingOperations[indexPath] = dataLoader
         }
+        guard let personId = peopleAroundIdentifiers.safeObjectAtIndex(indexPath.row) else { return }
+        DatabaseManager.observePersonForTrackChange(id: personId, at: indexPath, completion: { [weak self] (track, indexPath) in
+            if let dataLoader = self?.loadingOperations[indexPath], let newTrack = track {
+                dataLoader.person?.track = newTrack
+            }
+        })
     }
     
     func stopPersonLoading(at indexPath: IndexPath) {
         if let dataLoader = loadingOperations[indexPath] {
             dataLoader.cancel()
             loadingOperations.removeValue(forKey: indexPath)
+            guard let personId = peopleAroundIdentifiers.safeObjectAtIndex(indexPath.row) else { return }
+            DatabaseManager.detachObserver(for: personId)
         }
     }
     
     func didSelectItem(at indexPath: IndexPath) {
-        if let dataLoader = getLoadOperation(for: indexPath), let person = dataLoader.person {
-            MusicProvider.playTrack(person.track)
-        } else {
-            guard let dataLoader = getLoadOperation(for: indexPath) else { return }
-            dataLoader.loadingCompleteHandler = {
-                if let track = dataLoader.person?.track {
-                    MusicProvider.playTrack(track)
-                    DatabaseManager.updateUserTrack(track: track)
-                }
+        if indexPath == lastSelectedCellIndexPath { // if we tapped on the same cell again
+            if MusicProvider.isPlaying == true {
+                MusicProvider.stopPlaying()
+            } else {
+                MusicProvider.startPlaying()
             }
-            loadingQueue.addOperation(dataLoader)
-            loadingOperations[indexPath] = dataLoader
+        } else { // we tapped on a different cell so we can play the music
+            self.lastSelectedCellIndexPath = indexPath
+            if let dataLoader = getLoadOperation(for: indexPath), let person = dataLoader.person {
+                MusicProvider.playTrack(person.track)
+            } else {
+                guard let dataLoader = getLoadOperation(for: indexPath) else { return }
+                dataLoader.loadingCompleteHandler = {
+                    if let track = dataLoader.person?.track {
+                        MusicProvider.playTrack(track)
+                        DatabaseManager.updateUserTrack(track: track)
+                    }
+                }
+                loadingQueue.addOperation(dataLoader)
+                loadingOperations[indexPath] = dataLoader
+            }
         }
     }
     

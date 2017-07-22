@@ -4,6 +4,7 @@
 
 import Foundation
 import MediaPlayer
+import FirebaseDatabase
 
 enum TrackKeys: String {
     case id
@@ -22,6 +23,11 @@ class TrackTranslator: Translator {
             let albumTitle = json[TrackKeys.albumTitle.rawValue] as? String
             else { return nil }
         return Track(id: id, title: title, artist: artist, albumTitle: albumTitle)
+    }
+    
+    func translateFrom(snapshot: FIRDataSnapshot) -> Track? {
+        guard let dict = snapshot.value as? [String : Any] else { return nil }
+        return TrackTranslator().translateFrom(dictionary: dict)
     }
     
     func translateFrom(mediaItem item: MPMediaItem) -> Track? {
