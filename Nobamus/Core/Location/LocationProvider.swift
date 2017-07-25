@@ -34,7 +34,6 @@ class LocationProvider: NSObject {
     }
     
     fileprivate func updateLocation(location:CLLocation) {
-        MusicProvider.updatePersonalTrack()
         guard
             location.horizontalAccuracy > 0,
             location.horizontalAccuracy <= satisfyingLocationAccuracy

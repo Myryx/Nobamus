@@ -2,11 +2,13 @@
 // View Model for the discovery screen
 //
 import Foundation
+import UIKit
 import CoreLocation
 
 protocol DiscoverViewModelDelegate: class {
     func peopleAroundFetchDidFinish()
     func peopleAroundFetchDidFail(_ errorMessage: String)
+    func updateCellAppearance(isPlaying: Bool, indexPath: IndexPath)
 }
 
 protocol DiscoverViewModelProtocol {
@@ -51,7 +53,7 @@ class DiscoverViewModel: DiscoverViewModelProtocol {
         guard let person = loadingOperations[indexPath]?.person else { return }
         cell.personName = person.name
         cell.distance = indexPath.row
-        if indexPath == lastSelectedCellIndexPath && MusicProvider.appMusicPlayer.playbackState == .playing {
+        if indexPath == lastSelectedCellIndexPath && MusicProvider.isPlaying == true && MusicProvider.playbackState.wherePlayedLastTime == .inApp {
             cell.playIconImageView.isHidden = false
         }
         cell.enableCellAppearance()
@@ -113,11 +115,19 @@ class DiscoverViewModel: DiscoverViewModelProtocol {
     
     func didSelectItem(at indexPath: IndexPath) {
         if indexPath == lastSelectedCellIndexPath { // if we tapped on the same cell again
-            if MusicProvider.isPlaying == true {
-                MusicProvider.stopPlaying()
+            if MusicProvider.playbackState.wherePlayedLastTime == .inMusicApp {
+                MusicProvider.playLastDiscoverTrack()
+                delegate?.updateCellAppearance(isPlaying: true, indexPath: indexPath)
             } else {
-                MusicProvider.startPlaying()
+                if MusicProvider.isPlaying == true {
+                    MusicProvider.pausePlaying()
+                    delegate?.updateCellAppearance(isPlaying: false, indexPath: indexPath)
+                } else {
+                    MusicProvider.continuePlaying()
+                    delegate?.updateCellAppearance(isPlaying: true, indexPath: indexPath)
+                }
             }
+            
         } else { // we tapped on a different cell so we can play the music
             self.lastSelectedCellIndexPath = indexPath
             if let dataLoader = getLoadOperation(for: indexPath), let person = dataLoader.person {
@@ -157,6 +167,11 @@ class DiscoverViewModel: DiscoverViewModelProtocol {
 extension DiscoverViewModel: MusicProviderDelegate {
     func personalTrackHasChanged(to track: Track) {
         DatabaseManager.updateUserTrack(track: track)
+        guard UIApplication.shared.applicationState == .background, let indexPath = lastSelectedCellIndexPath else { return }
+        if MusicProvider.playbackState.isPlaying == true {
+            MusicProvider.playbackState.isPlaying = false
+            delegate?.updateCellAppearance(isPlaying: false, indexPath: indexPath)
+        }
     }
 }
 

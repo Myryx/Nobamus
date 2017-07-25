@@ -127,6 +127,14 @@ class DiscoverCell: UICollectionViewCell {
         })
     }
     
+    func setIsPlaying(isPlaying: Bool) {
+        if isPlaying {
+            playIconImageView.isHidden = false
+        } else {
+            playIconImageView.isHidden = true
+        }
+    }
+    
     override func prepareForReuse() {
         nameLabel.text = ""
         distanceLabel.text = ""

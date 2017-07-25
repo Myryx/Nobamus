@@ -105,19 +105,11 @@ extension DiscoverViewController: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? DiscoverCell else { return }
-        if indexPath == viewModel.lastSelectedCellIndexPath {
-            if MusicProvider.isPlaying == true {
-                cell.playIconImageView.isHidden = true
-            } else {
-                cell.playIconImageView.isHidden = false
-            }
-        } else {
-            if let indexPath = viewModel.lastSelectedCellIndexPath,
-            let previousCell = collectionView.cellForItem(at: indexPath) as? DiscoverCell {
-                previousCell.playIconImageView.isHidden = true
-            }
-            cell.playIconImageView.isHidden = false
+        if let indexPath = viewModel.lastSelectedCellIndexPath,
+        let previousCell = collectionView.cellForItem(at: indexPath) as? DiscoverCell {
+            previousCell.playIconImageView.isHidden = true
         }
+        cell.playIconImageView.isHidden = false
         viewModel.didSelectItem(at: indexPath)
     }
 }
@@ -131,9 +123,15 @@ extension DiscoverViewController: DiscoverViewModelDelegate {
         discoverView.activityIndicator.stopAnimating()
         discoverView.loginStatusLabel.isHidden = true
     }
+    
     func peopleAroundFetchDidFail(_ errorMessage: String) {
         discoverView.activityIndicator.stopAnimating()
         discoverView.loginStatusLabel.isHidden = true
         APIErrorProcessor.sharedInstance.presentError(with: errorMessage, completion: nil)
+    }
+    
+    func updateCellAppearance(isPlaying: Bool, indexPath: IndexPath) {
+        guard let cell = discoverView.collectionView.cellForItem(at: indexPath) as? DiscoverCell else { return }
+        cell.setIsPlaying(isPlaying: isPlaying)
     }
 }

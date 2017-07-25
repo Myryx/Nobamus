@@ -26,7 +26,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow(frame: frame)
         self.window?.rootViewController = navigationController
         self.window?.makeKeyAndVisible()
-        
         return true
     }
 
@@ -36,11 +35,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
+        MusicProvider.appIsAboutToGoBackground()
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
+        MusicProvider.appIsAboutToGoForeground()
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
 
@@ -49,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
-        MusicProvider.systemMusicPlayer.stop()
+        
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
