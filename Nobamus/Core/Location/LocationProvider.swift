@@ -22,7 +22,6 @@ class LocationProvider: NSObject {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager.requestWhenInUseAuthorization()
-        locationManager.startMonitoringSignificantLocationChanges()
         locationManager.allowsBackgroundLocationUpdates = true
         locationManager.distanceFilter = 1
         isUpdatingLocation = false

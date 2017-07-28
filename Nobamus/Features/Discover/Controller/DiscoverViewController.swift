@@ -44,6 +44,7 @@ class DiscoverViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel.locationProvider.startUpdatingLocation()
         discoverView.activityIndicator.startAnimating()
         discoverView.loginStatusLabel.isHidden = false
     }
@@ -100,17 +101,14 @@ extension DiscoverViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         viewModel.stopPersonLoading(at: indexPath)
         guard let cell = cell as? DiscoverCell else { return }
-        cell.playIconImageView.isHidden = true
+        cell.setIsPlaying(isPlaying: false)
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? DiscoverCell else { return }
-        if let indexPath = viewModel.lastSelectedCellIndexPath,
-        let previousCell = collectionView.cellForItem(at: indexPath) as? DiscoverCell {
-            previousCell.playIconImageView.isHidden = true
+        DispatchQueue.main.async {
+            self.viewModel.didSelectItem(at: indexPath)
         }
-        cell.playIconImageView.isHidden = false
-        viewModel.didSelectItem(at: indexPath)
+        
     }
 }
 
@@ -131,7 +129,7 @@ extension DiscoverViewController: DiscoverViewModelDelegate {
     }
     
     func updateCellAppearance(isPlaying: Bool, indexPath: IndexPath) {
-        guard let cell = discoverView.collectionView.cellForItem(at: indexPath) as? DiscoverCell else { return }
+        guard let cell = self.discoverView.collectionView.cellForItem(at: indexPath) as? DiscoverCell else { return }
         cell.setIsPlaying(isPlaying: isPlaying)
     }
 }

@@ -7,13 +7,13 @@ import StoreKit
 import MediaPlayer
 
 protocol MusicProviderDelegate {
-    func personalTrackHasChanged(to track: Track)
+    func personalTrackHasBeenUpdated(to track: Track)
 }
 
 class MusicProvider {
     static var currentDiscoverTrack: Track?
     static var currentPersonalTrack: Track?
-    static var playbackState = ApplicationPlaybackState(track: nil, playbackTime: 0, isPlaying: false, isInForeground: true, wherePlayedLastTime: .inApp)
+    static var playbackState = ApplicationPlaybackState(playbackTime: 0, isPlaying: false, isInForeground: true, wherePlayedLastTime: .inApp)
     static var musicPlayer = MPMusicPlayerController.systemMusicPlayer()
     static var delegate: MusicProviderDelegate?
     static var item: MPMediaItem?
@@ -78,16 +78,22 @@ class MusicProvider {
     static func updatePersonalTrack() {
         guard let currentAudioItem = MPMusicPlayerController.systemMusicPlayer().nowPlayingItem else { return }
         
-        guard let currentPersonalTrack = TrackTranslator().translateFrom(mediaItem: currentAudioItem) else { return }
-        print("System track:" + currentAudioItem.title!)
+        guard let notificationTrack = TrackTranslator().translateFrom(mediaItem: currentAudioItem) else { return }
+        if let currentPersonal = self.currentPersonalTrack { // if we played or playing anything at all
+            if notificationTrack.title == currentPersonal.title { // still playing the track
+                MusicProvider.playbackState.playbackTime = MusicProvider.musicPlayer.currentPlaybackTime
+                MusicProvider.playbackState.isPlaying = MusicProvider.musicPlayer.playbackState == .playing
+            }
+        } else {
+            currentPersonalTrack = notificationTrack
+        }
         if UIApplication.shared.applicationState == .background {
             playbackState.wherePlayedLastTime = .inMusicApp
         }
-        delegate?.personalTrackHasChanged(to: currentPersonalTrack)
+        delegate?.personalTrackHasBeenUpdated(to: notificationTrack)
     }
     
     static func appIsAboutToGoBackground() {
-        MusicProvider.playbackState.track = MusicProvider.currentDiscoverTrack
         MusicProvider.playbackState.isInForeground = false
     }
     
