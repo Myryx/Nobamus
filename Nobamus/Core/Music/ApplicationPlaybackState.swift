@@ -4,6 +4,7 @@
 
 import Foundation
 import CoreMedia
+import MediaPlayer
 
 enum PlayedLastTime {
     case inApp
@@ -15,4 +16,5 @@ struct ApplicationPlaybackState {
     var isPlaying: Bool
     var isInForeground: Bool
     var wherePlayedLastTime: PlayedLastTime
+    var playbackItem: MPMediaItem?
 }

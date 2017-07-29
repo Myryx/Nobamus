@@ -4,6 +4,7 @@
 
 import Foundation
 import UIKit
+import MediaPlayer
 
 class DiscoverViewController: UIViewController {
     
@@ -49,6 +50,7 @@ class DiscoverViewController: UIViewController {
         viewModel.locationProvider.startUpdatingLocation()
         discoverView.activityIndicator.startAnimating()
         discoverView.loginStatusLabel.isHidden = false
+        NotificationCenter.default.addObserver(self, selector: #selector(updatePlaybackControlState(_:)), name: NSNotification.Name(rawValue: DiscoverTrackUpdatedNotificationName), object: nil)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -60,6 +62,22 @@ class DiscoverViewController: UIViewController {
         viewModel.fefreshData()
     }
     
+    func updatePlaybackControlState(_ notification: Notification) {
+        
+        guard let songTitle = MusicProvider.currentDiscoverTrack?.title else { return }
+        
+        let artSize = CGSize(width: discoverView.playbackControl.albumIconSize, height: discoverView.playbackControl.albumIconSize)
+        var playbackControlVM: PlaybackControlViewModel?
+        var image: UIImage?
+        if let itemArtwork = MusicProvider.playbackState.playbackItem?.value(forProperty: MPMediaItemPropertyArtwork) as? MPMediaItemArtwork {
+            image = itemArtwork.image(at: artSize)
+            if image == nil {
+                image = itemArtwork.image(at: itemArtwork.bounds.size)
+            }
+        }
+        playbackControlVM = PlaybackControlViewModel(image: image, title: songTitle)
+        discoverView.playbackControl.viewModel = playbackControlVM
+    }
 }
 
 extension DiscoverViewController: UICollectionViewDataSourcePrefetching {
@@ -109,7 +127,6 @@ extension DiscoverViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         DispatchQueue.main.async {
             self.viewModel.didSelectItem(at: indexPath)
-//            self.discoverView.playbackControl.albumIconImageView.image =
             self.discoverView.showPlaybackControl()
         }
     }
@@ -135,10 +152,23 @@ extension DiscoverViewController: DiscoverViewModelDelegate {
         guard let cell = self.discoverView.collectionView.cellForItem(at: indexPath) as? DiscoverCell else { return }
         cell.setIsPlaying(isPlaying: isPlaying)
     }
+    func playedTrackInMusicApp() {
+        discoverView.hidePlaybackControl()
+        guard let indexPath = viewModel.lastSelectedCellIndexPath else { return }
+        updateCellAppearance(isPlaying: false, indexPath: indexPath)
+    }
+    func updateOverallAppearance(isPlaying: Bool) {
+        if isPlaying == true {
+            discoverView.playbackControl.state = .playing
+        } else {
+            discoverView.playbackControl.state = .paused
+        }
+    }
+    
 }
 
 extension DiscoverViewController: PlaybackControlDelegate {
     func playbackButtonPressed() {
-        print("kek")
+        MusicProvider.controlPlaybackPressed()
     }
 }

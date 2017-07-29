@@ -6,6 +6,8 @@ import Foundation
 import StoreKit
 import MediaPlayer
 
+public let DiscoverTrackUpdatedNotificationName = "TrackHasBeenUpdated"
+
 protocol MusicProviderDelegate {
     func personalTrackHasBeenUpdated(to track: Track)
 }
@@ -13,7 +15,7 @@ protocol MusicProviderDelegate {
 class MusicProvider {
     static var currentDiscoverTrack: Track?
     static var currentPersonalTrack: Track?
-    static var playbackState = ApplicationPlaybackState(playbackTime: 0, isPlaying: false, isInForeground: true, wherePlayedLastTime: .inApp)
+    static var playbackState = ApplicationPlaybackState(playbackTime: 0, isPlaying: false, isInForeground: true, wherePlayedLastTime: .inApp, playbackItem: nil)
     static var musicPlayer = MPMusicPlayerController.systemMusicPlayer()
     static var delegate: MusicProviderDelegate?
     static var item: MPMediaItem?
@@ -53,7 +55,6 @@ class MusicProvider {
         musicPlayer.play()
         currentDiscoverTrack = track
         playbackState.isPlaying = true
-        playbackState.wherePlayedLastTime = .inApp
     }
     
     static func playLastDiscoverTrack() {
@@ -75,9 +76,16 @@ class MusicProvider {
         item = musicPlayer.nowPlayingItem
     }
     
+    static func controlPlaybackPressed() {
+        if isPlaying == true {
+            pausePlaying()
+        } else {
+            continuePlaying()
+        }
+    }
+    
     static func updatePersonalTrack() {
-        guard let currentAudioItem = MPMusicPlayerController.systemMusicPlayer().nowPlayingItem else { return }
-        
+        guard let currentAudioItem = musicPlayer.nowPlayingItem else { return }
         guard let notificationTrack = TrackTranslator().translateFrom(mediaItem: currentAudioItem) else { return }
         if let currentPersonal = self.currentPersonalTrack { // if we played or playing anything at all
             if notificationTrack.title == currentPersonal.title { // still playing the track
@@ -87,10 +95,19 @@ class MusicProvider {
         } else {
             currentPersonalTrack = notificationTrack
         }
+        MusicProvider.playbackState.playbackItem = currentAudioItem
         if UIApplication.shared.applicationState == .background {
             playbackState.wherePlayedLastTime = .inMusicApp
         }
         delegate?.personalTrackHasBeenUpdated(to: notificationTrack)
+    }
+    
+    static func updateDiscoverTrack() {
+        guard UIApplication.shared.applicationState == .active else { return }
+        guard let currentAudioItem = musicPlayer.nowPlayingItem else { return }
+        MusicProvider.playbackState.playbackItem = currentAudioItem
+        playbackState.wherePlayedLastTime = .inApp
+        NotificationCenter.default.post(name: Notification.Name(rawValue: DiscoverTrackUpdatedNotificationName), object: nil)
     }
     
     static func appIsAboutToGoBackground() {
@@ -103,6 +120,7 @@ class MusicProvider {
     
     dynamic static func trackHasChanged(notification: Notification) {
         updatePersonalTrack()
+        updateDiscoverTrack()
     }
     
     dynamic static func silentDidReachEnd(notification: Notification) {

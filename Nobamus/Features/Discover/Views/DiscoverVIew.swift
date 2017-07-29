@@ -18,7 +18,7 @@ class DiscoverView: UIView {
     
     private let loginStatusTop: CGFloat = 10
     
-    private let playbackControlHeight: CGFloat = 60
+    private let playbackControlHeight: CGFloat = 70
     
     private var cellSize : CGSize! {
         get {

@@ -12,19 +12,43 @@ protocol PlaybackControlDelegate: class {
     func playbackButtonPressed()
 }
 
+enum PlaybackControlState {
+    case playing
+    case paused
+}
+
 class PlaybackControl: UIView {
     // MARK: - Variables
+    let albumIconSize: CGFloat = 60
     private let albumIconLeftOffset: CGFloat = 10
-    private let albumIconSize: CGFloat = 40
     private let titleLeftOffset: CGFloat = 10
     private let titleRightOffset: CGFloat = 10
     private let playbackButtonRightOffset: CGFloat = 20
     private let playbackButtonSize: CGFloat = 40
-    
+    var state: PlaybackControlState = .paused {
+        didSet {
+            if state == .paused {
+                playbackButton.setImage(UIImage(named: "playback_play"), for: .normal)
+            } else {
+                playbackButton.setImage(UIImage(named: "playback_pause"), for: .normal)
+            }
+        }
+    }
     weak var delegate: PlaybackControlDelegate?
+    var viewModel: PlaybackControlViewModelProtocol? {
+        didSet {
+            if let image = viewModel?.image {
+                albumIconImageView.image = image
+            } else {
+                albumIconImageView.image = UIImage(named: "nob")
+            }
+            titleLabel.text = viewModel?.title
+        }
+    }
     
     fileprivate(set) lazy var albumIconImageView: UIImageView = {
         let view = UIImageView(frame: CGRect.zero)
+        view.layer.cornerRadius = 3.0
         view.backgroundColor = UIColor.blackColorWithAlpha(0.3)
         return view
     }()
@@ -40,7 +64,6 @@ class PlaybackControl: UIView {
     fileprivate(set) lazy var playbackButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = UIColor.blackColorWithAlpha(0.5)
-        button.layer.cornerRadius = 2.0
         button.setImage(UIImage(named: "playback_pause"), for: .normal)
         button.addTarget(self, action: #selector(playbackButtonPressed), for: .touchUpInside)
         button.backgroundColor = UIColor.clear
@@ -63,11 +86,21 @@ class PlaybackControl: UIView {
     }
     
     func playbackButtonPressed() {
+        switchState()
         delegate?.playbackButtonPressed()
     }
     
-    func configure(albumImageURL: String, title: String) {
-        
+    func reset() {
+        albumIconImageView.image = nil
+        titleLabel.text = ""
+    }
+    
+    func switchState() {
+        if state == .paused {
+            state = .playing
+        } else {
+            state = .paused
+        }
     }
     // MARK: - Layout
     
@@ -89,7 +122,7 @@ class PlaybackControl: UIView {
         }
         
         titleLabel.snp.makeConstraints { make in
-            make.left.equalTo(albumIconImageView).offset(titleLeftOffset)
+            make.left.equalTo(albumIconImageView.snp.right).offset(titleLeftOffset)
             make.right.equalTo(playbackButton).offset(titleRightOffset)
             make.centerY.equalToSuperview()
         }
