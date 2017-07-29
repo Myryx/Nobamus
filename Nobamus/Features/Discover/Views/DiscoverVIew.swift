@@ -18,6 +18,8 @@ class DiscoverView: UIView {
     
     private let loginStatusTop: CGFloat = 10
     
+    private let playbackControlHeight: CGFloat = 60
+    
     private var cellSize : CGSize! {
         get {
             let side = UIScreen.main.bounds.width * cellPartOfFrameWidth
@@ -64,6 +66,10 @@ class DiscoverView: UIView {
         return refreshControl
     }()
     
+    fileprivate(set) lazy var playbackControl: PlaybackControl = {
+        return PlaybackControl()
+    }()
+    
     // MARK: - Initialization
     
     override init(frame: CGRect) {
@@ -72,12 +78,14 @@ class DiscoverView: UIView {
         addSubview(collectionView)
         addSubview(activityIndicator)
         addSubview(loginStatusLabel)
+        addSubview(playbackControl)
         guard let collectionViewLayout = self.collectionView.collectionViewLayout as? UICollectionViewFlowLayout else { return }
         collectionViewLayout.itemSize = cellSize
         collectionViewLayout.scrollDirection = .vertical
         collectionViewLayout.minimumLineSpacing = minimumLineSpacing
         collectionViewLayout.minimumInteritemSpacing = minimumInteritemSpacing
         collectionView.addSubview(refreshControl)
+        makeConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -86,29 +94,53 @@ class DiscoverView: UIView {
     
     // MARK: - Layout
     
+    func showPlaybackControl() {
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseOut, animations: {
+            self.playbackControl.snp.updateConstraints { make in
+                make.top.equalTo(self.snp.bottom).offset(-self.playbackControlHeight)
+            }
+            self.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
+    
+    func hidePlaybackControl() {
+        UIView.animate(withDuration: 0.5, delay: 0.0, options: .curveEaseOut, animations: {
+            self.playbackControl.snp.updateConstraints { make in
+                make.top.equalTo(self.snp.bottom)
+            }
+            self.layoutIfNeeded()
+        }, completion: nil)
+    }
+    
     override class var requiresConstraintBasedLayout: Bool {
         return true
     }
     
-    override func updateConstraints() {
-        activityIndicator.snp.remakeConstraints { make in
+    func makeConstraints() {
+        activityIndicator.snp.makeConstraints { make in
             make.size.equalTo(activitySize)
             make.top.equalToSuperview().offset(activityTop)
             make.centerX.equalToSuperview()
         }
-        loginStatusLabel.snp.remakeConstraints { make in
+        loginStatusLabel.snp.makeConstraints { make in
             make.top.equalTo(activityIndicator.snp.bottom).offset(loginStatusTop)
             make.centerX.equalToSuperview()
         }
-        backgroundImage.snp.remakeConstraints { make in
+        backgroundImage.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        collectionView.snp.remakeConstraints { make in
+        playbackControl.snp.makeConstraints { make in
+            make.top.equalTo(self.snp.bottom)
+            make.left.equalToSuperview()
+            make.right.equalToSuperview()
+            make.height.equalTo(playbackControlHeight)
+        }
+        collectionView.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(collectionViewBorders)
             make.bottom.equalToSuperview().offset(-collectionViewBorders)
             make.left.equalToSuperview().offset(collectionViewBorders)
             make.right.equalToSuperview().offset(-collectionViewBorders)
         }
-        super.updateConstraints()
     }
 }

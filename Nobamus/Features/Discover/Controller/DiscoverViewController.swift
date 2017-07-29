@@ -34,7 +34,9 @@ class DiscoverViewController: UIViewController {
     required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     override func loadView() {
-        self.view = DiscoverView(frame: UIScreen.main.bounds)
+        let view = DiscoverView(frame: UIScreen.main.bounds)
+        view.playbackControl.delegate = self
+        self.view = view
         collectionView?.dataSource = self
         collectionView?.prefetchDataSource = self
         collectionView?.delegate = self
@@ -107,8 +109,9 @@ extension DiscoverViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         DispatchQueue.main.async {
             self.viewModel.didSelectItem(at: indexPath)
+            self.discoverView.playbackControl.albumIconImageView.image =
+            self.discoverView.showPlaybackControl()
         }
-        
     }
 }
 
@@ -131,5 +134,11 @@ extension DiscoverViewController: DiscoverViewModelDelegate {
     func updateCellAppearance(isPlaying: Bool, indexPath: IndexPath) {
         guard let cell = self.discoverView.collectionView.cellForItem(at: indexPath) as? DiscoverCell else { return }
         cell.setIsPlaying(isPlaying: isPlaying)
+    }
+}
+
+extension DiscoverViewController: PlaybackControlDelegate {
+    func playbackButtonPressed() {
+        print("kek")
     }
 }

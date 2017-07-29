@@ -15,6 +15,7 @@
 		2C45BF891F10C30F00E7D628 /* ErrorProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45BF881F10C30F00E7D628 /* ErrorProcessor.swift */; };
 		2C6B1CFA1F07D77B00883639 /* Translator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6B1CF91F07D77B00883639 /* Translator.swift */; };
 		2C6B1CFC1F07D7AF00883639 /* PersonTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C6B1CFB1F07D7AF00883639 /* PersonTranslator.swift */; };
+		2C751DF11F2BAB04000C8468 /* PlaybackControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C751DF01F2BAB04000C8468 /* PlaybackControl.swift */; };
 		2C80F4181F1A716F00265E7A /* MusicProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C80F4171F1A716F00265E7A /* MusicProvider.swift */; };
 		2C83B7091F0F973F00C4E749 /* DiscoverService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C83B7081F0F973F00C4E749 /* DiscoverService.swift */; };
 		2C90744A1EBF111E000E1A71 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C9074491EBF111E000E1A71 /* AppDelegate.swift */; };
@@ -52,6 +53,7 @@
 		2C45BF881F10C30F00E7D628 /* ErrorProcessor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ErrorProcessor.swift; path = Core/Network/ErrorProcessor.swift; sourceTree = "<group>"; };
 		2C6B1CF91F07D77B00883639 /* Translator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Translator.swift; path = Core/Network/Translator.swift; sourceTree = "<group>"; };
 		2C6B1CFB1F07D7AF00883639 /* PersonTranslator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersonTranslator.swift; path = Core/Network/PersonTranslator.swift; sourceTree = "<group>"; };
+		2C751DF01F2BAB04000C8468 /* PlaybackControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaybackControl.swift; path = Features/Discover/Views/PlaybackControl.swift; sourceTree = "<group>"; };
 		2C80F4171F1A716F00265E7A /* MusicProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MusicProvider.swift; path = Core/Music/MusicProvider.swift; sourceTree = "<group>"; };
 		2C83B7081F0F973F00C4E749 /* DiscoverService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiscoverService.swift; path = Features/Discover/Services/DiscoverService.swift; sourceTree = "<group>"; };
 		2C9074461EBF111E000E1A71 /* Nobamus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Nobamus.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -320,6 +322,7 @@
 			children = (
 				2CD6F81C1ED1F7210042A748 /* DiscoverVIew.swift */,
 				2CD6F8221ED2032E0042A748 /* DiscoverCell.swift */,
+				2C751DF01F2BAB04000C8468 /* PlaybackControl.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -499,6 +502,7 @@
 				2C90744A1EBF111E000E1A71 /* AppDelegate.swift in Sources */,
 				2C45BF871F10C0A900E7D628 /* APIError.swift in Sources */,
 				2C80F4181F1A716F00265E7A /* MusicProvider.swift in Sources */,
+				2C751DF11F2BAB04000C8468 /* PlaybackControl.swift in Sources */,
 				2CADD0BB1ED0454600C9ABA3 /* Color.swift in Sources */,
 				2CADD0941ED01A4A00C9ABA3 /* Font.swift in Sources */,
 				2CD6F80E1ED199D80042A748 /* Person.swift in Sources */,

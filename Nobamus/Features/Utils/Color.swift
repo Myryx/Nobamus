@@ -11,9 +11,12 @@ import UIKit
 
 public extension UIColor {
     class func whiteColorWithAlpha(_ alpha: CGFloat) -> UIColor {
-        return UIColor.init(white: 1.0, alpha: 0.5)
+        return UIColor.init(white: 1.0, alpha: alpha)
     }
     class func blackColorWithAlpha(_ alpha: CGFloat) -> UIColor {
-        return UIColor.init(white: 0.0, alpha: 0.5)
+        return UIColor.init(white: 0.0, alpha: alpha)
+    }
+    class func grayColorWithAlpha(_ alpha: CGFloat) -> UIColor {
+        return UIColor.lightGray
     }
 }
