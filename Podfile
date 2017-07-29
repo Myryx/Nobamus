@@ -6,10 +6,10 @@ target 'Nobamus' do
   use_frameworks!
 
   # Pods for Nobamus
-  pod 'SwiftyJSON'
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Auth'
   pod 'SnapKit', '~> 3.0'
   pod 'Alamofire', '~> 4.4'
+  pod 'SDWebImage', '~> 4.0'
 end

@@ -109,7 +109,7 @@ extension DiscoverViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         DispatchQueue.main.async {
             self.viewModel.didSelectItem(at: indexPath)
-            self.discoverView.playbackControl.albumIconImageView.image =
+//            self.discoverView.playbackControl.albumIconImageView.image =
             self.discoverView.showPlaybackControl()
         }
     }
