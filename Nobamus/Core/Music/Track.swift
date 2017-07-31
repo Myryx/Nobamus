@@ -8,9 +8,17 @@
 
 import Foundation
 
-struct Track {
+struct Track: Equatable {
     let id: String
     let title: String
     let artist: String
     let albumTitle: String
+    
+    public static func ==(lhs: Track, rhs: Track) -> Bool {
+        return
+                lhs.title == rhs.title &&
+                lhs.id == rhs.id &&
+                lhs.artist == rhs.artist &&
+                lhs.albumTitle == rhs.albumTitle
+    }
 }
