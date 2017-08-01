@@ -23,7 +23,8 @@ class MusicProvider {
     private static var silentPlayer: AVPlayer?
     
     static var isPlaying: Bool {
-        return musicPlayer.playbackState == .playing
+//        print(playbackState.isPlaying)
+        return playbackState.isPlaying
     }
     
     static func setup() {
@@ -55,6 +56,8 @@ class MusicProvider {
         musicPlayer.play()
         currentDiscoverTrack = track
         playbackState.isPlaying = true
+        guard let currentAudioItem = musicPlayer.nowPlayingItem else { return }
+        MusicProvider.playbackState.playbackItem = currentAudioItem
     }
     
     static func playLastDiscoverTrack() {
@@ -108,6 +111,7 @@ class MusicProvider {
         MusicProvider.playbackState.playbackItem = currentAudioItem
         playbackState.wherePlayedLastTime = .inApp
         NotificationCenter.default.post(name: Notification.Name(rawValue: DiscoverTrackUpdatedNotificationName), object: nil)
+        updatePlaybackInfo()
     }
     
     static func appIsAboutToGoBackground() {
@@ -116,6 +120,14 @@ class MusicProvider {
     
     static func appIsAboutToGoForeground() {
         MusicProvider.playbackState.isInForeground = true
+    }
+    
+    static func updatePlaybackInfo() {
+        let playbackTime = MusicProvider.musicPlayer.currentPlaybackTime
+        print("playbackTime\(playbackTime)")
+        if playbackTime.isNaN == false {
+            DatabaseManager.updatePlaybackInfo(playbackTime: playbackTime, isPlaying: MusicProvider.isPlaying)
+        }
     }
     
     dynamic static func trackHasChanged(notification: Notification) {
@@ -127,5 +139,6 @@ class MusicProvider {
         MusicProvider.silentPlayer?.seek(to: kCMTimeZero)
         MusicProvider.silentPlayer?.play()
         updatePersonalTrack()
+        updatePlaybackInfo()
     }
 }

@@ -111,7 +111,6 @@ extension DiscoverViewController: UICollectionViewDataSource {
 extension DiscoverViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         guard let cell = cell as? DiscoverCell else { return }
-        
         let updateCellClosure: () -> () = { [unowned self] _ in
             self.viewModel.configureCell(cell, at: indexPath)
         }
@@ -119,9 +118,14 @@ extension DiscoverViewController: UICollectionViewDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        viewModel.stopPersonLoading(at: indexPath)
         guard let cell = cell as? DiscoverCell else { return }
-        cell.setIsPlaying(isPlaying: false)
+        if viewModel.lastSelectedCellIndexPath == indexPath && MusicProvider.isPlaying {
+            cell.setIsPlaying(isPlaying: false)
+        }
+        viewModel.stopPersonLoading(at: indexPath)
+        
+        
+//        cell.progressManager.startProgress()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -152,11 +156,13 @@ extension DiscoverViewController: DiscoverViewModelDelegate {
         guard let cell = self.discoverView.collectionView.cellForItem(at: indexPath) as? DiscoverCell else { return }
         cell.setIsPlaying(isPlaying: isPlaying)
     }
+    
     func playedTrackInMusicApp() {
         discoverView.hidePlaybackControl()
         guard let indexPath = viewModel.lastSelectedCellIndexPath else { return }
         updateCellAppearance(isPlaying: false, indexPath: indexPath)
     }
+    
     func updateOverallAppearance(isPlaying: Bool) {
         if isPlaying == true {
             discoverView.playbackControl.state = .playing
@@ -165,10 +171,22 @@ extension DiscoverViewController: DiscoverViewModelDelegate {
         }
     }
     
+    func updateCellAppearance(with person: Person, indexPath: IndexPath) {
+        guard let cell = self.discoverView.collectionView.cellForItem(at: indexPath) as? DiscoverCell else { return }
+        cell.progressManager.setStartingProgressPosition(startingTime: person.playbackTime, overallTime: person.overallPlaybackTime)
+        if person.isPlaying {
+            cell.progressManager.startProgress()
+        } else {
+            cell.progressManager.stopProgress()
+        }
+    }
+    
 }
 
 extension DiscoverViewController: PlaybackControlDelegate {
     func playbackButtonPressed() {
         MusicProvider.controlPlaybackPressed()
+        guard let indexPath = viewModel.lastSelectedCellIndexPath else { return }
+        updateCellAppearance(isPlaying: MusicProvider.isPlaying, indexPath: indexPath)
     }
 }

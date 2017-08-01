@@ -31,12 +31,6 @@ class DiscoverCell: UICollectionViewCell {
         }
     }
     
-    var coverColor: UIColor = UIColor.blackColorWithAlpha(0.3) {
-        didSet {
-            coverView.backgroundColor = coverColor
-        }
-    }
-    
     var personName: String = "" {
         didSet {
             nameLabel.text = personName
@@ -50,18 +44,42 @@ class DiscoverCell: UICollectionViewCell {
     }
     
     static let reuseIdentifier = "DiscoverCell"
+    let progressManager = DiscoverProgressManager()
     
-    fileprivate(set) lazy var avatarImage: UIImageView = {
+    fileprivate(set) lazy var avatarImageView: UIImageView = {
         let view = UIImageView(frame: CGRect.zero)
+        view.backgroundColor = UIColor.black
         return view
     }()
     
-    fileprivate(set) lazy var coverView: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.blackColorWithAlpha(0.3)
+    fileprivate(set) lazy var progressView: KDCircularProgress = {
+        let view = KDCircularProgress(frame: CGRect.zero)
+        view.startAngle = -90
+        view.progressThickness = 0.2
+        view.trackColor = UIColor.clear
+        view.clockwise = true
+        view.roundedCorners = false
+        view.glowMode = .constant
+        view.glowAmount = 0.9
+//        view.set(colors: UIColor.cyan ,UIColor.white, UIColor.magenta, UIColor.white, UIColor.orange)
+        view.set(colors: UIColor.cyan)
         return view
     }()
     
+    fileprivate(set) lazy var speakersImageView: UIImageView = {
+        let view = UIImageView(frame: CGRect.zero)
+        if let image1 = UIImage(named: "rings-animation_1"),
+        let image2 = UIImage(named: "rings-animation_2"),
+        let image3 = UIImage(named: "rings-animation_3") {
+            view.animationImages = [image1, image2, image3]
+            view.animationDuration = 1
+            view.image = image1
+        }
+        view.tintColor = UIColor.white
+        return view
+    }()
+    
+
     fileprivate(set) lazy var playIconImageView: UIImageView = {
         let view = UIImageView(frame: CGRect.zero)
         view.image = UIImage(named: "icon_Play")
@@ -89,11 +107,14 @@ class DiscoverCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(avatarImage)
-        addSubview(coverView)
+        addSubview(avatarImageView)
         addSubview(nameLabel)
 //        addSubview(distanceLabel)
         addSubview(playIconImageView)
+        addSubview(speakersImageView)
+        addSubview(progressView)
+        progressManager.delegate = self
+        makeConstraints()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -106,7 +127,7 @@ class DiscoverCell: UICollectionViewCell {
     }
     
     func configure(image: UIImage, name: String, distance: Int) {
-        avatarImage.image = image
+        avatarImageView.image = image
         nameLabel.text = name
         distanceLabel.text = String(distance)
     }
@@ -115,7 +136,6 @@ class DiscoverCell: UICollectionViewCell {
         UIView.animate(withDuration: 0.3, animations: {
             self.nameLabel.alpha = 1.0
             self.distanceLabel.alpha = 1.0
-            self.coverView.alpha = 1.0
         })
     }
     
@@ -123,16 +143,29 @@ class DiscoverCell: UICollectionViewCell {
         UIView.animate(withDuration: 0.3, animations: {
             self.nameLabel.alpha = 0
             self.distanceLabel.alpha = 0
-            self.coverView.alpha = 0
         })
     }
     
     func setIsPlaying(isPlaying: Bool) {
         if isPlaying {
-            playIconImageView.isHidden = false
+            speakersImageView.startAnimating()
         } else {
-            playIconImageView.isHidden = true
+            speakersImageView.stopAnimating()
         }
+    }
+    
+    func resetProgress() {
+        progressView.angle = 0
+    }
+    
+    private func startProgress(startingTime: Double, overallTime: Double) {
+        progressManager.startingTime = startingTime
+        progressManager.overallTime = overallTime
+        progressManager.startProgress()
+    }
+    
+    private func stopProgress() {
+        progressManager.stopProgress()
     }
     
     override func prepareForReuse() {
@@ -142,26 +175,36 @@ class DiscoverCell: UICollectionViewCell {
         disableCellAppearance()
     }
     
-    override func updateConstraints() {
-        avatarImage.snp.remakeConstraints { make in
+    func makeConstraints() {
+        avatarImageView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        coverView.snp.remakeConstraints { make in
+        speakersImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(UIEdgeInsetsMake(20, 20, 20, 20))
+        }
+        progressView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-//        playIconImageView.snp.remakeConstraints { make in
-//            make.size.equalTo(playIconSize)
-//            make.center.equalToSuperview()
-//        }
-        nameLabel.snp.remakeConstraints { make in
+        
+        nameLabel.snp.makeConstraints { make in
             make.center.equalToSuperview()
             make.width.equalToSuperview()
         }
-        playIconImageView.snp.remakeConstraints { make in
+        playIconImageView.snp.makeConstraints { make in
             make.size.equalTo(playIconSize)
             make.right.equalToSuperview().offset(-distanceRight)
             make.bottom.equalToSuperview().offset(-distanceBottom)
         }
-        super.updateConstraints()
+        avatarImageView.roundImage(imageSize: self.frame.width)
+    }
+}
+
+extension DiscoverCell: DiscoverProgressManagerDelegate {
+    func moveProgressBar(by angle: Double) {
+        progressView.angle = progressView.angle + angle
+    }
+    
+    func setProgressBar(to angle: Double) {
+        progressView.angle = angle
     }
 }

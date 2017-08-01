@@ -3,8 +3,7 @@ import UIKit
 import CoreGraphics
 
 extension UIImage {
-    func round() -> UIImage?
-    {
+    func round() -> UIImage? {
         let newImage = self.copy() as! UIImage
         let cornerRadius = self.size.height / 2
         UIGraphicsBeginImageContextWithOptions(self.size, false, 0.0)
@@ -31,5 +30,25 @@ extension UIImageView {
         
         self.layer.mask = circle;
     }
+    
+    func setImageAsynchronously(imageName: String) {
+        DispatchQueue.global().async {
+            let imageOrNil = UIImage(named: imageName)
+            guard let image = imageOrNil else {
+                return
+            }
+            UIGraphicsBeginImageContextWithOptions(image.size, false, image.scale)
+            defer {
+                UIGraphicsEndImageContext()
+            }
+            
+            image.draw(at: CGPoint.zero)
+            
+            let decodedImage = UIGraphicsGetImageFromCurrentImageContext()!
+            
+            DispatchQueue.main.async {
+                self.image = decodedImage.withRenderingMode(.alwaysTemplate)
+            }
+        }
+    }
 }
-

@@ -9,6 +9,7 @@ protocol DiscoverViewModelDelegate: class {
     func peopleAroundFetchDidFinish()
     func peopleAroundFetchDidFail(_ errorMessage: String)
     func updateCellAppearance(isPlaying: Bool, indexPath: IndexPath)
+    func updateCellAppearance(with person: Person, indexPath: IndexPath)
     func updateOverallAppearance(isPlaying: Bool)
     func playedTrackInMusicApp()
 }
@@ -55,10 +56,15 @@ class DiscoverViewModel: DiscoverViewModelProtocol {
         guard let person = loadingOperations[indexPath]?.person else { return }
         cell.personName = person.name
         cell.distance = indexPath.row
+        cell.progressManager.setStartingProgressPosition(startingTime: person.playbackTime, overallTime: person.overallPlaybackTime)
+        
         if indexPath == lastSelectedCellIndexPath && MusicProvider.isPlaying == true && MusicProvider.playbackState.wherePlayedLastTime == .inApp {
             cell.setIsPlaying(isPlaying: true)
         }
         cell.enableCellAppearance()
+        if person.isPlaying {
+            cell.progressManager.startProgress()
+        }
     }
     
     func getPeopleAround(_ location: CLLocation) {
@@ -99,9 +105,10 @@ class DiscoverViewModel: DiscoverViewModelProtocol {
             loadingOperations[indexPath] = dataLoader
         }
         guard let personId = peopleAroundIdentifiers.safeObjectAtIndex(indexPath.row) else { return }
-        DatabaseManager.observePersonForTrackChange(id: personId, at: indexPath, completion: { [weak self] (track, indexPath) in
-            if let dataLoader = self?.loadingOperations[indexPath], let newTrack = track {
-                dataLoader.person?.track = newTrack
+        DatabaseManager.observePersonChanges(id: personId, at: indexPath, completion: { [weak self] (person, indexPath) in
+            if let dataLoader = self?.loadingOperations[indexPath], let newPerson = person {
+                dataLoader.person = newPerson
+                self?.delegate?.updateCellAppearance(with: newPerson, indexPath: indexPath)
             }
         })
     }
@@ -122,6 +129,14 @@ class DiscoverViewModel: DiscoverViewModelProtocol {
                 delegate?.updateCellAppearance(isPlaying: true, indexPath: indexPath)
                 MusicProvider.playLastDiscoverTrack()
             } else {
+                // NOTE: this one has not been tested - if player taps on the same person and she listens to another song - this block will play this new song instead of pausing/continuing the song
+                if let dataLoader = getLoadOperation(for: indexPath), let track = dataLoader.person?.track,
+                    track == MusicProvider.currentDiscoverTrack {
+                    delegate?.updateOverallAppearance(isPlaying: true)
+                    delegate?.updateCellAppearance(isPlaying: true, indexPath: indexPath)
+                    MusicProvider.playTrack(track)
+                    return
+                }
                 if MusicProvider.isPlaying == true {
                     delegate?.updateOverallAppearance(isPlaying: false)
                     delegate?.updateCellAppearance(isPlaying: false, indexPath: indexPath)

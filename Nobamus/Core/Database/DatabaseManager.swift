@@ -41,7 +41,14 @@ class DatabaseManager {
     }
     
     static func updateUserTrack(track: Track) {
-        DatabaseManager.updateUser(key: "track", value: TrackTranslator().translateToDictionary(track))
+        updateUser(key: "track", value: TrackTranslator().translateToDictionary(track))
+    }
+    
+    static func updatePlaybackInfo(playbackTime: Double, isPlaying: Bool) {
+        print("isPlaying:\(isPlaying)")
+        print("playbackTime:\(playbackTime)")
+        updateUser(key: "playbackTime", value: playbackTime)
+        updateUser(key: "isPlaying", value: isPlaying)
     }
     
     // MARK: get
@@ -56,11 +63,11 @@ class DatabaseManager {
     }
     
     // MARK: observe
-    static func observePersonForTrackChange(id: String, at indexPath: IndexPath, completion: @escaping (Track?, IndexPath) -> Void) {
+    static func observePersonChanges(id: String, at indexPath: IndexPath, completion: @escaping (Person?, IndexPath) -> Void) {
         
-        ref.child("users").child(id).observe(.childChanged, with: { snapshot in
-            if let track = TrackTranslator().translateFrom(snapshot: snapshot) {
-                completion(track, indexPath)
+        ref.child("users").child(id).observe(.value, with: { snapshot in
+            if let person = PersonTranslator().translateFrom(snapshot: snapshot) {
+                completion(person, indexPath)
             }
         }) { error in
             print("Error while retreiving user:" + error.localizedDescription)
