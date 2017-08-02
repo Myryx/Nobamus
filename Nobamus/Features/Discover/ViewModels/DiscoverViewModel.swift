@@ -183,7 +183,7 @@ class DiscoverViewModel: DiscoverViewModelProtocol {
         getPeopleAround(location)
     }
     
-    private func getLoadOperation(for indexPath: IndexPath) -> PersonLoadOperation? {
+    fileprivate func getLoadOperation(for indexPath: IndexPath) -> PersonLoadOperation? {
         guard let personId = peopleAroundIdentifiers.safeObjectAtIndex(indexPath.row) else {
             return nil
         }
@@ -198,6 +198,14 @@ extension DiscoverViewModel: MusicProviderDelegate {
         if MusicProvider.playbackState.isPlaying == true {
             MusicProvider.playbackState.isPlaying = false
             delegate?.playedTrackInMusicApp()
+        }
+    }
+    
+    func discoverTrackHasEnded() {
+        if  let lastPlayedIndex = lastSelectedCellIndexPath,
+            let dataLoader = loadingOperations[lastPlayedIndex],
+            let person = dataLoader.person {
+            MusicProvider.playTrack(person.track)
         }
     }
 }

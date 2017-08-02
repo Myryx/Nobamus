@@ -10,6 +10,7 @@ public let DiscoverTrackUpdatedNotificationName = "TrackHasBeenUpdated"
 
 protocol MusicProviderDelegate {
     func personalTrackHasBeenUpdated(to track: Track)
+    func discoverTrackHasEnded()
 }
 
 class MusicProvider {
@@ -23,7 +24,6 @@ class MusicProvider {
     private static var silentPlayer: AVPlayer?
     
     static var isPlaying: Bool {
-//        print(playbackState.isPlaying)
         return playbackState.isPlaying
     }
     
@@ -133,6 +133,11 @@ class MusicProvider {
     dynamic static func trackHasChanged(notification: Notification) {
         updatePersonalTrack()
         updateDiscoverTrack()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            if musicPlayer.playbackState == .stopped && playbackState.wherePlayedLastTime == .inApp && playbackState.isPlaying == false {
+                delegate?.discoverTrackHasEnded()
+            }
+        }
     }
     
     dynamic static func silentDidReachEnd(notification: Notification) {
