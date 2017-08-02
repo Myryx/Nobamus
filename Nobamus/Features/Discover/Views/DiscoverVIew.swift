@@ -28,11 +28,6 @@ class DiscoverView: UIView {
         }
     }
     
-    fileprivate(set) lazy var backgroundImage: UIImageView = {
-        let view = UIImageView(frame: CGRect.zero)
-        view.image = UIImage(named: "login_background")
-        return view
-    }()
     
     fileprivate(set) lazy var activityIndicator: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView()
@@ -74,7 +69,7 @@ class DiscoverView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(backgroundImage)
+        backgroundColor = UIColor.black
         addSubview(collectionView)
         addSubview(activityIndicator)
         addSubview(loginStatusLabel)
@@ -126,9 +121,6 @@ class DiscoverView: UIView {
         loginStatusLabel.snp.makeConstraints { make in
             make.top.equalTo(activityIndicator.snp.bottom).offset(loginStatusTop)
             make.centerX.equalToSuperview()
-        }
-        backgroundImage.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
         }
         playbackControl.snp.makeConstraints { make in
             make.top.equalTo(self.snp.bottom)

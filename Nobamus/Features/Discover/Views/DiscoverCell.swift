@@ -61,7 +61,6 @@ class DiscoverCell: UICollectionViewCell {
         view.roundedCorners = false
         view.glowMode = .constant
         view.glowAmount = 0.9
-//        view.set(colors: UIColor.cyan ,UIColor.white, UIColor.magenta, UIColor.white, UIColor.orange)
         view.set(colors: UIColor.cyan)
         return view
     }()
@@ -109,7 +108,6 @@ class DiscoverCell: UICollectionViewCell {
         super.init(frame: frame)
         addSubview(avatarImageView)
         addSubview(nameLabel)
-//        addSubview(distanceLabel)
         addSubview(playIconImageView)
         addSubview(speakersImageView)
         addSubview(progressView)
@@ -136,6 +134,10 @@ class DiscoverCell: UICollectionViewCell {
         UIView.animate(withDuration: 0.3, animations: {
             self.nameLabel.alpha = 1.0
             self.distanceLabel.alpha = 1.0
+            self.progressView.alpha = 1.0
+            self.speakersImageView.alpha = 1.0
+            self.avatarImageView.alpha = 1.0
+            
         })
     }
     
@@ -143,6 +145,9 @@ class DiscoverCell: UICollectionViewCell {
         UIView.animate(withDuration: 0.3, animations: {
             self.nameLabel.alpha = 0
             self.distanceLabel.alpha = 0
+            self.progressView.alpha = 0
+            self.speakersImageView.alpha = 0
+            self.avatarImageView.alpha = 0
         })
     }
     
