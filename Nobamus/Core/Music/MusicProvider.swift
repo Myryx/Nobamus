@@ -31,6 +31,7 @@ class MusicProvider {
         musicPlayer.beginGeneratingPlaybackNotifications()
         
         NotificationCenter.default.addObserver(self, selector: #selector(MusicProvider.trackHasChanged), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MusicProvider.playerPlaybackHasChanged), name: .MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
         
         setupSilentPlayer()
     }
@@ -94,6 +95,7 @@ class MusicProvider {
             if notificationTrack.title == currentPersonal.title { // still playing the track
                 MusicProvider.playbackState.playbackTime = MusicProvider.musicPlayer.currentPlaybackTime
                 MusicProvider.playbackState.isPlaying = MusicProvider.musicPlayer.playbackState == .playing
+                MusicProvider.updatePlaybackInfo()
             }
         } else {
             currentPersonalTrack = notificationTrack
@@ -124,7 +126,6 @@ class MusicProvider {
     
     static func updatePlaybackInfo() {
         let playbackTime = MusicProvider.musicPlayer.currentPlaybackTime
-        print("playbackTime\(playbackTime)")
         if playbackTime.isNaN == false {
             DatabaseManager.updatePlaybackInfo(playbackTime: playbackTime, isPlaying: MusicProvider.isPlaying)
         }
@@ -138,6 +139,17 @@ class MusicProvider {
                 delegate?.discoverTrackHasEnded()
             }
         }
+    }
+    
+    dynamic static func playerPlaybackHasChanged(notification: Notification) {
+//      here we observe how Native Music App affects our playback
+        guard UIApplication.shared.applicationState == .background else { return }
+        if musicPlayer.playbackState == .paused {
+            playbackState.isPlaying = false
+        } else {
+            playbackState.isPlaying = true
+        }
+        updatePlaybackInfo()
     }
     
     dynamic static func silentDidReachEnd(notification: Notification) {

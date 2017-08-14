@@ -106,9 +106,15 @@ class DiscoverViewModel: DiscoverViewModelProtocol {
         }
         guard let personId = peopleAroundIdentifiers.safeObjectAtIndex(indexPath.row) else { return }
         DatabaseManager.observePersonChanges(id: personId, at: indexPath, completion: { [weak self] (person, indexPath) in
-            if let dataLoader = self?.loadingOperations[indexPath], let newPerson = person {
-                dataLoader.person = newPerson
-                self?.delegate?.updateCellAppearance(with: newPerson, indexPath: indexPath)
+            guard let dataLoader = self?.loadingOperations[indexPath], let newPerson = person else {
+                return
+            }
+            guard let previousItemId = dataLoader.person?.track.id,
+                let lastIndex = self?.lastSelectedCellIndexPath else { return }
+            dataLoader.person = newPerson
+            self?.delegate?.updateCellAppearance(with: newPerson, indexPath: indexPath)
+            if previousItemId != person?.track.id && lastIndex == indexPath && MusicProvider.isPlaying {
+                MusicProvider.playTrack(newPerson.track)
             }
         })
     }
@@ -194,9 +200,11 @@ class DiscoverViewModel: DiscoverViewModelProtocol {
 extension DiscoverViewModel: MusicProviderDelegate {
     func personalTrackHasBeenUpdated(to track: Track) { // should be valid only if in background
         DatabaseManager.updateUserTrack(track: track)
+        MusicProvider.updatePlaybackInfo()
         guard UIApplication.shared.applicationState == .background else { return }
         if MusicProvider.playbackState.isPlaying == true {
-            MusicProvider.playbackState.isPlaying = false
+//            MusicProvider.playbackState.isPlaying = false
+            
             delegate?.playedTrackInMusicApp()
         }
     }

@@ -45,8 +45,6 @@ class DatabaseManager {
     }
     
     static func updatePlaybackInfo(playbackTime: Double, isPlaying: Bool) {
-        print("isPlaying:\(isPlaying)")
-        print("playbackTime:\(playbackTime)")
         updateUser(key: "playbackTime", value: playbackTime)
         updateUser(key: "isPlaying", value: isPlaying)
     }
