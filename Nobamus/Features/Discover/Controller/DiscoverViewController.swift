@@ -121,8 +121,10 @@ extension DiscoverViewController: UICollectionViewDelegate {
         guard let cell = cell as? DiscoverCell else { return }
         if viewModel.lastSelectedCellIndexPath == indexPath && MusicProvider.isPlaying {
             cell.setIsPlaying(isPlaying: false)
+        } else {
+            viewModel.stopPersonLoading(at: indexPath)
         }
-        viewModel.stopPersonLoading(at: indexPath)
+        
         
         
 //        cell.progressManager.startProgress()
