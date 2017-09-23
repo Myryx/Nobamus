@@ -62,6 +62,7 @@ class DiscoverViewModel: DiscoverViewModelProtocol {
             cell.setIsPlaying(isPlaying: true)
         }
         cell.enableCellAppearance()
+        delegate?.updateCellAppearance(with: person, indexPath: indexPath)
         if person.isPlaying {
             cell.progressManager.startProgress()
         }
@@ -137,7 +138,7 @@ class DiscoverViewModel: DiscoverViewModelProtocol {
             } else {
                 // NOTE: this one has not been tested - if player taps on the same person and she listens to another song - this block will play this new song instead of pausing/continuing the song
                 if let dataLoader = getLoadOperation(for: indexPath), let track = dataLoader.person?.track,
-                    track == MusicProvider.currentDiscoverTrack {
+                    track == MusicProvider.currentDiscoverTrack, dataLoader.person?.isOnline  == true {
                     delegate?.updateOverallAppearance(isPlaying: true)
                     delegate?.updateCellAppearance(isPlaying: true, indexPath: indexPath)
                     MusicProvider.playTrack(track)
@@ -159,14 +160,14 @@ class DiscoverViewModel: DiscoverViewModelProtocol {
                 self.delegate?.updateCellAppearance(isPlaying: false, indexPath: lastSelectedCellIndexPath)
             }
             self.lastSelectedCellIndexPath = indexPath
-            if let dataLoader = getLoadOperation(for: indexPath), let person = dataLoader.person {
+            if let dataLoader = getLoadOperation(for: indexPath), let person = dataLoader.person, person.isOnline == true {
                 delegate?.updateOverallAppearance(isPlaying: true)
                 delegate?.updateCellAppearance(isPlaying: true, indexPath: indexPath)
                 MusicProvider.playTrack(person.track)
             } else {
                 guard let dataLoader = getLoadOperation(for: indexPath) else { return }
                 dataLoader.loadingCompleteHandler = { [unowned self] in
-                    if let track = dataLoader.person?.track {
+                    if let track = dataLoader.person?.track, dataLoader.person?.isOnline == true {
                         self.delegate?.updateOverallAppearance(isPlaying: true)
                         self.delegate?.updateCellAppearance(isPlaying: true, indexPath: indexPath)
                         MusicProvider.playTrack(track)

@@ -7,6 +7,8 @@ import UIKit
 
 class DiscoverCell: UICollectionViewCell {
     
+    let offlineOverlayAlpha: CGFloat = 0.7
+    
     var playIconSize: CGFloat = 15 {
         didSet {
             setNeedsUpdateConstraints()
@@ -78,6 +80,11 @@ class DiscoverCell: UICollectionViewCell {
         return view
     }()
     
+    fileprivate(set) lazy var offlineOverlay: UIView = {
+        let view = UIView(frame: CGRect.zero)
+        view.backgroundColor = UIColor.black
+        return view
+    }()
 
     fileprivate(set) lazy var playIconImageView: UIImageView = {
         let view = UIImageView(frame: CGRect.zero)
@@ -107,10 +114,11 @@ class DiscoverCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(avatarImageView)
-        addSubview(nameLabel)
         addSubview(playIconImageView)
         addSubview(speakersImageView)
         addSubview(progressView)
+        addSubview(offlineOverlay)
+        addSubview(nameLabel)
         progressManager.delegate = self
         makeConstraints()
     }
@@ -173,15 +181,31 @@ class DiscoverCell: UICollectionViewCell {
         progressManager.stopProgress()
     }
     
+    func setOnline() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.offlineOverlay.alpha = 0
+        })
+    }
+    
+    func setOffline() {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.offlineOverlay.alpha = self.offlineOverlayAlpha
+        })
+    }
+    
     override func prepareForReuse() {
         nameLabel.text = ""
         distanceLabel.text = ""
         playIconImageView.isHidden = true
+        offlineOverlay.alpha = 0
         disableCellAppearance()
     }
     
     func makeConstraints() {
         avatarImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+        offlineOverlay.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         speakersImageView.snp.makeConstraints { make in

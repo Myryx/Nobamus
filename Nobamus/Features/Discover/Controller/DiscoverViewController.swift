@@ -51,6 +51,7 @@ class DiscoverViewController: UIViewController {
         discoverView.activityIndicator.startAnimating()
         discoverView.loginStatusLabel.isHidden = false
         NotificationCenter.default.addObserver(self, selector: #selector(updatePlaybackControlState(_:)), name: NSNotification.Name(rawValue: DiscoverTrackUpdatedNotificationName), object: nil)
+//        DatabaseManager.updateOnlineState(isOnline: true)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -64,18 +65,11 @@ class DiscoverViewController: UIViewController {
     
     func updatePlaybackControlState(_ notification: Notification) {
         
-        guard let songTitle = MusicProvider.currentDiscoverTrack?.title else { return }
+        guard let songTitle = MusicProvider.currentDiscoverTrack?.title,
+            let artistName = MusicProvider.currentDiscoverTrack?.artist else { return }
         
-        let artSize = CGSize(width: discoverView.playbackControl.albumIconSize, height: discoverView.playbackControl.albumIconSize)
         var playbackControlVM: PlaybackControlViewModel?
-        var image: UIImage?
-        if let itemArtwork = MusicProvider.playbackState.playbackItem?.value(forProperty: MPMediaItemPropertyArtwork) as? MPMediaItemArtwork {
-            image = itemArtwork.image(at: artSize)
-            if image == nil {
-                image = itemArtwork.image(at: itemArtwork.bounds.size)
-            }
-        }
-        playbackControlVM = PlaybackControlViewModel(image: image, title: songTitle)
+        playbackControlVM = PlaybackControlViewModel(title: songTitle, artist: artistName)
         discoverView.playbackControl.viewModel = playbackControlVM
     }
 }
@@ -124,10 +118,6 @@ extension DiscoverViewController: UICollectionViewDelegate {
         } else {
             viewModel.stopPersonLoading(at: indexPath)
         }
-        
-        
-        
-//        cell.progressManager.startProgress()
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -175,6 +165,11 @@ extension DiscoverViewController: DiscoverViewModelDelegate {
     
     func updateCellAppearance(with person: Person, indexPath: IndexPath) {
         guard let cell = self.discoverView.collectionView.cellForItem(at: indexPath) as? DiscoverCell else { return }
+        if person.isOnline == false {
+            cell.setOffline()
+        } else {
+            cell.setOnline()
+        }
         cell.progressManager.setStartingProgressPosition(startingTime: person.playbackTime, overallTime: person.overallPlaybackTime)
         if person.isPlaying {
             cell.progressManager.startProgress()

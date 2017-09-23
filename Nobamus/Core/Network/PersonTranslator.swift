@@ -5,6 +5,7 @@ enum PersonKeys: String {
     case playbackTime
     case overallPlaybackTime
     case isPlaying
+    case isOnline
     case track
 }
 
@@ -16,13 +17,14 @@ class PersonTranslator: Translator {
             let playbackTime = json[PersonKeys.playbackTime.rawValue] as? Double,
             let overallPlaybackTime = json[PersonKeys.overallPlaybackTime.rawValue] as? Double,
             let isPlaying = json[PersonKeys.isPlaying.rawValue] as? Bool,
+            let isOnline = json[PersonKeys.isOnline.rawValue] as? Bool,
             let trackJson = json[PersonKeys.track.rawValue] as? [String : Any],
             let track = TrackTranslator().translateFrom(dictionary:trackJson)
             else {
                 return nil
         }
         
-        return Person(name: name, track: track, playbackTime: playbackTime, overallPlaybackTime: overallPlaybackTime, isPlaying: isPlaying)
+        return Person(name: name, track: track, playbackTime: playbackTime, overallPlaybackTime: overallPlaybackTime, isPlaying: isPlaying, isOnline: isOnline)
     }
     
     func translateFrom(snapshot: FIRDataSnapshot) -> Person? {
@@ -32,13 +34,14 @@ class PersonTranslator: Translator {
             let playbackTime = value[PersonKeys.playbackTime.rawValue] as? Double,
             let overallPlaybackTime = value[PersonKeys.overallPlaybackTime.rawValue] as? Double,
             let isPlaying = value[PersonKeys.isPlaying.rawValue] as? Bool,
+            let isOnline = value[PersonKeys.isOnline.rawValue] as? Bool,
             let trackJson = value[PersonKeys.track.rawValue] as? [String : Any],
             let track = TrackTranslator().translateFrom(dictionary:trackJson)
             else {
                 return nil
         }
         
-        return Person(name: name, track: track, playbackTime: playbackTime, overallPlaybackTime: overallPlaybackTime, isPlaying: isPlaying)
+        return Person(name: name, track: track, playbackTime: playbackTime, overallPlaybackTime: overallPlaybackTime, isPlaying: isPlaying, isOnline: isOnline)
     }
     
     func translateToDictionary(_ object: Person) -> [String : Any] {

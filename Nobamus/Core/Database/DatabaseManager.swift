@@ -30,10 +30,12 @@ class DatabaseManager {
     }
     
     // MARK update
-    static func updateUser(key: String, value: Any) {
+    static func updateUser(key: String, value: Any, completion: @escaping () -> () = { _ in }) {
         guard let userId = User.sharedInstance.uniqueID else { return }
         ref.child("users").child(userId).observeSingleEvent(of: .value, with: { snapshot in
-            ref.child("users/\(userId)/" + key).setValue(value)
+            ref.child("users/\(userId)/" + key).setValue(value, withCompletionBlock: { (error, ref) in
+                completion()
+            })
             
         }) { error in
             print("Update user error: " + error.localizedDescription)
@@ -47,6 +49,10 @@ class DatabaseManager {
     static func updatePlaybackInfo(playbackTime: Double, isPlaying: Bool) {
         updateUser(key: "playbackTime", value: playbackTime)
         updateUser(key: "isPlaying", value: isPlaying)
+    }
+    
+    static func updateOnlineState(isOnline: Bool, completion: @escaping () -> () = { _ in }) {
+        updateUser(key: "isOnline", value: isOnline, completion: completion)
     }
     
     // MARK: get

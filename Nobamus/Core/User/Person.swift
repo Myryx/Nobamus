@@ -17,11 +17,13 @@ struct Person {
     var playbackTime: Double = 0.0
     var overallPlaybackTime: Double = 0.0
     var isPlaying: Bool = false
-    init(name: String, track: Track, playbackTime: Double, overallPlaybackTime: Double, isPlaying: Bool) {
+    var isOnline: Bool = false
+    init(name: String, track: Track, playbackTime: Double, overallPlaybackTime: Double, isPlaying: Bool, isOnline: Bool) {
         self.name = name
         self.track = track
         self.playbackTime = playbackTime
         self.isPlaying = isPlaying
+        self.isOnline = isOnline
         self.overallPlaybackTime = overallPlaybackTime
     }
 }

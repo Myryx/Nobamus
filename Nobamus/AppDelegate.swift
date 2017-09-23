@@ -51,9 +51,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(_ application: UIApplication) {
         MusicProvider.pausePlaying()
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+//        var offlineTask: UIBackgroundTaskIdentifier!
+//        offlineTask = application.beginBackgroundTask(expirationHandler: {
+//            application.endBackgroundTask(offlineTask)
+//            offlineTask = UIBackgroundTaskInvalid
+//        })
+//        DispatchQueue.global(qos: .background).async {
+//            DatabaseManager.updateOnlineState(isOnline: false, completion: {
+//                print("offline completed")
+//                sleep(2)
+//                application.endBackgroundTask(offlineTask)
+//                offlineTask = UIBackgroundTaskInvalid
+//            })
+//            
+//        }
     }
-
-
 }
-
