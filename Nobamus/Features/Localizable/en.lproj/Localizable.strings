@@ -4,11 +4,11 @@
   Copyright © 2017 Yanislav Kononov. All rights reserved.
 */
 
-
-"Your Name" = "Your name";
 // MARK: Login
 "Login.FillInYourName" = "Please fill in your name";
 "Login.WeAreLoggingYouIn" = "Logging in...";
+"Login.Start" = "Start";
+"Login.Enter Name" = "Enter Name";
 
 // MARK: Discover
 "Discover.LookingForPeopleAround" = "Looking for people around you...";

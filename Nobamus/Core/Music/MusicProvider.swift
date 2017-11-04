@@ -118,10 +118,28 @@ class MusicProvider {
     
     static func appIsAboutToGoBackground() {
         MusicProvider.playbackState.isInForeground = false
+        var offlineTask: UIBackgroundTaskIdentifier!
+        offlineTask = UIApplication.shared.beginBackgroundTask(expirationHandler: {
+            UIApplication.shared.endBackgroundTask(offlineTask)
+            offlineTask = UIBackgroundTaskInvalid
+        })
+        DatabaseManager.updateOnlineState(isOnline: false, completion: {
+            UIApplication.shared.endBackgroundTask(offlineTask)
+            offlineTask = UIBackgroundTaskInvalid
+        })
     }
     
     static func appIsAboutToGoForeground() {
         MusicProvider.playbackState.isInForeground = true
+        var offlineTask: UIBackgroundTaskIdentifier!
+        offlineTask = UIApplication.shared.beginBackgroundTask(expirationHandler: {
+            UIApplication.shared.endBackgroundTask(offlineTask)
+            offlineTask = UIBackgroundTaskInvalid
+        })
+        DatabaseManager.updateOnlineState(isOnline: true, completion: {
+            UIApplication.shared.endBackgroundTask(offlineTask)
+            offlineTask = UIBackgroundTaskInvalid
+        })
     }
     
     static func updatePlaybackInfo() {

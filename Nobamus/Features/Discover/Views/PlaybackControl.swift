@@ -19,7 +19,7 @@ enum PlaybackControlState {
 
 class PlaybackControl: UIView {
     // MARK: - Variables
-    private let titleLeftOffset: CGFloat = 10
+    private let titleLeftOffset: CGFloat = 25
     private let titleRightOffset: CGFloat = 10
     private let titleTopOffset: CGFloat = 10
     private let artistTopOffset: CGFloat = 10

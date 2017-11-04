@@ -57,13 +57,11 @@ class DiscoverCell: UICollectionViewCell {
     fileprivate(set) lazy var progressView: KDCircularProgress = {
         let view = KDCircularProgress(frame: CGRect.zero)
         view.startAngle = -90
-        view.progressThickness = 0.2
-        view.trackColor = UIColor.clear
+        view.progressThickness = 0.1
         view.clockwise = true
         view.roundedCorners = false
-        view.glowMode = .constant
-        view.glowAmount = 0.9
-        view.set(colors: UIColor.cyan)
+        view.glowAmount = 0
+        view.set(colors: UIColor.nobamusOrange)
         return view
     }()
     
@@ -182,12 +180,14 @@ class DiscoverCell: UICollectionViewCell {
     }
     
     func setOnline() {
+        isUserInteractionEnabled = true
         UIView.animate(withDuration: 0.3, animations: {
             self.offlineOverlay.alpha = 0
         })
     }
     
     func setOffline() {
+        isUserInteractionEnabled = false
         UIView.animate(withDuration: 0.3, animations: {
             self.offlineOverlay.alpha = self.offlineOverlayAlpha
         })

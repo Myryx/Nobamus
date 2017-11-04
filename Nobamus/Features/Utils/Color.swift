@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 
 public extension UIColor {
+    
     class func whiteColorWithAlpha(_ alpha: CGFloat) -> UIColor {
         return UIColor.init(white: 1.0, alpha: alpha)
     }
@@ -18,5 +19,9 @@ public extension UIColor {
     }
     class func grayColorWithAlpha(_ alpha: CGFloat) -> UIColor {
         return UIColor.lightGray
+    }
+    
+    static var nobamusOrange: UIColor {
+        return self.init(red: 230/255.0, green: 82/255.0, blue: 28/255.0, alpha: 1.0)
     }
 }

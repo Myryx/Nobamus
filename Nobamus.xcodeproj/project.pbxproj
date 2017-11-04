@@ -7,8 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C0A75021F7FEF5100CA7115 /* SpeakersImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A75011F7FEF5100CA7115 /* SpeakersImageView.swift */; };
+		2C0A75041F801B2300CA7115 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A75031F801B2300CA7115 /* ViewController.swift */; };
 		2C2AE0461F1138C400AB08CC /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2AE0451F1138C400AB08CC /* Array.swift */; };
 		2C2B1D8B1F1B2AD7001D6FF9 /* silence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2C2B1D8A1F1B2AD7001D6FF9 /* silence.mp3 */; };
+		2C39BD061F7FC3A7001D5BF1 /* SelfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C39BD051F7FC3A7001D5BF1 /* SelfViewController.swift */; };
+		2C39BD081F7FC3B6001D5BF1 /* SelfViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C39BD071F7FC3B6001D5BF1 /* SelfViewModel.swift */; };
+		2C39BD0B1F7FC4B3001D5BF1 /* SelfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C39BD0A1F7FC4B3001D5BF1 /* SelfView.swift */; };
 		2C45BF831F0FF21400E7D628 /* PersonLoadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45BF821F0FF21400E7D628 /* PersonLoadOperation.swift */; };
 		2C45BF851F0FF87700E7D628 /* TrackTranslator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45BF841F0FF87700E7D628 /* TrackTranslator.swift */; };
 		2C45BF871F10C0A900E7D628 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C45BF861F10C0A900E7D628 /* APIError.swift */; };
@@ -49,8 +54,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C0A75011F7FEF5100CA7115 /* SpeakersImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SpeakersImageView.swift; path = Features/Views/SpeakersImageView.swift; sourceTree = "<group>"; };
+		2C0A75031F801B2300CA7115 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = Features/Utils/ViewController.swift; sourceTree = "<group>"; };
 		2C2AE0451F1138C400AB08CC /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Array.swift; path = Features/Utils/Array.swift; sourceTree = "<group>"; };
 		2C2B1D8A1F1B2AD7001D6FF9 /* silence.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = silence.mp3; sourceTree = "<group>"; };
+		2C39BD051F7FC3A7001D5BF1 /* SelfViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelfViewController.swift; path = Features/Self/Controllers/SelfViewController.swift; sourceTree = "<group>"; };
+		2C39BD071F7FC3B6001D5BF1 /* SelfViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelfViewModel.swift; path = Features/Self/ViewModels/SelfViewModel.swift; sourceTree = "<group>"; };
+		2C39BD0A1F7FC4B3001D5BF1 /* SelfView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelfView.swift; path = Features/Self/Views/SelfView.swift; sourceTree = "<group>"; };
 		2C45BF821F0FF21400E7D628 /* PersonLoadOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PersonLoadOperation.swift; path = Features/Discover/Model/PersonLoadOperation.swift; sourceTree = "<group>"; };
 		2C45BF841F0FF87700E7D628 /* TrackTranslator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TrackTranslator.swift; path = Core/Network/TrackTranslator.swift; sourceTree = "<group>"; };
 		2C45BF861F10C0A900E7D628 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = APIError.swift; path = Core/Network/APIError.swift; sourceTree = "<group>"; };
@@ -107,6 +117,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C0A75001F7FEF3600CA7115 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2C0A75011F7FEF5100CA7115 /* SpeakersImageView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		2C2B1D891F1B2AAF001D6FF9 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +132,40 @@
 				2C9074501EBF111E000E1A71 /* Assets.xcassets */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		2C39BD031F7FC367001D5BF1 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				2C39BD071F7FC3B6001D5BF1 /* SelfViewModel.swift */,
+			);
+			name = ViewModels;
+			sourceTree = "<group>";
+		};
+		2C39BD041F7FC36C001D5BF1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				2C39BD051F7FC3A7001D5BF1 /* SelfViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		2C39BD091F7FC4A1001D5BF1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				2C39BD0A1F7FC4B3001D5BF1 /* SelfView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		2C455BB01F7F925100C1AF81 /* Self */ = {
+			isa = PBXGroup;
+			children = (
+				2C39BD091F7FC4A1001D5BF1 /* Views */,
+				2C39BD041F7FC36C001D5BF1 /* Controllers */,
+				2C39BD031F7FC367001D5BF1 /* ViewModels */,
+			);
+			name = Self;
 			sourceTree = "<group>";
 		};
 		2C45BF811F0FF1EE00E7D628 /* Models */ = {
@@ -171,6 +223,8 @@
 		2C90745D1EBF281B000E1A71 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				2C0A75001F7FEF3600CA7115 /* Views */,
+				2C455BB01F7F925100C1AF81 /* Self */,
 				2C90745E1EBF2821000E1A71 /* Login */,
 				2CD6F8151ED1F4800042A748 /* Discover */,
 				2CADD0C71ED06CB100C9ABA3 /* Localization */,
@@ -200,6 +254,7 @@
 				2C2AE0451F1138C400AB08CC /* Array.swift */,
 				2C8F47E71F2CDBB500397667 /* Image.swift */,
 				2C7CECFA1F2E1F9300279264 /* CircularProgressBar.swift */,
+				2C0A75031F801B2300CA7115 /* ViewController.swift */,
 			);
 			name = Utils;
 			sourceTree = "<group>";
@@ -394,7 +449,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0830;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Yanislav Kononov";
 				TargetAttributes = {
 					2C9074451EBF111E000E1A71 = {
@@ -509,6 +564,7 @@
 				2CEA0B9B1F2E57E100160545 /* DiscoverProgressManager.swift in Sources */,
 				2C45BF871F10C0A900E7D628 /* APIError.swift in Sources */,
 				2C80F4181F1A716F00265E7A /* MusicProvider.swift in Sources */,
+				2C39BD0B1F7FC4B3001D5BF1 /* SelfView.swift in Sources */,
 				2C751DF11F2BAB04000C8468 /* PlaybackControl.swift in Sources */,
 				2CADD0BB1ED0454600C9ABA3 /* Color.swift in Sources */,
 				2CADD0941ED01A4A00C9ABA3 /* Font.swift in Sources */,
@@ -518,14 +574,18 @@
 				2C6B1CFA1F07D77B00883639 /* Translator.swift in Sources */,
 				2C6B1CFC1F07D7AF00883639 /* PersonTranslator.swift in Sources */,
 				2CADD08F1ECFFC7E00C9ABA3 /* LoginView.swift in Sources */,
+				2C0A75041F801B2300CA7115 /* ViewController.swift in Sources */,
 				2CF8A1EA1EE9B0CA00D369AB /* LocationProvider.swift in Sources */,
 				2CD6F8071ED0AE880042A748 /* User.swift in Sources */,
 				2CD6F81B1ED1F7010042A748 /* DiscoverViewController.swift in Sources */,
 				2C45BF891F10C30F00E7D628 /* ErrorProcessor.swift in Sources */,
+				2C0A75021F7FEF5100CA7115 /* SpeakersImageView.swift in Sources */,
+				2C39BD061F7FC3A7001D5BF1 /* SelfViewController.swift in Sources */,
 				2C9074671EBF2B53000E1A71 /* LoginViewModel.swift in Sources */,
 				2CD6F81D1ED1F7210042A748 /* DiscoverVIew.swift in Sources */,
 				2CC9D65F1F236E8F00B1236D /* ApplicationPlaybackState.swift in Sources */,
 				2CD6F8111ED19A7E0042A748 /* Track.swift in Sources */,
+				2C39BD081F7FC3B6001D5BF1 /* SelfViewModel.swift in Sources */,
 				2CD6F8211ED1F7EC0042A748 /* DiscoverViewModel.swift in Sources */,
 				2CADD0B91ED0420300C9ABA3 /* Utils.swift in Sources */,
 				2CD6F8031ED0965B0042A748 /* LoginAppleMusicProvider.swift in Sources */,
@@ -562,7 +622,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -570,7 +632,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -613,7 +679,9 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -621,7 +689,11 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

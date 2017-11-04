@@ -52,6 +52,7 @@ class DiscoverView: UIView {
         collectionView.alwaysBounceVertical = true
         collectionView.showsVerticalScrollIndicator = false
         collectionView.contentInset = UIEdgeInsetsMake(0, self.collectionSideInsetSize, 0, self.collectionSideInsetSize)
+        collectionView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0)
         return collectionView
     }()
     
@@ -129,10 +130,7 @@ class DiscoverView: UIView {
             make.height.equalTo(playbackControlHeight)
         }
         collectionView.snp.makeConstraints { make in
-            make.top.equalToSuperview().offset(collectionViewBorders)
-            make.bottom.equalToSuperview().offset(-collectionViewBorders)
-            make.left.equalToSuperview().offset(collectionViewBorders)
-            make.right.equalToSuperview().offset(-collectionViewBorders)
+            make.right.left.top.bottom.equalToSuperview().inset(collectionViewBorders)
         }
     }
 }
