@@ -52,7 +52,7 @@ class DiscoverViewController: UIViewController {
         discoverView.loginStatusLabel.isHidden = false
         automaticallyAdjustsScrollViewInsets = false
         NotificationCenter.default.addObserver(self, selector: #selector(updatePlaybackControlState(_:)), name: NSNotification.Name(rawValue: DiscoverTrackUpdatedNotificationName), object: nil)
-//        DatabaseManager.updateOnlineState(isOnline: true)
+        DatabaseManager.updateOnlineState(isOnline: true)
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
