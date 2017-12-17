@@ -11,6 +11,7 @@
 		2C0A75041F801B2300CA7115 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C0A75031F801B2300CA7115 /* ViewController.swift */; };
 		2C2AE0461F1138C400AB08CC /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2AE0451F1138C400AB08CC /* Array.swift */; };
 		2C2B1D8B1F1B2AD7001D6FF9 /* silence.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2C2B1D8A1F1B2AD7001D6FF9 /* silence.mp3 */; };
+		2C347E0C1FE430760039DC4C /* ExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C347E0B1FE430760039DC4C /* ExplanationView.swift */; };
 		2C39BD061F7FC3A7001D5BF1 /* SelfViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C39BD051F7FC3A7001D5BF1 /* SelfViewController.swift */; };
 		2C39BD081F7FC3B6001D5BF1 /* SelfViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C39BD071F7FC3B6001D5BF1 /* SelfViewModel.swift */; };
 		2C39BD0B1F7FC4B3001D5BF1 /* SelfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C39BD0A1F7FC4B3001D5BF1 /* SelfView.swift */; };
@@ -50,6 +51,7 @@
 		2CD6F8231ED2032E0042A748 /* DiscoverCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CD6F8221ED2032E0042A748 /* DiscoverCell.swift */; };
 		2CEA0B9B1F2E57E100160545 /* DiscoverProgressManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CEA0B9A1F2E57E100160545 /* DiscoverProgressManager.swift */; };
 		2CF8A1EA1EE9B0CA00D369AB /* LocationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CF8A1E91EE9B0CA00D369AB /* LocationProvider.swift */; };
+		2CFA7EF41FB74CFC00CB8E53 /* ExplanationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CFA7EF31FB74CFC00CB8E53 /* ExplanationViewController.swift */; };
 		50EB9D07610B6AB9B5C93665 /* Pods_Nobamus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0C5B305EA3A9444B93A64A2 /* Pods_Nobamus.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +60,7 @@
 		2C0A75031F801B2300CA7115 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = Features/Utils/ViewController.swift; sourceTree = "<group>"; };
 		2C2AE0451F1138C400AB08CC /* Array.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Array.swift; path = Features/Utils/Array.swift; sourceTree = "<group>"; };
 		2C2B1D8A1F1B2AD7001D6FF9 /* silence.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = silence.mp3; sourceTree = "<group>"; };
+		2C347E0B1FE430760039DC4C /* ExplanationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationView.swift; sourceTree = "<group>"; };
 		2C39BD051F7FC3A7001D5BF1 /* SelfViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelfViewController.swift; path = Features/Self/Controllers/SelfViewController.swift; sourceTree = "<group>"; };
 		2C39BD071F7FC3B6001D5BF1 /* SelfViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelfViewModel.swift; path = Features/Self/ViewModels/SelfViewModel.swift; sourceTree = "<group>"; };
 		2C39BD0A1F7FC4B3001D5BF1 /* SelfView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SelfView.swift; path = Features/Self/Views/SelfView.swift; sourceTree = "<group>"; };
@@ -100,6 +103,7 @@
 		2CD6F8221ED2032E0042A748 /* DiscoverCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiscoverCell.swift; path = Features/Discover/Views/DiscoverCell.swift; sourceTree = "<group>"; };
 		2CEA0B9A1F2E57E100160545 /* DiscoverProgressManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DiscoverProgressManager.swift; path = Features/Discover/Model/DiscoverProgressManager.swift; sourceTree = "<group>"; };
 		2CF8A1E91EE9B0CA00D369AB /* LocationProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationProvider.swift; path = Core/Location/LocationProvider.swift; sourceTree = "<group>"; };
+		2CFA7EF31FB74CFC00CB8E53 /* ExplanationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExplanationViewController.swift; sourceTree = "<group>"; };
 		95C3CB60BC9ADA36F164D663 /* Pods-Nobamus.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nobamus.release.xcconfig"; path = "Pods/Target Support Files/Pods-Nobamus/Pods-Nobamus.release.xcconfig"; sourceTree = "<group>"; };
 		977DDD37160384D010A371F3 /* Pods-Nobamus.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Nobamus.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Nobamus/Pods-Nobamus.debug.xcconfig"; sourceTree = "<group>"; };
 		B0C5B305EA3A9444B93A64A2 /* Pods_Nobamus.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Nobamus.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -223,6 +227,7 @@
 		2C90745D1EBF281B000E1A71 /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				2CFA7EF21FB74CE700CB8E53 /* ExplanationScreen */,
 				2C0A75001F7FEF3600CA7115 /* Views */,
 				2C455BB01F7F925100C1AF81 /* Self */,
 				2C90745E1EBF2821000E1A71 /* Login */,
@@ -402,6 +407,15 @@
 			name = Location;
 			sourceTree = "<group>";
 		};
+		2CFA7EF21FB74CE700CB8E53 /* ExplanationScreen */ = {
+			isa = PBXGroup;
+			children = (
+				2CFA7EF31FB74CFC00CB8E53 /* ExplanationViewController.swift */,
+				2C347E0B1FE430760039DC4C /* ExplanationView.swift */,
+			);
+			path = ExplanationScreen;
+			sourceTree = "<group>";
+		};
 		9E04590E0EFDD26E598DA0B8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -574,6 +588,7 @@
 				2C6B1CFA1F07D77B00883639 /* Translator.swift in Sources */,
 				2C6B1CFC1F07D7AF00883639 /* PersonTranslator.swift in Sources */,
 				2CADD08F1ECFFC7E00C9ABA3 /* LoginView.swift in Sources */,
+				2CFA7EF41FB74CFC00CB8E53 /* ExplanationViewController.swift in Sources */,
 				2C0A75041F801B2300CA7115 /* ViewController.swift in Sources */,
 				2CF8A1EA1EE9B0CA00D369AB /* LocationProvider.swift in Sources */,
 				2CD6F8071ED0AE880042A748 /* User.swift in Sources */,
@@ -591,6 +606,7 @@
 				2CD6F8031ED0965B0042A748 /* LoginAppleMusicProvider.swift in Sources */,
 				2C83B7091F0F973F00C4E749 /* DiscoverService.swift in Sources */,
 				2CD6F8231ED2032E0042A748 /* DiscoverCell.swift in Sources */,
+				2C347E0C1FE430760039DC4C /* ExplanationView.swift in Sources */,
 				2C928BC71F2C78C8004879DB /* PlaybackControlViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

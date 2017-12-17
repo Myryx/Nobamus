@@ -46,9 +46,10 @@ class DatabaseManager {
         updateUser(key: "track", value: TrackTranslator().translateToDictionary(track))
     }
     
-    static func updatePlaybackInfo(playbackTime: Double, isPlaying: Bool) {
+    static func updatePlaybackInfo(playbackTime: Double, isPlaying: Bool, overallPlaybackTime: Double) {
         updateUser(key: "playbackTime", value: playbackTime)
         updateUser(key: "isPlaying", value: isPlaying)
+        updateUser(key: "overallPlaybackTime", value: overallPlaybackTime)
     }
     
     static func updateOnlineState(isOnline: Bool, completion: @escaping () -> () = { _ in }) {

@@ -7,11 +7,11 @@ import UIKit
 
 class DiscoverView: UIView {
     // MARK: - Variables
-    private let collectionViewBorders: CGFloat = 5
+    private let collectionViewSideBorders: CGFloat = 20
     private let cellPartOfFrameWidth: CGFloat = 0.38
     private let collectionSideInsetSize: CGFloat = 10
     private let minimumLineSpacing: CGFloat = 20
-    private let minimumInteritemSpacing: CGFloat = 20
+    private let minimumInteritemSpacing: CGFloat = 0
     
     private let activityTop: CGFloat = 40
     private let activitySize: CGFloat = 30
@@ -27,7 +27,6 @@ class DiscoverView: UIView {
             return size
         }
     }
-    
     
     fileprivate(set) lazy var activityIndicator: UIActivityIndicatorView = {
         let activity = UIActivityIndicatorView()
@@ -51,8 +50,8 @@ class DiscoverView: UIView {
         collectionView.backgroundColor = UIColor.clear
         collectionView.alwaysBounceVertical = true
         collectionView.showsVerticalScrollIndicator = false
-        collectionView.contentInset = UIEdgeInsetsMake(0, self.collectionSideInsetSize, 0, self.collectionSideInsetSize)
-        collectionView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0)
+//        collectionView.contentInset = UIEdgeInsetsMake(0, self.collectionSideInsetSize, -30, self.collectionSideInsetSize)
+        collectionView.contentInset = UIEdgeInsetsMake(0, 0, 100, 0)
         return collectionView
     }()
     
@@ -130,7 +129,8 @@ class DiscoverView: UIView {
             make.height.equalTo(playbackControlHeight)
         }
         collectionView.snp.makeConstraints { make in
-            make.right.left.top.bottom.equalToSuperview().inset(collectionViewBorders)
+            make.right.left.equalToSuperview().inset(collectionViewSideBorders)
+            make.top.bottom.equalToSuperview()
         }
     }
 }

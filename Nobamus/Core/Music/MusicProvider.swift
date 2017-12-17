@@ -144,8 +144,11 @@ class MusicProvider {
     
     static func updatePlaybackInfo() {
         let playbackTime = MusicProvider.musicPlayer.currentPlaybackTime
+        guard let overallPlaybackTime = MusicProvider.musicPlayer.nowPlayingItem?.playbackDuration else { return }
         if playbackTime.isNaN == false {
-            DatabaseManager.updatePlaybackInfo(playbackTime: playbackTime, isPlaying: MusicProvider.isPlaying)
+            DatabaseManager.updatePlaybackInfo(playbackTime: playbackTime,
+                                               isPlaying: MusicProvider.isPlaying,
+                                               overallPlaybackTime: overallPlaybackTime)
         }
     }
     

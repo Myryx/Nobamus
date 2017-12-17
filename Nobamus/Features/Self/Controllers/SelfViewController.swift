@@ -10,6 +10,7 @@ class SelfViewController: UIViewController {
     private let canProceed: Bool = false // all AppleMusic permissions are OK and we can use the service
     fileprivate var didLoginToFirebase = false
     fileprivate var didLoginToAppleMusic = false
+    private var shouldShowOnboarding = false
     
     var provider: LoginAppleMusicProvider
     
@@ -44,9 +45,15 @@ class SelfViewController: UIViewController {
             selfView.loginStatusLabel.isHidden = false
             firebaseService.signInAnonymouslyFireBase(with: name)
             provider.appleMusicRequestPermission()
+        } else {
+            shouldShowOnboarding = true
         }
         hideKeyboardWhenTappedAround()
         configureViews()
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     func configureViews() {
@@ -57,8 +64,9 @@ class SelfViewController: UIViewController {
     func acceptButtonPressed() {
         guard let text = selfView.inputField.text else {
             selfView.inputField.attributedPlaceholder = NSAttributedString(string: localizedStringForKey("Login.FillInYourName"), attributes: [NSForegroundColorAttributeName: UIColor.red])
-            selfView.endEditing(true)
-            return }
+//            selfView.endEditing(true)
+            return
+        }
         if (text.characters.count > 0) {
             selfView.circleImageView.play()
             selfView.loginStatusLabel.isHidden = false
@@ -79,13 +87,21 @@ class SelfViewController: UIViewController {
     
     fileprivate func proceed() {
         DispatchQueue.main.async {
-            self.selfView.circleImageView.stop()
             let service = DiscoverService()
             let locationProvider = LocationProvider()
             let viewModel = DiscoverViewModel(locationProvider: locationProvider, service: service)
             locationProvider.delegate = viewModel
             let controller = DiscoverViewController(viewModel: viewModel)
-            self.navigationController?.pushViewController(controller, animated: true)
+            self.selfView.circleImageView.stop()
+            if self.shouldShowOnboarding == true {
+                let onboardingController = ExplanationViewController()
+                onboardingController.onDismissAction = { [weak self] in
+                    self?.navigationController?.pushViewController(controller, animated: true)
+                }
+                self.present(onboardingController, animated: true, completion: nil)
+            } else {
+                self.navigationController?.pushViewController(controller, animated: true)
+            }
         }
     }
     

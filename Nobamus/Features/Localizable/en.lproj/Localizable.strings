@@ -13,8 +13,9 @@
 // MARK: Discover
 "Discover.LookingForPeopleAround" = "Looking for people around you...";
 
-
-
+// MARK: Explanation
+"Explanation.Text" = "While running Nobamus, play any track in your Apple Music app. People around you will be able to listen to your music";
+"Explanation.GotIt" = "Got it";
 
 //Errors
 "Error" = "Error occured";

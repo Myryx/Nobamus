@@ -11,7 +11,7 @@ class DiscoverViewController: UIViewController {
     var cellSize : CGSize! {
         get {
             let side = UIScreen.main.bounds.width * 0.38
-            let size = CGSize(width: side, height: side)
+            let size = CGSize(width: side, height: side + 30)
             return size
         }
     }

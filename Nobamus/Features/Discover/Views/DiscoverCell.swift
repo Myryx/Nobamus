@@ -48,6 +48,12 @@ class DiscoverCell: UICollectionViewCell {
     static let reuseIdentifier = "DiscoverCell"
     let progressManager = DiscoverProgressManager()
     
+    fileprivate(set) lazy var mainView: UIView = {
+        let view = UIView()
+        view.backgroundColor = UIColor.red
+        return UIView()
+    }()
+    
     fileprivate(set) lazy var avatarImageView: UIImageView = {
         let view = UIImageView(frame: CGRect.zero)
         view.backgroundColor = UIColor.black
@@ -111,11 +117,12 @@ class DiscoverCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        addSubview(avatarImageView)
-        addSubview(playIconImageView)
-        addSubview(speakersImageView)
-        addSubview(progressView)
-        addSubview(offlineOverlay)
+        addSubview(mainView)
+//        mainView.addSubview(avatarImageView)
+        mainView.addSubview(playIconImageView)
+        mainView.addSubview(speakersImageView)
+        mainView.addSubview(progressView)
+        mainView.addSubview(offlineOverlay)
         addSubview(nameLabel)
         progressManager.delegate = self
         makeConstraints()
@@ -131,7 +138,7 @@ class DiscoverCell: UICollectionViewCell {
     }
     
     func configure(image: UIImage, name: String, distance: Int) {
-        avatarImageView.image = image
+//        avatarImageView.image = image
         nameLabel.text = name
         distanceLabel.text = String(distance)
     }
@@ -142,7 +149,7 @@ class DiscoverCell: UICollectionViewCell {
             self.distanceLabel.alpha = 1.0
             self.progressView.alpha = 1.0
             self.speakersImageView.alpha = 1.0
-            self.avatarImageView.alpha = 1.0
+//            self.avatarImageView.alpha = 1.0
             
         })
     }
@@ -153,7 +160,7 @@ class DiscoverCell: UICollectionViewCell {
             self.distanceLabel.alpha = 0
             self.progressView.alpha = 0
             self.speakersImageView.alpha = 0
-            self.avatarImageView.alpha = 0
+//            self.avatarImageView.alpha = 0
         })
     }
     
@@ -202,9 +209,16 @@ class DiscoverCell: UICollectionViewCell {
     }
     
     func makeConstraints() {
-        avatarImageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+        
+        mainView.snp.makeConstraints { make in
+//            make.left.right.top.equalToSuperview()
+//            make.bottom.equalToSuperview().offset(-30)
+            make.edges.equalToSuperview().inset(UIEdgeInsetsMake(10, 10, 10, 10))
         }
+        
+//        avatarImageView.snp.makeConstraints { make in
+//            make.edges.equalToSuperview()
+//        }
         offlineOverlay.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
@@ -216,15 +230,16 @@ class DiscoverCell: UICollectionViewCell {
         }
         
         nameLabel.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            make.centerX.equalToSuperview()
             make.width.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
         playIconImageView.snp.makeConstraints { make in
             make.size.equalTo(playIconSize)
             make.right.equalToSuperview().offset(-distanceRight)
             make.bottom.equalToSuperview().offset(-distanceBottom)
         }
-        avatarImageView.roundImage(imageSize: self.frame.width)
+//        avatarImageView.roundImage(imageSize: self.frame.width)
     }
 }
 

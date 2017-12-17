@@ -20,10 +20,10 @@ enum PlaybackControlState {
 class PlaybackControl: UIView {
     // MARK: - Variables
     private let titleLeftOffset: CGFloat = 25
-    private let titleRightOffset: CGFloat = 10
+    private let titleRightOffset: CGFloat = 30
     private let titleTopOffset: CGFloat = 10
     private let artistTopOffset: CGFloat = 10
-    private let playbackButtonRightOffset: CGFloat = 30
+    private let playbackButtonRightOffset: CGFloat = 10
     private let playbackButtonSize: CGFloat = 40
     var state: PlaybackControlState = .paused {
         didSet {
@@ -110,13 +110,13 @@ class PlaybackControl: UIView {
         
         titleLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(titleLeftOffset)
-            make.right.equalTo(playbackButton).offset(titleRightOffset)
+            make.right.equalTo(playbackButton).offset(-titleRightOffset)
             make.top.equalToSuperview().offset(titleTopOffset)
         }
         
         artistLabel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(titleLeftOffset)
-            make.right.equalTo(playbackButton).offset(titleRightOffset)
+            make.right.equalTo(playbackButton).offset(-titleRightOffset)
             make.top.equalTo(titleLabel.snp.bottom).offset(artistTopOffset)
         }
     }
