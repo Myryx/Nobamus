@@ -29,20 +29,19 @@
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="launch_label" translatesAutoresizingMaskIntoConstraints="NO" id="kLJ-Pq-VFl">
-                                <rect key="frame" x="30" y="319" width="315" height="160"/>
+                                <rect key="frame" x="10" y="557" width="150" height="90"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="160" id="cWS-KT-RNC"/>
+                                    <constraint firstAttribute="width" constant="150" id="WJW-LQ-ICX"/>
+                                    <constraint firstAttribute="height" constant="90" id="cWS-KT-RNC"/>
                                 </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="kLJ-Pq-VFl" secondAttribute="trailing" constant="30" id="0Ch-A3-liy"/>
-                            <constraint firstItem="kLJ-Pq-VFl" firstAttribute="top" secondItem="i3k-Hq-GcA" secondAttribute="bottom" constant="150" id="4Rn-uI-B1q"/>
-                            <constraint firstItem="i3k-Hq-GcA" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="69" id="8go-YC-hdT"/>
+                            <constraint firstItem="i3k-Hq-GcA" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="65" id="8go-YC-hdT"/>
                             <constraint firstItem="i3k-Hq-GcA" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Cch-Ws-8fI"/>
-                            <constraint firstItem="kLJ-Pq-VFl" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="30" id="FYg-Li-uIz"/>
-                            <constraint firstItem="kLJ-Pq-VFl" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="xOX-6j-m8X"/>
+                            <constraint firstItem="kLJ-Pq-VFl" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" constant="10" id="FYg-Li-uIz"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="kLJ-Pq-VFl" secondAttribute="bottom" constant="20" id="QcT-Dm-zEI"/>
                         </constraints>
                     </view>
                 </viewController>

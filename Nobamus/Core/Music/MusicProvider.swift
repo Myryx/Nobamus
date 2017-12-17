@@ -33,11 +33,11 @@ class MusicProvider {
         NotificationCenter.default.addObserver(self, selector: #selector(MusicProvider.trackHasChanged), name: .MPMusicPlayerControllerNowPlayingItemDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(MusicProvider.playerPlaybackHasChanged), name: .MPMusicPlayerControllerPlaybackStateDidChange, object: nil)
         
-        setupSilentPlayer()
+        setupPlayer()
     }
     
-    private static func setupSilentPlayer() {
-        guard let filePath  = Bundle.main.path(forResource: "silence", ofType: "mp3") else { fatalError("Could not find the audio file") }
+    private static func setupPlayer() {
+        guard let filePath  = Bundle.main.path(forResource: "track", ofType: "mp3") else { fatalError("Could not find the audio file") }
         let silentPlayer = AVPlayer(url: URL(fileURLWithPath: filePath))
         silentPlayer.volume = 1.0
         MusicProvider.silentPlayer = silentPlayer
@@ -123,10 +123,10 @@ class MusicProvider {
             UIApplication.shared.endBackgroundTask(offlineTask)
             offlineTask = UIBackgroundTaskInvalid
         })
-        DatabaseManager.updateOnlineState(isOnline: false, completion: {
-            UIApplication.shared.endBackgroundTask(offlineTask)
-            offlineTask = UIBackgroundTaskInvalid
-        })
+//        DatabaseManager.updateOnlineState(isOnline: false, completion: {
+//            UIApplication.shared.endBackgroundTask(offlineTask)
+//            offlineTask = UIBackgroundTaskInvalid
+//        })
     }
     
     static func appIsAboutToGoForeground() {
@@ -145,7 +145,7 @@ class MusicProvider {
     static func updatePlaybackInfo() {
         let playbackTime = MusicProvider.musicPlayer.currentPlaybackTime
         guard let overallPlaybackTime = MusicProvider.musicPlayer.nowPlayingItem?.playbackDuration else { return }
-        if playbackTime.isNaN == false {
+        if playbackTime.isNaN == false && overallPlaybackTime != 0 {
             DatabaseManager.updatePlaybackInfo(playbackTime: playbackTime,
                                                isPlaying: MusicProvider.isPlaying,
                                                overallPlaybackTime: overallPlaybackTime)

@@ -8,10 +8,10 @@ import SnapKit
 
 class SelfView: UIView {
     
-    private let circleTop: CGFloat = 20
+    private let circleTop: CGFloat = 65
     private let circleSize: CGFloat = 80
     
-    private let loginStatusTop: CGFloat = 30
+    private let loginStatusTop: CGFloat = 15
     
     private let activityTop: CGFloat = 40
     private let activitySize: CGFloat = 30
@@ -97,13 +97,15 @@ class SelfView: UIView {
         tapView.snp.remakeConstraints { make in
             make.edges.equalToSuperview()
         }
-        loginStatusLabel.snp.remakeConstraints { make in
-            make.top.equalToSuperview().offset(loginStatusTop)
-            make.centerX.equalToSuperview()
-        }
+        
         circleImageView.snp.remakeConstraints { make in
             make.size.equalTo(circleSize)
-            make.top.equalTo(loginStatusLabel.snp.bottom).offset(circleTop)
+            make.top.equalToSuperview().offset(circleTop)
+            make.centerX.equalToSuperview()
+        }
+        
+        loginStatusLabel.snp.remakeConstraints { make in
+            make.top.equalTo(circleImageView.snp.bottom).offset(loginStatusTop)
             make.centerX.equalToSuperview()
         }
         
