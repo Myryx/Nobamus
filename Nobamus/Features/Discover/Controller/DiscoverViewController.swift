@@ -183,8 +183,10 @@ extension DiscoverViewController: DiscoverViewModelDelegate {
 
 extension DiscoverViewController: PlaybackControlDelegate {
     func playbackButtonPressed() {
-        MusicProvider.controlPlaybackPressed()
-        guard let indexPath = viewModel.lastSelectedCellIndexPath else { return }
-        updateCellAppearance(isPlaying: MusicProvider.isPlaying, indexPath: indexPath)
+        DispatchQueue.main.async { [unowned self] in
+            MusicProvider.controlPlaybackPressed()
+            guard let indexPath = self.viewModel.lastSelectedCellIndexPath else { return }
+            self.updateCellAppearance(isPlaying: MusicProvider.isPlaying, indexPath: indexPath)
+        }
     }
 }

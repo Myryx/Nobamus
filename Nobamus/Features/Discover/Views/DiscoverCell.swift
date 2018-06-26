@@ -200,7 +200,9 @@ class DiscoverCell: UICollectionViewCell {
         })
     }
     
+    
     override func prepareForReuse() {
+        super.prepareForReuse()
         nameLabel.text = ""
         distanceLabel.text = ""
         playIconImageView.isHidden = true

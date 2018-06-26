@@ -34,13 +34,13 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>12</string>
+	<string>15</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppleMusicUsageDescription</key>
-	<string>You'll be able to listen to your music as usual</string>
+	<string>You will be able to listen to what other people broadcast and share your tracks with them yourself</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We will find people around you</string>
+	<string>We will find people who broadcast around you</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>audio</string>
